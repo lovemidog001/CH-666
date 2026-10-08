@@ -1,0 +1,50 @@
+[
+  {
+    "id": "nvidia",
+    "name": "NVIDIA Nemotron",
+    "enabled": true,
+    "priority": 1,
+    "model": "nvidia/nemotron-3-ultra-550b-a55b",
+    "api_key_env": "NVIDIA_API_KEY",
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "timeout": 30,
+    "max_tokens": 8000,
+    "temperature": 0.7
+  },
+  {
+    "id": "openai",
+    "name": "OpenAI GPT",
+    "enabled": true,
+    "priority": 2,
+    "model": "gpt-4o-mini",
+    "api_key_env": "OPENAI_API_KEY",
+    "base_url": "https://api.openai.com/v1",
+    "timeout": 30,
+    "max_tokens": 8000,
+    "temperature": 0.7
+  },
+  {
+    "id": "google",
+    "name": "Google Gemini",
+    "enabled": true,
+    "priority": 3,
+    "model": "gemini-1.5-flash",
+    "api_key_env": "GOOGLE_API_KEY",
+    "base_url": "https://generativelanguage.googleapis.com/v1beta",
+    "timeout": 30,
+    "max_tokens": 8000,
+    "temperature": 0.7
+  },
+  {
+    "id": "agnes",
+    "name": "Agnes",
+    "enabled": true,
+    "priority": 4,
+    "model": "agnes-2.5-flash",
+    "api_key_env": "AGNES_API_KEY",
+    "base_url": "https://apihub.agnes-ai.com/v1",
+    "timeout": 60,
+    "max_tokens": 8000,
+    "temperature": 0.7
+  }
+]

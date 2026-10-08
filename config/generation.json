@@ -1,0 +1,8 @@
+{
+  "daily_generation": {
+    "enabled": true,
+    "articles_per_day": 6,
+    "schedule": "03:05",
+    "timezone": "America/Los_Angeles"
+  }
+}
