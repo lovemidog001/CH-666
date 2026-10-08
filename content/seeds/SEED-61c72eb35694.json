@@ -1,0 +1,18 @@
+{
+  "seed_id": "SEED-61c72eb35694",
+  "source_title": "2026-10-06 Entire Town Reports Same Dream for 7 Consecutive Nights",
+  "source_summary": "Residents of a small coastal town all describe dreaming of a lighthouse that does not exist. Local university sleep lab confirms synchronized REM patterns.",
+  "source_date": "2026-10-06",
+  "source_location": "Cornwall, UK",
+  "source_url": "https://mock-news.example.com/2026-10-06-case-005",
+  "source_hash": "61c72eb35694",
+  "event_hash": "7a59e173bbbb",
+  "people": [
+    "Town residents",
+    "Sleep researchers"
+  ],
+  "event": "Collective shared dreaming of non-existent lighthouse",
+  "unusual_detail": "EEG shows identical neural signatures across 200+ subjects",
+  "channel": "CH-666",
+  "created_at": "2026-10-07T07:42:26.716988Z"
+}

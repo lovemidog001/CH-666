@@ -1,0 +1,14 @@
+{
+  "story_code": "CH-666-0008",
+  "image_prompts": [
+    {
+      "type": "cover",
+      "prompt": "CH-666 aesthetic, scanlines, static noise, slightly off-kilter, subtle wrongness, uncanny valley, muted colors.\nScene: 深夜荒涼公園. Core anomaly: 監控影像異常.\nHorror types: surveillance_horror, psychological, unknown_phenomenon.\nComposition: centered, ominous, negative space, rule of thirds.\nColor palette: #0A0A0C background, #00FF88 accent, #FF0055 warning, #E0E0E0 highlights."
+    },
+    {
+      "type": "scene",
+      "prompt": "retro CRT, VHS tracking error, phosphor green glow, slightly off-kilter, subtle wrongness, uncanny valley, muted colors.\nKey moment from story: 監控影像異常 manifesting in 深夜荒涼公園.\nPerspective: perpetrator.\nMood: dread, anticipation, the moment before revelation.\nAnalog texture: film grain, vignetting, chromatic aberration."
+    }
+  ],
+  "created_at": "2026-10-08T13:14:56.834678Z"
+}

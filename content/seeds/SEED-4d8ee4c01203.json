@@ -1,0 +1,18 @@
+{
+  "seed_id": "SEED-4d8ee4c01203",
+  "source_title": "2026-10-07 神秘失蹤案：深夜山區發現廢棄車輛",
+  "source_summary": "警方在某山區發現一輛廢棄轎車，車內有疑似血跡，駕駛卻無影無蹤。監視器最後捕捉到一道白影閃過。",
+  "source_date": "2026-10-07",
+  "source_location": "新北市",
+  "source_url": "https://mock-news.example.com/2026-10-07-case-001",
+  "source_hash": "4d8ee4c01203",
+  "event_hash": "aed1b46693c2",
+  "people": [
+    "失蹤者陳○○",
+    "發現者警員"
+  ],
+  "event": "山區廢棄車輛疑似命案，駕駛失蹤",
+  "unusual_detail": "監視器捕捉白影，車內血跡不符車禍特徵",
+  "channel": "CH-666",
+  "created_at": "2026-10-08T12:55:14.054698Z"
+}
