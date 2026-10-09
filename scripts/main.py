@@ -1,256 +1,182 @@
 #!/usr/bin/env python3
-"""
-CH-666 Daily Story Generation Orchestrator
-Categories: 3 (CH-333), 6 (CH-666), 9 (CH-999)
-Flow: News → Seeds → Dice → AI → Validate → Images → Save → Notify
-"""
-import sys
-import json
-import argparse
-import os
+"""CH-666 daily story pipeline. Real news only; no mock fallback."""
+import argparse, base64, hashlib, json, os, random, re, sys, time
+from datetime import datetime, timedelta, timezone
+from ftplib import FTP
+from io import BytesIO
 from pathlib import Path
-from datetime import datetime
-from typing import List
+from urllib.parse import urlparse
+import requests
 
-# Add scripts to path
-sys.path.insert(0, str(Path(__file__).parent))
+UTC=timezone.utc
+CHANNELS={
+"3":{"channel":"CH-333","name":"靈頻頻道","types":["possession","haunting","ritual","curse","mediumship","ancestral_sin","spirit_contract","exorcism","afterlife_glimpse","folk_belief"],"fantasy":["slightly_unreal","supernatural","reality_bending","mythic"],"styles":["first_person","third_person_limited","epistolary","found_footage","interview_transcript","diary_entry","ritual_record","oral_tradition"]},
+"6":{"channel":"CH-666","name":"怪聞頻道","types":["psychological","urban_legend","supernatural","crime","suspense","identity_horror","sci_fi_horror","surveillance_horror","unknown_phenomenon","reality_horror"],"fantasy":["grounded","slightly_unreal","supernatural","reality_bending"],"styles":["first_person","third_person_limited","third_person_omniscient","epistolary","found_footage","interview_transcript","police_report","diary_entry"]},
+"9":{"channel":"CH-999","name":"禁忌頻道","types":["cognitive_hazard","memetic","ontological","reality_horror","cosmic_horror","body_horror_extreme","time_loop","identity_horror","forbidden_knowledge","apocalyptic"],"fantasy":["supernatural","reality_bending","mythic","conceptual"],"styles":["first_person","third_person_omniscient","epistolary","found_footage","interview_transcript","police_report","research_log","fragmented_memory"]}}
+ENDINGS=["open","twist","tragic","unsettling_resolution","cyclic","missing_ending"]
+PACINGS=["slow_burn","steady","fast_paced","fragmented","disorienting"]
+PERSPECTIVES=["victim","witness","investigator","bystander","entity","object"]
 
-from config import Config
-from fetch_news import NewsFetcher
-from classify import assign_category, DiceRoller
-from generate import StoryGenerator, get_providers
-from validate import StoryValidator
-from images import ImageGenerator
-from storage import ContentStorage
+def log(s): print(s,flush=True)
+def now_iso(): return datetime.now(UTC).isoformat().replace("+00:00","Z")
+def output(vals):
+    p=os.getenv("GITHUB_OUTPUT")
+    if p:
+        with open(p,"a",encoding="utf-8") as f:
+            for k,v in vals.items(): f.write(f"{k}={str(v).replace(chr(10),' ')}\n")
 
+def fetch_news(target,count):
+    start=datetime.strptime(target,"%Y-%m-%d").replace(tzinfo=UTC)
+    end=start+timedelta(days=1)
+    query='(Taiwan OR 台灣 OR 高雄 OR 台北 OR 日本 OR 韓國) (mystery OR unusual OR missing OR strange OR 異常 OR 神秘 OR 失蹤 OR 詭異 OR 事故 OR 發現) sourcelang:Chinese'
+    params={"query":query,"mode":"ArtList","format":"json","maxrecords":100,"sort":"DateDesc","startdatetime":start.strftime("%Y%m%d%H%M%S"),"enddatetime":(end-timedelta(seconds=1)).strftime("%Y%m%d%H%M%S")}
+    r=requests.get("https://api.gdeltproject.org/api/v2/doc/doc",params=params,timeout=40,headers={"User-Agent":"CH666-story-pipeline/3.0"})
+    r.raise_for_status()
+    data=r.json()
+    rows=[]; seen=set()
+    for a in data.get("articles",[]) or []:
+        url=(a.get("url") or "").strip(); title=re.sub(r"\s+"," ",(a.get("title") or "").strip())
+        if not url or not title or url in seen or urlparse(url).scheme not in ("http","https"): continue
+        seen.add(url); date=target; pub=a.get("seendate","")
+        if len(pub)>=8: date=f"{pub[:4]}-{pub[4:6]}-{pub[6:8]}"
+        rows.append({"source_title":title,"source_summary":(a.get("domain") or "")+" | "+pub,"source_content":"","source_url":url,"source_date":date,"source_location":"台灣/亞洲新聞","source_language":"zh","unusual_detail":title,"event":title,"people":[],"source_hash":hashlib.sha256((title+"|"+url).encode()).hexdigest()[:12],"event_hash":hashlib.sha256(re.sub(r"\W","",title.lower()).encode()).hexdigest()[:12]})
+        if len(rows)>=count: break
+    if len(rows)<count: log(f"WARNING: only {len(rows)} real articles found for {target}; no mock stories will be added.")
+    return rows
 
-# Failure thresholds
-MAX_CONSECUTIVE_FAILURES = 3
-MAX_CATEGORY_FAILURE_RATE = 0.8
+def parse_json(s):
+    s=(s or "").strip(); s=re.sub(r"^\x60\x60\x60(?:json)?\s*","",s); s=re.sub(r"\s*\x60\x60\x60$","",s)
+    try: return json.loads(s)
+    except ValueError:
+        m=re.search(r"\{.*\}",s,re.S)
+        if m:
+            try: return json.loads(m.group(0))
+            except ValueError: pass
+    return None
 
+def call_provider(name,prompt,system):
+    if name=="nvidia":
+        key=os.getenv("NVIDIA_API_KEY",""); url="https://integrate.api.nvidia.com/v1/chat/completions"; model=os.getenv("NVIDIA_MODEL","nvidia/nemotron-3-super-49b-v1")
+    else:
+        key=os.getenv("AGNES_API_KEY",""); url="https://apihub.agnes-ai.com/v1/chat/completions"; model=os.getenv("AGNES_MODEL","agnes-2.5-flash")
+    if not key: raise RuntimeError(name+" API key missing")
+    body={"model":model,"messages":[{"role":"system","content":system},{"role":"user","content":prompt}],"temperature":0.85,"max_tokens":6500,"stream":False}
+    last=None
+    for attempt in range(2):
+        try:
+            r=requests.post(url,headers={"Authorization":"Bearer "+key,"Content-Type":"application/json"},json=body,timeout=180)
+            if r.status_code in (429,500,502,503,504) and attempt==0: time.sleep(3); continue
+            r.raise_for_status(); obj=r.json()
+            story=parse_json(obj["choices"][0]["message"]["content"])
+            if not story: raise RuntimeError("invalid JSON response")
+            return story,model
+        except Exception as e:
+            last=e
+            if attempt==0: time.sleep(2)
+    raise RuntimeError(f"{name} failed: {last}")
+
+def make_story(article,cat,dice):
+    c=CHANNELS[cat]
+    system="你是繁體中文原創怪談作家。新聞只能當抽象靈感，不得把真實新聞改寫成故事，不可使用真實人物或機構。只輸出 JSON。"
+    prompt=f"""頻道：{c['channel']}（{c['name']}）
+骰選：恐怖分數 {dice['horror_score']}/100；恐怖類型 {dice['horror_type']}；幻想等級 {dice['fantasy_level']}；敘事風格 {dice['narrative_style']}；節奏 {dice['pacing']}；結局 {dice['ending_type']}；視角 {dice['perspective']}。
+新聞標題（只提取抽象概念，不得沿用措辭）：{article['source_title']}
+新聞資訊：{article.get('source_summary','')}
+以抽象概念為靈感，重新設計人物、虛構地點、因果規則、情節與結局。故事用繁體中文，至少 1200 個中文字，分段清楚，有鋪陳、轉折和不安結尾。不可寫成新聞，不可聲稱是真實事件。
+純 JSON 格式：{{"title":"15至40字標題","subtitle":"頻道檔案副標題","slug":"lowercase-ascii-slug","summary":"80至160字摘要","content":"完整故事，以\\n分段","director_analysis":{{"anomaly_core":"異常核心","character_core":"角色核心","internal_rule":"異常規則"}}}}"""
+    errors=[]
+    for provider in ("nvidia","agnes"):
+        try:
+            story,model=call_provider(provider,prompt,system)
+            if not str(story.get("title","")).strip() or not str(story.get("content","")).strip(): raise RuntimeError("missing title/content")
+            if len(story["content"])<900: raise RuntimeError(f"story too short ({len(story['content'])} chars)")
+            slug=re.sub(r"[^a-z0-9-]+","-",str(story.get("slug") or story["title"].lower())).strip("-")[:70].strip("-") or "case-"+article["source_hash"]
+            story["slug"]=slug; story["subtitle"]=str(story.get("subtitle") or c["channel"]+" 檔案 // 未知異常"); story["summary"]=str(story.get("summary") or story["content"][:160])
+            story["director_analysis"]=story.get("director_analysis") if isinstance(story.get("director_analysis"),dict) else {}
+            return story,provider,model
+        except Exception as e:
+            log(f"  {provider} failed: {e}"); errors.append(str(e))
+    raise RuntimeError("all text providers failed: "+"; ".join(errors))
+
+def generate_image(prompt):
+    key=os.getenv("NVIDIA_API_KEY","")
+    if not key: raise RuntimeError("NVIDIA_API_KEY missing")
+    url="https://ai.api.nvidia.com/v1/genai/black-forest-labs/flux.1-dev"
+    r=requests.post(url,headers={"Authorization":"Bearer "+key,"Accept":"application/json","Content-Type":"application/json"},json={"prompt":prompt,"width":1024,"height":1024,"steps":25},timeout=180)
+    r.raise_for_status(); d=r.json()
+    encoded=d.get("image") or d.get("image_base64") or (d.get("artifacts") or [{}])[0].get("base64")
+    if not encoded: raise RuntimeError("image API response has no base64 image")
+    raw=base64.b64decode(encoded)
+    from PIL import Image
+    im=Image.open(BytesIO(raw)); im.thumbnail((1024,1024)); out=BytesIO(); im.save(out,format="WEBP",quality=84); return out.getvalue()
+
+def upload_image(filename,data):
+    required=["FTP_HOST","FTP_USER","FTP_PASS","FTP_PATH","SITE_URL"]
+    missing=[k for k in required if not os.getenv(k)]
+    if missing: raise RuntimeError("missing FTP settings: "+", ".join(missing))
+    ftp=FTP(os.environ["FTP_HOST"],timeout=45)
+    try:
+        ftp.login(os.environ["FTP_USER"],os.environ["FTP_PASS"])
+        remote=os.environ["FTP_PATH"].strip("/")
+        if remote: ftp.cwd(remote)
+        ftp.storbinary("STOR "+filename,BytesIO(data))
+    finally:
+        try: ftp.quit()
+        except Exception: pass
+    return os.environ["SITE_URL"].rstrip("/")+"/images/"+filename
+
+def make_images(story,cat,dice):
+    palette={"3":"warm candlelight, ritual shadows, aged paper","6":"phosphor green CRT glow, analog surveillance horror, VHS scanlines","9":"clinical black, warning red, impossible geometry"}[cat]
+    prompts={"cover":f"Cinematic horror cover, no text, no letters, no watermark. {palette}. Symbolic scene inspired by {story['title']}. Ominous composition, realistic film still, square.",
+             "scene":f"Cinematic horror still, no text, no letters, no watermark. {palette}. A key fictional scene inspired by {story['title']}. Fantasy level {dice['fantasy_level']}, uneasy atmosphere, square."}
+    urls={"cover":"","scene":""}
+    for kind,prompt in prompts.items():
+        try:
+            filename=f"{story['story_code']}_{kind}.webp"; urls[kind]=upload_image(filename,generate_image(prompt)); log("  Uploaded "+kind+" image")
+        except Exception as e: log(f"  WARNING: {kind} image failed, story retained: {e}")
+    return urls
 
 def main():
-    parser = argparse.ArgumentParser(description='CH-666 Unified Daily Generation')
-    parser.add_argument('--date', required=True, help='Target date YYYY-MM-DD')
-    parser.add_argument('--count', type=int, default=6, help='Total stories per day (dice-distributed)')
-    parser.add_argument('--config', required=True, help='Generation config path')
-    parser.add_argument('--providers', required=True, help='Providers config path')
-    parser.add_argument('--channels', required=True, help='Channels config path')
-    parser.add_argument('--content-dir', required=True, help='Content directory')
-    parser.add_argument('--skip-images', action='store_true', help='Skip image generation (for testing)')
-    args = parser.parse_args()
+    p=argparse.ArgumentParser()
+    p.add_argument("--date",default=(datetime.now(UTC)-timedelta(days=1)).strftime("%Y-%m-%d")); p.add_argument("--count",type=int,default=6)
+    p.add_argument("--config"); p.add_argument("--providers"); p.add_argument("--channels"); p.add_argument("--content-dir",default="content"); p.add_argument("--skip-images",action="store_true")
+    a=p.parse_args()
+    datetime.strptime(a.date,"%Y-%m-%d")
+    if not 1<=a.count<=12: raise SystemExit("--count must be 1..12")
+    root=Path(a.content_dir); sd=root/"stories"; dd=root/"daily"; sd.mkdir(parents=True,exist_ok=True); dd.mkdir(parents=True,exist_ok=True)
+    log(f"CH-666 pipeline | date={a.date} | requested={a.count}")
+    articles=fetch_news(a.date,a.count)
+    if not articles: raise RuntimeError("No real news returned; refusing to generate from mock data.")
+    rng=random.SystemRandom(); cats=[rng.choice(["3","6","9"]) for _ in articles]
+    counts={x:cats.count(x) for x in ("3","6","9")}
+    log("Channel dice: "+", ".join(f"CH-{x*3}={counts[x]}" for x in ("3","6","9")))
+    maxima={"3":0,"6":0,"9":0}
+    for f in sd.glob("CH-*-*.json"):
+        m=re.match(r"CH-(333|666|999)-(\d+)$",f.stem)
+        if m:
+            c={"333":"3","666":"6","999":"9"}[m.group(1)]; maxima[c]=max(maxima[c],int(m.group(2)))
+    generated=[]; failed=0
+    for i,article in enumerate(articles):
+        cat=cats[i]; c=CHANNELS[cat]
+        rr=random.Random(hashlib.sha256(f"{a.date}|{article['event_hash']}|{os.getenv('GITHUB_RUN_ID','manual')}".encode()).hexdigest())
+        dice={"horror_score":rr.randint(20,98),"horror_type":rr.sample(c["types"],rr.randint(1,3)),"fantasy_level":rr.choice(c["fantasy"]),"narrative_style":rr.choice(c["styles"]),"pacing":rr.choice(PACINGS),"ending_type":rr.choice(ENDINGS),"perspective":rr.choice(PERSPECTIVES),"dice_seed":rr.randint(0,2**31-1)}
+        log(f"[{i+1}/{len(articles)}] {c['channel']} | {article['source_title'][:80]}")
+        try:
+            ai,provider,model=make_story(article,cat,dice); maxima[cat]+=1; code=f"CH-{cat*3}-{maxima[cat]:04d}"
+            story={"story_code":code,"category":cat,"channel":c["channel"],"title":ai["title"],"subtitle":ai["subtitle"],"slug":ai["slug"],"summary":ai["summary"],"content":ai["content"],"horror_score":dice["horror_score"],"horror_type":dice["horror_type"],"fantasy_level":dice["fantasy_level"],"narrative_style":dice["narrative_style"],"pacing":dice["pacing"],"ending_type":dice["ending_type"],"perspective":dice["perspective"],"source_date":article["source_date"],"source_hash":article["source_hash"],"event_hash":article["event_hash"],"source_url":article["source_url"],"provider_used":provider,"provider_model":model,"dice_seed":dice["dice_seed"],"director_analysis":ai["director_analysis"],"created_at":now_iso(),"cover_image":"","scene_images":""}
+            if not a.skip_images:
+                imgs=make_images(story,cat,dice); story["cover_image"]=imgs["cover"]; story["scene_images"]=imgs["scene"]
+            (sd/f"{code}.json").write_text(json.dumps(story,ensure_ascii=False,indent=2),encoding="utf-8"); generated.append(story)
+            log(f"  Saved {code}; content chars={len(story['content'])}")
+        except Exception as e: failed+=1; log(f"  FAILED: {e}")
+    payload={"date":a.date,"count":len(generated),"stories":generated,"generated_at":now_iso(),"channel_counts":counts}
+    (dd/f"{a.date}.json").write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding="utf-8")
+    (dd/"latest.json").write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding="utf-8")
+    codes=",".join(s["story_code"] for s in generated); output({"generated_count":len(generated),"failed_count":failed,"story_codes":codes})
+    log(f"Finished: generated={len(generated)}, failed={failed}, codes={codes or 'none'}")
+    if not generated: raise RuntimeError("No stories generated successfully")
 
-    # Load config
-    cfg = Config(args.config, args.providers, args.channels)
-    categories = cfg.valid_categories  # ['3', '6', '9']
-
-    print(f"=== CH Unified Generation for {args.date} ===")
-    print(f"Total stories: {args.count}")
-    print(f"Categories: {', '.join(categories)}")
-    print(f"Providers: {len(cfg.providers)}")
-    for p in cfg.providers:
-        has_key = bool(os.environ.get(p['api_key_env']))
-        print(f"  - {p['name']}: {'✓' if has_key else '✗'}")
-
-    # Shared components
-    news = NewsFetcher(content_dir=args.content_dir)
-    storage = ContentStorage(args.content_dir)
-    providers = get_providers(cfg.providers)
-
-    if not providers:
-        print("❌ No available AI providers (check API keys)")
-        sys.exit(1)
-
-    # Fetch news ONCE for all categories
-    print(f"\n[1/7] Fetching latest news...")
-    articles = news.fetch_latest_news(max_results=args.count * 3)
-    print(f"  Found {len(articles)} candidate articles")
-
-    if not articles:
-        print("  No articles, exiting")
-        output_results(0, 0, 'none', [], args.date)
-        sys.exit(1)
-
-    # Build neutral seeds from all articles first
-    neutral_seeds = []
-    for art in articles[:args.count * 2]:  # pool of articles
-        # Build seed without category config (neutral)
-        seed = {
-            'seed_id': f"SEED-{art['source_hash'][:8]}",
-            'source_title': art['source_title'],
-            'source_summary': art['source_summary'],
-            'source_content': art.get('source_content', ''),
-            'source_url': art['source_url'],
-            'source_date': art['source_date'],
-            'source_location': art['source_location'],
-            'source_language': art['source_language'],
-            'unusual_detail': art['unusual_detail'],
-            'event': art['event'],
-            'people': art.get('people', []),
-            'source_hash': art['source_hash'],
-            'event_hash': art['event_hash'],
-            'reality_level': 50,
-        }
-        neutral_seeds.append(seed)
-
-    # Assign category to each seed deterministically
-    for seed in neutral_seeds:
-        seed['category'] = assign_category(seed, categories)
-
-    # Group by category and roll dice
-    all_seeds = []
-    for cat in categories:
-        cat_config = cfg.get_category_config(cat)
-        dice_roller = DiceRoller(cat_config)
-        cat_seeds = [s for s in neutral_seeds if s['category'] == cat]
-
-        for seed in cat_seeds[:args.count]:
-            # Add category-specific info
-            seed['category'] = cat
-            seed['dice_params'] = dice_roller.roll(seed)
-            all_seeds.append(seed)
-
-    print(f"  Created {len(all_seeds)} seeds across categories")
-
-    # Process seeds
-    # Initialize with dummy config (will be updated per-category)
-    dummy_config = {'category': '6', 'horror_types': [], 'fantasy_levels': []}
-    generator = StoryGenerator(providers, dummy_config)
-    all_stories = []
-    all_failed = 0
-    last_provider = 'none'
-
-    # Group by category for sequential processing
-    for cat in categories:
-        cat_config = cfg.get_category_config(cat)
-        cat_seeds = [s for s in all_seeds if s['category'] == cat]
-        cat_name = cat_config['name']
-
-        print(f"\n{'='*50}")
-        print(f"=== {cat_name} ({cat_config['label']}) ===")
-        print(f"{'='*50}")
-
-        # Update generator with category config
-        generator.cat = cat_config
-        generator.genre_labels = generator._build_labels()
-
-        validator = StoryValidator(cat_config)
-        if not args.skip_images:
-            img_gen = ImageGenerator(
-                os.environ.get('GOOGLE_API_KEY', ''),
-                os.environ.get('FTP_HOST', ''),
-                os.environ.get('FTP_USER', ''),
-                os.environ.get('FTP_PASS', ''),
-                os.environ.get('FTP_PATH', ''),
-                os.environ.get('SITE_URL', ''),
-            )
-        else:
-            img_gen = None
-
-        cat_generated = 0
-        cat_failed = 0
-        consecutive_fail = 0
-
-        for i, seed in enumerate(cat_seeds):
-            # Failure thresholds
-            if consecutive_fail >= MAX_CONSECUTIVE_FAILURES:
-                print(f"  ⚠️ {consecutive_fail} consecutive failures, skipping remaining")
-                cat_failed += len(cat_seeds) - i
-                break
-            processed = i
-            if processed > 0 and cat_failed / processed > MAX_CATEGORY_FAILURE_RATE:
-                print(f"  ⚠️ Failure rate {cat_failed}/{processed} > 80%, skipping")
-                cat_failed += len(cat_seeds) - i
-                break
-
-            print(f"\n  Seed {i+1}/{len(cat_seeds)}: {seed['seed_id']}")
-            dice = seed['dice_params']
-            print(f"    Horror: {dice['horror_score']}, Types: {dice['horror_type']}, Fantasy: {dice['fantasy_level']}")
-
-            # Generate story
-            gen_result = generator.generate(seed, dice)
-            if not gen_result['success']:
-                print(f"    ❌ Generation failed: {gen_result.get('error')}")
-                cat_failed += 1
-                consecutive_fail += 1
-                continue
-
-            last_provider = gen_result['provider_used']
-            story_data = gen_result['story']
-            print(f"    ✅ Generated: {story_data['title'][:40]}... via {last_provider}")
-
-            # Generate images
-            if args.skip_images:
-                print(f"    ⏭️ Skipping image generation (--skip-images)")
-                img_urls = {'cover': '', 'scene': ''}
-            else:
-                print(f"    Generating images...")
-                img_urls = img_gen.process_story(
-                    {**story_data, 'category': cat, 'horror_type': dice['horror_type'],
-                     'fantasy_level': dice['fantasy_level'], 'perspective': dice['perspective']},
-                    dice
-                )
-
-            # Build full story JSON with all required fields
-            story = storage.build_story(seed, story_data, dice, last_provider, img_urls)
-
-            # Validate the COMPLETE story
-            is_valid, errors = validator.validate(story)
-            if not is_valid:
-                print(f"    ❌ Validation failed: {errors}")
-                cat_failed += 1
-                consecutive_fail += 1
-                continue
-
-            # Save
-            storage.save_story(story)
-            if not args.skip_images:
-                storage.save_prompts(story['story_code'], img_gen.generate_prompts(story, dice))
-
-            all_stories.append(story)
-            cat_generated += 1
-            consecutive_fail = 0
-            print(f"    💾 Saved: {story['story_code']}")
-
-        print(f"\n  --- {cat_name}: Generated {cat_generated}, Failed {cat_failed} ---")
-        all_failed += cat_failed
-
-    # Save daily merged
-    print(f"\n[7/7] Saving daily merged JSON...")
-    if all_stories:
-        storage.save_daily(args.date, all_stories)
-        print(f"  Saved {len(all_stories)} stories to daily/{args.date}.json")
-
-    # Mark sources used
-    news.mark_sources_used(all_stories)
-
-    # Output for GitHub Actions
-    story_codes = [s['story_code'] for s in all_stories]
-    output_results(len(all_stories), all_failed, last_provider, story_codes, args.date)
-
-    if len(all_stories) == 0:
-        print("❌ No stories generated")
-        sys.exit(1)
-
-    print(f"\n✅ Done: {len(all_stories)} stories generated")
-
-
-def output_results(gen: int, failed: int, provider: str, codes: List[str], date: str):
-    out = os.environ.get('GITHUB_OUTPUT')
-    if out:
-        with open(out, 'a', encoding='utf-8') as f:
-            f.write(f"generated_count={gen}\n")
-            f.write(f"failed_count={failed}\n")
-            f.write(f"provider_used={provider}\n")
-            f.write(f"story_codes={','.join(codes)}\n")
-            f.write(f"date={date}\n")
-    else:
-        print(f"::set-output name=generated_count::{gen}")
-        print(f"::set-output name=failed_count::{failed}")
-        print(f"::set-output name=provider_used::{provider}")
-        print(f"::set-output name=story_codes::{','.join(codes)}")
-        print(f"::set-output name=date::{date}")
-
-
-if __name__ == '__main__':
-    main()
+if __name__=="__main__":
+    try: main()
+    except Exception as e:
+        log("FATAL: "+str(e)); output({"generated_count":0,"failed_count":1,"story_codes":""}); sys.exit(1)
