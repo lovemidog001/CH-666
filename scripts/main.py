@@ -179,7 +179,8 @@ def main():
             print(f"    Generating images...")
             img_urls = img_gen.process_story(
                 {**story_data, 'category': cat, 'horror_type': dice['horror_type'],
-                 'fantasy_level': dice['fantasy_level'], 'perspective': dice['perspective']},
+                 'fantasy_level': dice['fantasy_level'], 'perspective': dice['perspective'],
+                 'source_url': seed.get('source_url', '')},
                 dice
             )
 
