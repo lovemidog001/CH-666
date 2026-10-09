@@ -84,12 +84,12 @@ class ImageGenerator:
     def generate_image(self, prompt: str) -> bytes:
         """Call Agnes API, return WebP bytes."""
         headers = {'Authorization': f'Bearer {self.api_key}', 'Content-Type': 'application/json'}
+        
+        # 修正 Payload：改用 size 代替 width/height，並移除不相容的參數
         data = {
-            'model': 'agnes-image-2.5-flash',
-            'prompt': prompt,
+            'prompt': prompt[:1000],
             'negative_prompt': self.negative_prompt,
-            'width': 1024,
-            'height': 1024,
+            'size': '1024x1024',
             'n': 1,
             'response_format': 'b64_json',
             'quality': 'high',
