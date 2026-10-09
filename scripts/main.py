@@ -37,6 +37,7 @@ def main():
     parser.add_argument('--providers', required=True, help='Providers config path')
     parser.add_argument('--channels', required=True, help='Channels config path')
     parser.add_argument('--content-dir', required=True, help='Content directory')
+    parser.add_argument('--skip-images', action='store_true', help='Skip image generation (for testing)')
     args = parser.parse_args()
 
     # Load config
@@ -134,14 +135,17 @@ def main():
         generator.genre_labels = generator._build_labels()
 
         validator = StoryValidator(cat_config)
-        img_gen = ImageGenerator(
-            os.environ.get('AGNES_API_KEY', ''),
-            os.environ.get('FTP_HOST', ''),
-            os.environ.get('FTP_USER', ''),
-            os.environ.get('FTP_PASS', ''),
-            os.environ.get('FTP_PATH', ''),
-            os.environ.get('SITE_URL', ''),
-        )
+        if not args.skip_images:
+            img_gen = ImageGenerator(
+                os.environ.get('GOOGLE_API_KEY', ''),
+                os.environ.get('FTP_HOST', ''),
+                os.environ.get('FTP_USER', ''),
+                os.environ.get('FTP_PASS', ''),
+                os.environ.get('FTP_PATH', ''),
+                os.environ.get('SITE_URL', ''),
+            )
+        else:
+            img_gen = None
 
         cat_generated = 0
         cat_failed = 0
@@ -176,12 +180,16 @@ def main():
             print(f"    ✅ Generated: {story_data['title'][:40]}... via {last_provider}")
 
             # Generate images
-            print(f"    Generating images...")
-            img_urls = img_gen.process_story(
-                {**story_data, 'category': cat, 'horror_type': dice['horror_type'],
-                 'fantasy_level': dice['fantasy_level'], 'perspective': dice['perspective']},
-                dice
-            )
+            if args.skip_images:
+                print(f"    ⏭️ Skipping image generation (--skip-images)")
+                img_urls = {'cover': '', 'scene': ''}
+            else:
+                print(f"    Generating images...")
+                img_urls = img_gen.process_story(
+                    {**story_data, 'category': cat, 'horror_type': dice['horror_type'],
+                     'fantasy_level': dice['fantasy_level'], 'perspective': dice['perspective']},
+                    dice
+                )
 
             # Build full story JSON with all required fields
             story = storage.build_story(seed, story_data, dice, last_provider, img_urls)
@@ -196,7 +204,8 @@ def main():
 
             # Save
             storage.save_story(story)
-            storage.save_prompts(story['story_code'], img_gen.generate_prompts(story, dice))
+            if not args.skip_images:
+                storage.save_prompts(story['story_code'], img_gen.generate_prompts(story, dice))
 
             all_stories.append(story)
             cat_generated += 1
