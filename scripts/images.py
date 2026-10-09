@@ -85,41 +85,59 @@ class ImageGenerator:
         """Call Agnes API, return WebP bytes."""
         headers = {'Authorization': f'Bearer {self.api_key}', 'Content-Type': 'application/json'}
         
-        # 根據 Agnes Image 2.5 Flash API 文檔
-        # 參考: https://www.agnes-ai.com/zh-Hans/docs/agnes-image-25-flash
-        data = {
-            'model': 'agnes-image-2.5-flash',
-            'prompt': prompt[:1000],
-            'negative_prompt': self.negative_prompt,
-            'size': '1024x1024',
-            'n': 1,
-            'response_format': 'b64_json',
-            'quality': 'high',
-        }
+        # 嘗試不同的 payload 格式（參考 Agnes Image 2.5 Flash 文檔）
+        # 先嘗試包含 model 的格式
+        payloads_to_try = [
+            {
+                'model': 'agnes-2.5-flash',
+                'prompt': prompt[:1000],
+                'negative_prompt': self.negative_prompt,
+                'size': '1024x1024',
+                'n': 1,
+                'response_format': 'b64_json',
+                'quality': 'high',
+            },
+            # Fallback: 不帶 model 參數
+            {
+                'prompt': prompt[:1000],
+                'negative_prompt': self.negative_prompt,
+                'size': '1024x1024',
+                'n': 1,
+                'response_format': 'b64_json',
+                'quality': 'high',
+            },
+        ]
         
-        # Retry logic for 503 Service Unavailable
-        max_retries = 3
-        for attempt in range(max_retries):
-            resp = requests.post(self.API_URL, headers=headers, json=data, timeout=180)
-            if resp.status_code == 503 and attempt < max_retries - 1:
-                wait_time = (attempt + 1) * 10  # 10s, 20s, 30s
-                print(f"  ⚠️ 503 Service Unavailable, retrying in {wait_time}s... (attempt {attempt + 1}/{max_retries})")
-                time.sleep(wait_time)
-                continue
-            
-            if resp.status_code != 200:
-                print(f"  ❌ API Error {resp.status_code}: {resp.text[:500]}")
-            resp.raise_for_status()
-            
-            b64 = resp.json()['data'][0]['b64_json']
-            img_bytes = base64.b64decode(b64)
+        last_error = None
+        for payload_idx, data in enumerate(payloads_to_try):
+            # Retry logic for 503 Service Unavailable
+            max_retries = 3
+            for attempt in range(max_retries):
+                resp = requests.post(self.API_URL, headers=headers, json=data, timeout=180)
+                if resp.status_code == 503 and attempt < max_retries - 1:
+                    wait_time = (attempt + 1) * 10  # 10s, 20s, 30s
+                    print(f"  ⚠️ 503 Service Unavailable, retrying in {wait_time}s... (attempt {attempt + 1}/{max_retries}, payload {payload_idx + 1})")
+                    time.sleep(wait_time)
+                    continue
+                
+                if resp.status_code != 200:
+                    print(f"  ❌ API Error {resp.status_code} (payload {payload_idx + 1}): {resp.text[:1000]}")
+                    last_error = f"HTTP {resp.status_code}: {resp.text[:500]}"
+                    break  # Try next payload format
+                
+                resp.raise_for_status()
+                
+                b64 = resp.json()['data'][0]['b64_json']
+                img_bytes = base64.b64decode(b64)
 
-            # Convert to WebP
-            img = Image.open(BytesIO(img_bytes))
-            img.thumbnail((1024, 1024), Image.LANCZOS)
-            out = BytesIO()
-            img.save(out, format='WEBP', quality=85, method=6)
-            return out.getvalue()
+                # Convert to WebP
+                img = Image.open(BytesIO(img_bytes))
+                img.thumbnail((1024, 1024), Image.LANCZOS)
+                out = BytesIO()
+                img.save(out, format='WEBP', quality=85, method=6)
+                return out.getvalue()
+        
+        raise Exception(f"All payload formats failed. Last error: {last_error}")
 
     def upload_ftp(self, filename: str, data: bytes) -> bool:
         """Upload to FTP, return success."""
