@@ -99,16 +99,43 @@ def make_story(article,cat,dice):
     raise RuntimeError("all text providers failed: "+"; ".join(errors))
 
 def generate_image(prompt):
+    """Generate with NVIDIA's documented FLUX NIM payload; reject blank images and retry."""
     key=os.getenv("NVIDIA_API_KEY","")
     if not key: raise RuntimeError("NVIDIA_API_KEY missing")
     url="https://ai.api.nvidia.com/v1/genai/black-forest-labs/flux.1-dev"
-    r=requests.post(url,headers={"Authorization":"Bearer "+key,"Accept":"application/json","Content-Type":"application/json"},json={"prompt":prompt,"width":1024,"height":1024,"steps":25},timeout=180)
-    r.raise_for_status(); d=r.json()
-    encoded=d.get("image") or d.get("image_base64") or (d.get("artifacts") or [{}])[0].get("base64")
-    if not encoded: raise RuntimeError("image API response has no base64 image")
-    raw=base64.b64decode(encoded)
-    from PIL import Image
-    im=Image.open(BytesIO(raw)); im.thumbnail((1024,1024)); out=BytesIO(); im.save(out,format="WEBP",quality=84); return out.getvalue()
+    from PIL import Image, ImageStat
+    last_error=None
+    for attempt in range(2):
+        payload={"prompt":prompt,"mode":"base","seed":0 if attempt==0 else random.randint(1,2147483646),"steps":50,"cfg_scale":5.6}
+        try:
+            r=requests.post(url,headers={"Authorization":"Bearer "+key,"Accept":"application/json","Content-Type":"application/json"},json=payload,timeout=240)
+            r.raise_for_status()
+            data=r.json()
+            artifacts=data.get("artifacts") or []
+            encoded=(artifacts[0].get("base64") if artifacts else None) or data.get("image") or data.get("image_base64")
+            if not encoded: raise RuntimeError("NVIDIA response contains no image base64; keys="+str(list(data.keys())))
+            if encoded.startswith("data:"): encoded=encoded.split(",",1)[1]
+            raw=base64.b64decode(encoded,validate=True)
+            im=Image.open(BytesIO(raw)).convert("RGB")
+            im.thumbnail((1024,1024))
+            stats=ImageStat.Stat(im)
+            mean=sum(stats.mean)/3
+            variation=sum(stats.stddev)/3
+            if mean<7 or variation<3:
+                raise RuntimeError(f"image is blank/near-black (mean={mean:.1f}, variation={variation:.1f})")
+            out=BytesIO()
+            im.save(out,format="WEBP",quality=88,method=6)
+            result=out.getvalue()
+            check=Image.open(BytesIO(result)).convert("RGB")
+            stats=ImageStat.Stat(check)
+            if sum(stats.mean)/3<7 or sum(stats.stddev)/3<3:
+                raise RuntimeError("WebP validation detected a blank/near-black image")
+            return result
+        except Exception as e:
+            last_error=e
+            log(f"  Image attempt {attempt+1}/2 failed: {e}")
+            if attempt==0: time.sleep(2)
+    raise RuntimeError(f"Image generation failed after retry: {last_error}")
 
 def upload_image(filename,data):
     required=["FTP_HOST","FTP_USER","FTP_PASS","FTP_PATH","SITE_URL"]
@@ -123,7 +150,8 @@ def upload_image(filename,data):
     finally:
         try: ftp.quit()
         except Exception: pass
-    return os.environ["SITE_URL"].rstrip("/")+"/images/"+filename
+    site_url=re.sub(r"\\s+","",os.environ["SITE_URL"].strip()).rstrip("/")
+    return site_url+"/images/"+filename
 
 def make_images(story,cat,dice):
     palette={"3":"warm candlelight, ritual shadows, aged paper","6":"phosphor green CRT glow, analog surveillance horror, VHS scanlines","9":"clinical black, warning red, impossible geometry"}[cat]
