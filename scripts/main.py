@@ -175,14 +175,6 @@ def main():
             story_data = gen_result['story']
             print(f"    ✅ Generated: {story_data['title'][:40]}... via {last_provider}")
 
-            # Validate
-            is_valid, errors = validator.validate(story_data)
-            if not is_valid:
-                print(f"    ❌ Validation failed: {errors}")
-                cat_failed += 1
-                consecutive_fail += 1
-                continue
-
             # Generate images
             print(f"    Generating images...")
             img_urls = img_gen.process_story(
@@ -191,8 +183,18 @@ def main():
                 dice
             )
 
-            # Build & save full story JSON
+            # Build full story JSON with all required fields
             story = storage.build_story(seed, story_data, dice, last_provider, img_urls)
+
+            # Validate the COMPLETE story
+            is_valid, errors = validator.validate(story)
+            if not is_valid:
+                print(f"    ❌ Validation failed: {errors}")
+                cat_failed += 1
+                consecutive_fail += 1
+                continue
+
+            # Save
             storage.save_story(story)
             storage.save_prompts(story['story_code'], img_gen.generate_prompts(story, dice))
 
