@@ -25,24 +25,115 @@ def output(vals):
         with open(p,"a",encoding="utf-8") as f:
             for k,v in vals.items(): f.write(f"{k}={str(v).replace(chr(10),' ')}\n")
 
+def _article_row(title,url,pub,target,domain=""):
+    title=re.sub(r"\s+"," ",(title or "").strip())
+    url=(url or "").strip()
+    if not title or not url or urlparse(url).scheme not in ("http","https"): return None
+    date=target
+    if pub:
+        try:
+            from email.utils import parsedate_to_datetime
+            dt=parsedate_to_datetime(pub)
+            if dt: date=dt.astimezone(UTC).strftime("%Y-%m-%d")
+        except Exception: pass
+        compact=re.sub(r"[^0-9]","",pub)
+        if len(compact)>=8 and compact[:8].startswith(("19","20")):
+            date=f"{compact[:4]}-{compact[4:6]}-{compact[6:8]}"
+    return {"source_title":title,"source_summary":(domain or "")+" | "+(pub or ""),"source_content":"","source_url":url,"source_date":date,"source_location":"台灣/亞洲新聞","source_language":"zh","unusual_detail":title,"event":title,"people":[],"source_hash":hashlib.sha256((title+"|"+url).encode()).hexdigest()[:12],"event_hash":hashlib.sha256(re.sub(r"\W","",title.lower()).encode()).hexdigest()[:12]}
+
+def _fetch_gdelt(params):
+    url="https://api.gdeltproject.org/api/v2/doc/doc"
+    last=None
+    for attempt in range(5):
+        try:
+            r=requests.get(url,params=params,timeout=40,headers={"User-Agent":"Mozilla/5.0 CH666-story-pipeline/3.1"})
+            if r.status_code==429:
+                wait=r.headers.get("Retry-After","")
+                try: delay=min(45,max(2,int(wait)))
+                except (ValueError,TypeError): delay=min(30,3*(2**attempt))
+                last=RuntimeError("GDELT rate limited (HTTP 429)")
+                if attempt<4:
+                    log(f"WARNING: GDELT rate limited; retry {attempt+1}/4 after {delay}s")
+                    time.sleep(delay)
+                    continue
+                break
+            if r.status_code in (500,502,503,504) and attempt<4:
+                delay=min(20,2**(attempt+1)); log(f"WARNING: GDELT HTTP {r.status_code}; retry after {delay}s"); time.sleep(delay); continue
+            r.raise_for_status()
+            return r.json().get("articles",[]) or []
+        except requests.RequestException as e:
+            last=e
+            if attempt<4:
+                delay=min(20,2**(attempt+1)); log(f"WARNING: GDELT request failed ({e}); retry after {delay}s"); time.sleep(delay)
+            else: break
+    log(f"WARNING: GDELT unavailable after retries: {last}")
+    return None
+
+def _fetch_google_news_rss(target,count):
+    """Real-news fallback only; never invent or fabricate article records."""
+    import xml.etree.ElementTree as ET
+    from urllib.parse import quote_plus
+    query=quote_plus('(台灣 OR 台北 OR 高雄 OR 日本 OR 韓國) (異常 OR 神秘 OR 失蹤 OR 詭異 OR 事故)')
+    url="https://news.google.com/rss/search?q="+query+"&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
+    last=None
+    for attempt in range(3):
+        try:
+            r=requests.get(url,timeout=35,headers={"User-Agent":"Mozilla/5.0 (compatible; CH666NewsBot/1.0)"})
+            if r.status_code==429 and attempt<2:
+                delay=3*(attempt+1); log(f"WARNING: Google News RSS rate limited; retry after {delay}s"); time.sleep(delay); continue
+            r.raise_for_status()
+            root=ET.fromstring(r.content)
+            rows=[]; seen=set()
+            for item in root.findall(".//item"):
+                title=item.findtext("title","").strip()
+                link=item.findtext("link","").strip()
+                pub=item.findtext("pubDate","").strip()
+                source=item.find("source")
+                domain=(source.text or "").strip() if source is not None else "Google News RSS"
+                row=_article_row(title,link,pub,target,domain)
+                if not row or row["source_url"] in seen: continue
+                # Keep only articles whose publication date matches the requested date where the date parses.
+                if row["source_date"] != target: continue
+                seen.add(row["source_url"]); rows.append(row)
+                if len(rows)>=count: break
+            return rows
+        except Exception as e:
+            last=e
+            if attempt<2: time.sleep(2*(attempt+1))
+    log(f"WARNING: Google News RSS fallback failed: {last}")
+    return []
+
 def fetch_news(target,count):
     start=datetime.strptime(target,"%Y-%m-%d").replace(tzinfo=UTC)
     end=start+timedelta(days=1)
     query='(Taiwan OR 台灣 OR 高雄 OR 台北 OR 日本 OR 韓國) (mystery OR unusual OR missing OR strange OR 異常 OR 神秘 OR 失蹤 OR 詭異 OR 事故 OR 發現) sourcelang:Chinese'
-    params={"query":query,"mode":"ArtList","format":"json","maxrecords":100,"sort":"DateDesc","startdatetime":start.strftime("%Y%m%d%H%M%S"),"enddatetime":(end-timedelta(seconds=1)).strftime("%Y%m%d%H%M%S")}
-    r=requests.get("https://api.gdeltproject.org/api/v2/doc/doc",params=params,timeout=40,headers={"User-Agent":"CH666-story-pipeline/3.0"})
-    r.raise_for_status()
-    data=r.json()
+    params={"query":query,"mode":"ArtList","format":"json","maxrecords":min(100,max(20,count*8)),"sort":"DateDesc","startdatetime":start.strftime("%Y%m%d%H%M%S"),"enddatetime":(end-timedelta(seconds=1)).strftime("%Y%m%d%H%M%S")}
+    articles=_fetch_gdelt(params)
     rows=[]; seen=set()
-    for a in data.get("articles",[]) or []:
-        url=(a.get("url") or "").strip(); title=re.sub(r"\s+"," ",(a.get("title") or "").strip())
-        if not url or not title or url in seen or urlparse(url).scheme not in ("http","https"): continue
-        seen.add(url); date=target; pub=a.get("seendate","")
-        if len(pub)>=8: date=f"{pub[:4]}-{pub[4:6]}-{pub[6:8]}"
-        rows.append({"source_title":title,"source_summary":(a.get("domain") or "")+" | "+pub,"source_content":"","source_url":url,"source_date":date,"source_location":"台灣/亞洲新聞","source_language":"zh","unusual_detail":title,"event":title,"people":[],"source_hash":hashlib.sha256((title+"|"+url).encode()).hexdigest()[:12],"event_hash":hashlib.sha256(re.sub(r"\W","",title.lower()).encode()).hexdigest()[:12]})
-        if len(rows)>=count: break
+    if articles is not None:
+        for a in articles:
+            row=_article_row(a.get("title",""),a.get("url",""),a.get("seendate",""),target,a.get("domain",""))
+            if not row or row["source_url"] in seen: continue
+            # GDELT seendate is YYYYMMDD...; enforce requested date.
+            if row["source_date"]!=target: continue
+            seen.add(row["source_url"]); rows.append(row)
+            if len(rows)>=count: break
+    if len(rows)<count:
+        log(f"INFO: GDELT returned {len(rows)} usable real articles; trying Google News RSS for the remaining items.")
+        fallback=_fetch_google_news_rss(target,count-len(rows))
+        for row in fallback:
+            if row["source_url"] not in seen:
+                seen.add(row["source_url"]); rows.append(row)
+            if len(rows)>=count: break
     if len(rows)<count: log(f"WARNING: only {len(rows)} real articles found for {target}; no mock stories will be added.")
     return rows
+
+def clean_image_urls(value):
+    """Remove accidental whitespace from image URLs throughout nested JSON payloads."""
+    if isinstance(value,dict):
+        return {k: (re.sub(r"\s+","",v) if k in ("cover_image","scene_images") and isinstance(v,str) else clean_image_urls(v)) for k,v in value.items()}
+    if isinstance(value,list): return [clean_image_urls(v) for v in value]
+    return value
 
 def parse_json(s):
     s=(s or "").strip(); s=re.sub(r"^\x60\x60\x60(?:json)?\s*","",s); s=re.sub(r"\s*\x60\x60\x60$","",s)
@@ -210,9 +301,11 @@ def main():
             story={"story_code":code,"category":cat,"channel":c["channel"],"title":ai["title"],"subtitle":ai["subtitle"],"slug":ai["slug"],"summary":ai["summary"],"content":ai["content"],"horror_score":dice["horror_score"],"horror_type":dice["horror_type"],"fantasy_level":dice["fantasy_level"],"narrative_style":dice["narrative_style"],"pacing":dice["pacing"],"ending_type":dice["ending_type"],"perspective":dice["perspective"],"source_date":article["source_date"],"source_hash":article["source_hash"],"event_hash":article["event_hash"],"source_url":article["source_url"],"provider_used":provider,"provider_model":model,"dice_seed":dice["dice_seed"],"director_analysis":ai["director_analysis"],"created_at":now_iso(),"cover_image":"","scene_images":""}
             if not a.skip_images:
                 imgs=make_images(story,cat,dice); story["cover_image"]=imgs["cover"]; story["scene_images"]=imgs["scene"]
+            story=clean_image_urls(story)
             (sd/f"{code}.json").write_text(json.dumps(story,ensure_ascii=False,indent=2),encoding="utf-8"); generated.append(story)
             log(f"  Saved {code}; content chars={len(story['content'])}")
         except Exception as e: failed+=1; log(f"  FAILED: {e}")
+    generated=clean_image_urls(generated)
     payload={"date":a.date,"count":len(generated),"stories":generated,"generated_at":now_iso(),"channel_counts":counts}
     (dd/f"{a.date}.json").write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding="utf-8")
     (dd/"latest.json").write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding="utf-8")
