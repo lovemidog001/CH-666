@@ -99,20 +99,35 @@ def make_story(article,cat,dice):
     raise RuntimeError("all text providers failed: "+"; ".join(errors))
 
 def generate_image(prompt):
-    """Generate with NVIDIA's documented FLUX NIM payload; reject blank images and retry."""
+    """Generate with NVIDIA FLUX; detect content-filter responses and blank frames."""
     key=os.getenv("NVIDIA_API_KEY","")
     if not key: raise RuntimeError("NVIDIA_API_KEY missing")
     url="https://ai.api.nvidia.com/v1/genai/black-forest-labs/flux.1-dev"
     from PIL import Image, ImageStat
     last_error=None
     for attempt in range(2):
-        payload={"prompt":prompt,"mode":"base","seed":0 if attempt==0 else random.randint(1,2147483646),"steps":50,"cfg_scale":5.6}
+        # NVIDIA may return HTTP 200 even when the model did not generate an image.
+        # Retry with a neutral, well-lit prompt rather than resending a potentially filtered prompt.
+        current_prompt=prompt if attempt==0 else (
+            "Create a clearly visible, richly detailed cinematic mystery illustration. "
+            "A fictional scene for an atmospheric mystery archive, vivid teal and amber light, "
+            "balanced exposure, detailed midtones, clearly visible objects and background, "
+            "subtle suspense, elegant composition, high-quality film still. "
+            "The image must not be blank, monochrome black, or underexposed. "
+            "No text, no letters, no logo, no watermark. "
+            + prompt[:700]
+        )
+        payload={"prompt":current_prompt,"mode":"base","seed":0 if attempt==0 else random.randint(1,2147483646),"steps":50,"cfg_scale":5.0,"width":1024,"height":1024,"samples":1}
         try:
             r=requests.post(url,headers={"Authorization":"Bearer "+key,"Accept":"application/json","Content-Type":"application/json"},json=payload,timeout=240)
             r.raise_for_status()
             data=r.json()
             artifacts=data.get("artifacts") or []
-            encoded=(artifacts[0].get("base64") if artifacts else None) or data.get("image") or data.get("image_base64")
+            artifact=artifacts[0] if artifacts else {}
+            finish_reason=str(artifact.get("finishReason") or "UNKNOWN")
+            if finish_reason.upper() not in ("SUCCESS","UNKNOWN"):
+                raise RuntimeError("NVIDIA did not generate an image (finishReason="+finish_reason+", errorReason="+str(artifact.get("errorReason",""))+")")
+            encoded=artifact.get("base64") or data.get("image") or data.get("image_base64")
             if not encoded: raise RuntimeError("NVIDIA response contains no image base64; keys="+str(list(data.keys())))
             if encoded.startswith("data:"): encoded=encoded.split(",",1)[1]
             raw=base64.b64decode(encoded,validate=True)
@@ -122,7 +137,7 @@ def generate_image(prompt):
             mean=sum(stats.mean)/3
             variation=sum(stats.stddev)/3
             if mean<7 or variation<3:
-                raise RuntimeError(f"image is blank/near-black (mean={mean:.1f}, variation={variation:.1f})")
+                raise RuntimeError(f"NVIDIA returned a blank/near-black frame (mean={mean:.1f}, variation={variation:.1f}, finishReason={finish_reason}, bytes={len(raw)})")
             out=BytesIO()
             im.save(out,format="WEBP",quality=88,method=6)
             result=out.getvalue()
@@ -130,6 +145,7 @@ def generate_image(prompt):
             stats=ImageStat.Stat(check)
             if sum(stats.mean)/3<7 or sum(stats.stddev)/3<3:
                 raise RuntimeError("WebP validation detected a blank/near-black image")
+            log(f"  Image accepted: {im.width}x{im.height}, {len(result)} bytes, finishReason={finish_reason}")
             return result
         except Exception as e:
             last_error=e
@@ -154,9 +170,9 @@ def upload_image(filename,data):
     return site_url+"/images/"+filename
 
 def make_images(story,cat,dice):
-    palette={"3":"warm candlelight, ritual shadows, aged paper","6":"phosphor green CRT glow, analog surveillance horror, VHS scanlines","9":"clinical black, warning red, impossible geometry"}[cat]
-    prompts={"cover":f"Cinematic horror cover, no text, no letters, no watermark. {palette}. Symbolic scene inspired by {story['title']}. Ominous composition, realistic film still, square.",
-             "scene":f"Cinematic horror still, no text, no letters, no watermark. {palette}. A key fictional scene inspired by {story['title']}. Fantasy level {dice['fantasy_level']}, uneasy atmosphere, square."}
+    palette={"3":"warm candlelight, amber highlights, textured old paper","6":"phosphor green CRT glow, teal and amber lighting, analog surveillance monitors","9":"deep indigo atmosphere, restrained warning red accents, surreal geometric architecture"}[cat]
+    prompts={"cover":f"Cinematic mystery archive cover, no text, no letters, no watermark. {palette}. Symbolic fictional scene inspired by {story['title']}. Clearly visible subject, balanced exposure, rich midtones, detailed shadows with visible texture, luminous highlights, not an all-black image. High-quality film still, square composition.",
+             "scene":f"Cinematic mystery film still, no text, no letters, no watermark. {palette}. A key fictional scene inspired by {story['title']}. Fantasy level {dice['fantasy_level']}. Clearly visible characters and environment, balanced exposure, rich midtones, detailed shadows with visible texture, luminous highlights, not an all-black image. Square composition."}
     urls={"cover":"","scene":""}
     for kind,prompt in prompts.items():
         try:
