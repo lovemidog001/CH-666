@@ -1,26 +1,24 @@
 import os
 import json
 import base64
-import hashlib
 import time
 from io import BytesIO
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 import requests
 from ftplib import FTP
 from PIL import Image
-from bs4 import BeautifulSoup
 
 
 class ImageGenerator:
-    """Fetch og:image from source → WebP → FTP → URLs.
-    Falls back to AI generation if fetching fails."""
+    """Generate images via Google Imagen 3 (Nano Banana) → WebP → FTP → URLs."""
 
-    API_URL = 'https://apihub.agnes-ai.com/v1/images/generations'
+    # Google Imagen 3 endpoint
+    IMAGEN_URL = 'https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict'
 
     def __init__(self, api_key: str, ftp_host: str, ftp_user: str, ftp_pass: str,
                  ftp_path: str, site_url: str):
-        self.api_key = api_key
+        self.api_key = api_key  # GOOGLE_API_KEY
         self.ftp_host = ftp_host
         self.ftp_user = ftp_user
         self.ftp_pass = ftp_pass
@@ -34,21 +32,6 @@ class ImageGenerator:
             "illustration, painting, drawing, sketch, 3d render, cgi, "
             "bright colors, neon, modern, clean, polished, professional photography"
         )
-
-        # Browser-like headers for fetching og:image
-        self._fetch_headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
-            "Accept-Language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7",
-            "Accept-Encoding": "gzip, deflate, br",
-            "Connection": "keep-alive",
-            "Upgrade-Insecure-Requests": "1",
-            "Sec-Fetch-Dest": "document",
-            "Sec-Fetch-Mode": "navigate",
-            "Sec-Fetch-Site": "none",
-            "Sec-Fetch-User": "?1",
-            "Cache-Control": "max-age=0"
-        }
 
     def generate_prompts(self, story: Dict[str, Any], dice: Dict[str, Any]) -> List[Dict[str, str]]:
         """Build cover + scene prompts."""
@@ -98,93 +81,60 @@ class ImageGenerator:
     def _cat_color(self, cat: str) -> str:
         return {'3': '#ff6b35', '6': '#00ff88', '9': '#ff0044'}.get(cat, '#00ff88')
 
-    def _fetch_og_image(self, url: str) -> Optional[bytes]:
-        """Fetch og:image from source URL, return WebP bytes."""
-        if not url:
-            return None
-        try:
-            resp = requests.get(url, headers=self._fetch_headers, timeout=15)
+    def _generate_ai_image(self, prompt: str) -> bytes:
+        """Call Google Imagen 3 (Nano Banana) for AI generation, return WebP bytes."""
+        # Imagen 3 API format
+        url = f'{self.IMAGEN_URL}?key={self.api_key}'
+        headers = {'Content-Type': 'application/json'}
+        
+        # Combine prompt with negative prompt for better results
+        full_prompt = f'{prompt}\n\nNegative: {self.negative_prompt}'
+        
+        data = {
+            'instances': [{'prompt': full_prompt[:2000]}],
+            'parameters': {
+                'sampleCount': 1,
+                'aspectRatio': '1:1',
+                'safetyFilterLevel': 'block_some',
+                'personGeneration': 'allow_adult'
+            }
+        }
+        
+        max_retries = 3
+        for attempt in range(max_retries):
+            resp = requests.post(url, headers=headers, json=data, timeout=180)
+            
+            if resp.status_code in (429, 500, 502, 503, 504) and attempt < max_retries - 1:
+                wait_time = (attempt + 1) * 10
+                print(f"  ⚠️ Imagen 3 error {resp.status_code}, retrying in {wait_time}s... (attempt {attempt + 1}/{max_retries})")
+                time.sleep(wait_time)
+                continue
+            
+            if resp.status_code != 200:
+                print(f"  ❌ Imagen 3 API Error {resp.status_code}: {resp.text[:1000]}")
+                resp.raise_for_status()
+            
             resp.raise_for_status()
-            soup = BeautifulSoup(resp.text, 'html.parser')
-
-            # Try og:image first
-            og = soup.find('meta', property='og:image')
-            if og and og.get('content', '').startswith('http'):
-                img_url = og['content']
-            else:
-                # Try twitter:image
-                twitter = soup.find('meta', attrs={'name': 'twitter:image'})
-                if twitter and twitter.get('content', '').startswith('http'):
-                    img_url = twitter['content']
-                else:
-                    return None
-
-            # Download the image
-            img_resp = requests.get(img_url, headers=self._fetch_headers, timeout=15)
-            img_resp.raise_for_status()
-            img = Image.open(BytesIO(img_resp.content))
+            result = resp.json()
+            
+            # Imagen 3 returns base64 in predictions[0].bytesBase64Encoded
+            predictions = result.get('predictions', [])
+            if not predictions:
+                raise Exception('No predictions in Imagen 3 response')
+            
+            b64 = predictions[0].get('bytesBase64Encoded')
+            if not b64:
+                raise Exception('No image data in Imagen 3 response')
+            
+            img_bytes = base64.b64decode(b64)
+            img = Image.open(BytesIO(img_bytes))
             img.thumbnail((1024, 1024), Image.LANCZOS)
             out = BytesIO()
             img.save(out, format='WEBP', quality=85, method=6)
-            print(f"  ✅ Fetched og:image from source")
+            print(f"  ✅ Generated via Google Imagen 3 (Nano Banana)")
             return out.getvalue()
-        except Exception as e:
-            print(f"  ⚠️ Failed to fetch og:image: {e}")
-            return None
-
-    def _generate_ai_image(self, prompt: str) -> bytes:
-        """Call Agnes API for AI generation, return WebP bytes."""
-        headers = {'Authorization': f'Bearer {self.api_key}', 'Content-Type': 'application/json'}
         
-        # 嘗試不同的 payload 格式（參考 Agnes Image 2.5 Flash 文檔）
-        payloads_to_try = [
-            {
-                'model': 'agnes-2.5-flash',
-                'prompt': prompt[:1000],
-                'negative_prompt': self.negative_prompt,
-                'size': '1024x1024',
-                'n': 1,
-                'response_format': 'b64_json',
-                'quality': 'high',
-            },
-            # Fallback: 不帶 model 參數
-            {
-                'prompt': prompt[:1000],
-                'negative_prompt': self.negative_prompt,
-                'size': '1024x1024',
-                'n': 1,
-                'response_format': 'b64_json',
-                'quality': 'high',
-            },
-        ]
-        
-        last_error = None
-        for payload_idx, data in enumerate(payloads_to_try):
-            max_retries = 3
-            for attempt in range(max_retries):
-                resp = requests.post(self.API_URL, headers=headers, json=data, timeout=180)
-                if resp.status_code == 503 and attempt < max_retries - 1:
-                    wait_time = (attempt + 1) * 10
-                    print(f"  ⚠️ 503 Service Unavailable, retrying in {wait_time}s... (attempt {attempt + 1}/{max_retries}, payload {payload_idx + 1})")
-                    time.sleep(wait_time)
-                    continue
-                
-                if resp.status_code != 200:
-                    print(f"  ❌ API Error {resp.status_code} (payload {payload_idx + 1}): {resp.text[:1000]}")
-                    last_error = f"HTTP {resp.status_code}: {resp.text[:500]}"
-                    break
-                
-                resp.raise_for_status()
-                
-                b64 = resp.json()['data'][0]['b64_json']
-                img_bytes = base64.b64decode(b64)
-                img = Image.open(BytesIO(img_bytes))
-                img.thumbnail((1024, 1024), Image.LANCZOS)
-                out = BytesIO()
-                img.save(out, format='WEBP', quality=85, method=6)
-                return out.getvalue()
-        
-        raise Exception(f"All payload formats failed. Last error: {last_error}")
+        raise Exception(f"Imagen 3 failed after {max_retries} retries")
 
     def upload_ftp(self, filename: str, data: bytes) -> bool:
         """Upload to FTP, return success."""
@@ -200,31 +150,21 @@ class ImageGenerator:
             return False
 
     def process_story(self, story: Dict[str, Any], dice: Dict[str, Any]) -> Dict[str, str]:
-        """Fetch og:image for cover, generate scene via AI, upload, return URLs."""
+        """Generate cover+scene via Google Imagen 3, upload, return URLs."""
         prompts = self.generate_prompts(story, dice)
         story_code = story.get('story_code', f"STORY-{story.get('seed_id', 'UNKNOWN')}")
         cat = story.get('category', '6')
-        source_url = story.get('source_url', '')
         urls = {}
 
         for p in prompts:
-            print(f"  Processing {p['type']} image...")
+            print(f"  Generating {p['type']} via Google Imagen 3...")
             filename = f"{story_code}_{p['type']}.webp"
-            img_data = None
-
-            if p['type'] == 'cover' and source_url:
-                # Try to fetch og:image from source for cover
-                img_data = self._fetch_og_image(source_url)
-            
-            if img_data is None:
-                # Fallback to AI generation
-                print(f"  Generating {p['type']} via AI...")
-                try:
-                    img_data = self._generate_ai_image(p['prompt'])
-                except Exception as e:
-                    print(f"  ❌ AI generation failed: {e}")
-                    urls[p['type']] = ''
-                    continue
+            try:
+                img_data = self._generate_ai_image(p['prompt'])
+            except Exception as e:
+                print(f"  ❌ AI generation failed: {e}")
+                urls[p['type']] = ''
+                continue
 
             if self.upload_ftp(filename, img_data):
                 urls[p['type']] = f"{self.site_url}/images/{filename}"
