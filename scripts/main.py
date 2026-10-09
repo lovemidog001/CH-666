@@ -150,7 +150,7 @@ def upload_image(filename,data):
     finally:
         try: ftp.quit()
         except Exception: pass
-    site_url=re.sub(r"\\s+","",os.environ["SITE_URL"].strip()).rstrip("/")
+    site_url=re.sub(r"\s+","",os.environ["SITE_URL"].strip()).rstrip("/")
     return site_url+"/images/"+filename
 
 def make_images(story,cat,dice):
