@@ -15,7 +15,7 @@ from pathlib import Path
 # 加入 scripts 目錄到路徑
 sys.path.insert(0, str(Path(__file__).parent))
 
-from config_loader import Config, get_category_config
+from config_loader import Config
 from fetch_news import NewsFetcher
 from build_seed import SeedBuilder
 from story_director import StoryDirector
