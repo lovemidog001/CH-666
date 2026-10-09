@@ -1,0 +1,34 @@
+{
+  "story_code": "CH-999-0001",
+  "category": "9",
+  "channel": "CH-999",
+  "title": "第九十九頻道的朝聖者",
+  "subtitle": "CH-999檔案：禁忌之銀",
+  "slug": "ch999-pilgrimage",
+  "summary": "日本訪客執著搜尋的「六碼」並非金融密碼，而是能開啟跨維度匯款的禁忌通道。每組被盜取的代碼都會抽乾活人的記憶脈絡，朝聖者愈众，現實的裂縫愈深。",
+  "content": "無線電靜音的凌晨三點十七分，所有電視頻道都會短暫跳轉到CH-999。沒有人知道這個頻道的訊號源在哪裡，只知道曾經看過畫面的人，會在二十四小時內消失。消失前他們總會喃喃自語：「六碼集齊了，帳戶就開放了。」\n\n林守夜是第三位追查這個現象的記者。他在廢棄的國家匯款中心地下室發現了第一組代碼：049871。牆面上用暗紅色油漆畫著扭曲的帳號結構圖，圖形中間的六個節點正發出類似心跳的脈衝。當他伸手觸碰第三個節點時，左眼的視野突然閃過一串數字——773209。\n\n第二天新聞報導東京築地市場出現七名日本遊客集體失蹤，他們的手心裡都寫著相同的六位數字。林守夜追蹤到羽田機場時，看見那些人在登機前不斷重複同一動作：用舌頭舔舐嘴唇，像在嘗試某種味道。其中一人突然轉向鏡頭方向，用標準國語說：「銀行櫃員說，跨維度交易需要活體密碼。」\n\n第三組代碼藏在淡水漁港的舊計程車票根上。收集過程裡林守夜的助手陳薇開始出現記憶斷層，她忘記了母親的臉，卻能精準背出十七世紀西班牙銀河的貨幣兌換率。當天晚上她在公寓衛生間牆上寫下第四組數字，用的是林守夜外婆的筆跡。\n\n當五組代碼拼湊完成時，城市開始出現「匯款現象」：行人突然跪地掏出錢包將現金灑向天空，貨運司機將整車百貨商品倒入河裡，連股市大戶都會在交易平台輸入「向虛空帳戶轉帳」。所有轉入的資產都在接收端消失，卻會有人在鏡子裡看見不存在的餘額提示。\n\n最終組代碼藏在林守夜自己的出生證明上。原來他就是第五個活體密碼容器，他的视网膜掃描圖案正是第六碼的變體。當他將所有數字輸入廢棄金庫的終端機時，螢幕顯示「匯款通道已開啟」。通道那頭傳來無數人的聲音，用他認識的語言重複：「還記得我嗎？還記得我嗎？還記得我嗎？」\n\n現在CH-999的畫面永遠定格在那間金庫。收看者會看見林守夜站在鏡頭前，身後是望不到盡頭的排隊人龍，每個人臉上都是相同的失焦表情。頻道說明欄寫著：「循環匯款業務中，請保持記憶線程清晰。下一組客戶將從第773209號記憶节点開始轉帳。」\n\n而每個深夜，總有新的人會在枕邊發現寫著六組代碼的紙條，紙張背面印著CH-999的頻率標記。他們不知道的是，集齊六碼的那一刻，自己就會成為下一輪匯款清單上的待處理資產。",
+  "horror_score": 77,
+  "horror_type": [
+    "forbidden_knowledge"
+  ],
+  "fantasy_level": "supernatural",
+  "narrative_style": "third_person_omniscient",
+  "pacing": "fast_paced",
+  "ending_type": "cyclic",
+  "perspective": "witness",
+  "source_date": "2026-10-08",
+  "source_hash": "e3b0f518b39a",
+  "event_hash": "6423de7d8683",
+  "source_url": "https://news.google.com/rss/articles/CBMi4AJBVV95cUxPNGxiMUNYdjNzZkJOekstNHlUbUttYTlBdzZCRzhQQ0NHdXpxVWZXVWlteVhmYi1VbFY3MVdfRVExemFHTmxYc3VFQnhfY1cxajNoQ1JIeVZ5cnE1bWZJcnNGWWp1Ml9ITXgtNjFDTjk1RWk2YzdWZllZeEptclRTVHFldFdadXJ1aDYycEdKbkFndmp5SThBZ2lhWVRUNVZ0a2VXY285QXZqZk9YSWZYTTZrV1FvaFFSM3BFYmFmSnViaFJnMHRERW90S2tXU0JDa3VNMnpLaTFFaDBxdDlPQWphT1hadUJ6a3BuTUNXVTRsWnpTZWh1c0NyQllYZG9URjE5ZGZNeFJ6ZzJhQ2k5NDJhcWJQOTBXUmV6TTJNdlc5RXVxYkpFNnZhdmhHTGZFSEdfeS1JMlhZWjh2bXJsNU1VQ3FWVGxEalVZUjZNaTd2cm50TC1OODN1ZDEzaERs?oc=5",
+  "provider_used": "agnes",
+  "provider_model": "agnes-2.5-flash",
+  "dice_seed": 1123659476,
+  "director_analysis": {
+    "anomaly_core": "六碼實為維度匯款通道鑰匙，集齊將啟動跨界資產轉移機制",
+    "character_core": "記憶本身成為流通貨幣，失去過往者將被納入永恆排隊的客戶清單",
+    "internal_rule": "每次匯款行為都會抽換活人記憶脈絡，代碼收集者最終會成為自身記憶的提款機"
+  },
+  "created_at": "2026-10-09T11:08:05.818982Z",
+  "cover_image": "https://ailoom.ccwu.cc/images/CH-999-0001_cover.webp",
+  "scene_images": "https://ailoom.ccwu.cc/images/CH-999-0001_scene.webp"
+}
