@@ -112,7 +112,9 @@ def main():
     print(f"  Created {len(all_seeds)} seeds across categories")
 
     # Process seeds
-    generator = StoryGenerator(providers, {})  # cat_config passed per-seed
+    # Initialize with dummy config (will be updated per-category)
+    dummy_config = {'category': '6', 'horror_types': [], 'fantasy_levels': []}
+    generator = StoryGenerator(providers, dummy_config)
     all_stories = []
     all_failed = 0
     last_provider = 'none'
