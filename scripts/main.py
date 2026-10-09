@@ -17,7 +17,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from config import Config
 from fetch_news import NewsFetcher
-from classify import build_seed, assign_category, DiceRoller
+from classify import assign_category, DiceRoller
 from generate import StoryGenerator, get_providers
 from validate import StoryValidator
 from images import ImageGenerator
@@ -70,21 +70,41 @@ def main():
         output_results(0, 0, 'none', [], args.date)
         sys.exit(1)
 
-    # Build seeds for ALL categories from same article pool
+    # Build neutral seeds from all articles first
+    neutral_seeds = []
+    for art in articles[:args.count * 2]:  # pool of articles
+        # Build seed without category config (neutral)
+        seed = {
+            'seed_id': f"SEED-{art['source_hash'][:8]}",
+            'source_title': art['source_title'],
+            'source_summary': art['source_summary'],
+            'source_content': art.get('source_content', ''),
+            'source_url': art['source_url'],
+            'source_date': art['source_date'],
+            'source_location': art['source_location'],
+            'source_language': art['source_language'],
+            'unusual_detail': art['unusual_detail'],
+            'event': art['event'],
+            'people': art.get('people', []),
+            'source_hash': art['source_hash'],
+            'event_hash': art['event_hash'],
+            'reality_level': 50,
+        }
+        neutral_seeds.append(seed)
+
+    # Assign category to each seed deterministically
+    for seed in neutral_seeds:
+        seed['category'] = assign_category(seed, categories)
+
+    # Group by category and roll dice
     all_seeds = []
     for cat in categories:
         cat_config = cfg.get_category_config(cat)
         dice_roller = DiceRoller(cat_config)
+        cat_seeds = [s for s in neutral_seeds if s['category'] == cat]
 
-        # Assign subset of articles to this category via dice
-        cat_articles = [a for a in articles if assign_category(a, categories) == cat]
-        # If category got too few, supplement from unassigned
-        if len(cat_articles) < 2:
-            unassigned = [a for a in articles if assign_category(a, categories) not in categories]
-            cat_articles.extend(unassigned[:2 - len(cat_articles)])
-
-        for art in cat_articles[:args.count]:
-            seed = build_seed(art, cat_config)
+        for seed in cat_seeds[:args.count]:
+            # Add category-specific info
             seed['category'] = cat
             seed['dice_params'] = dice_roller.roll(seed)
             all_seeds.append(seed)
