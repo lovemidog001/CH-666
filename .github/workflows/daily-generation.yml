@@ -14,16 +14,6 @@ on:
           - generate
           - cleanup
           - both
-      channel:
-        description: 'Channel to generate (for manual generate mode)'
-        required: false
-        type: choice
-        options:
-          - all
-          - CH-666
-          - CH-333
-          - CH-999
-        default: 'all'
       count_override:
         description: 'Override articles per day (optional)'
         required: false
@@ -37,7 +27,7 @@ env:
   PYTHON_VERSION: '3.11'
   GENERATION_CONFIG: ${{ github.workspace }}/config/generation.json
   AI_PROVIDERS_CONFIG: ${{ github.workspace }}/config/ai-providers.json
-  CHANNELS_CONFIG: ${{ github.workspace }}/config/channels.json
+  CHANNEL_CONFIG: ${{ github.workspace }}/config/channel.json
   CONTENT_DIR: ${{ github.workspace }}/content
 
 jobs:
@@ -47,53 +37,37 @@ jobs:
     outputs:
       do_generate: ${{ steps.check.outputs.do_generate }}
       do_cleanup: ${{ steps.check.outputs.do_cleanup }}
-      channels: ${{ steps.check.outputs.channels }}
     steps:
       - id: check
         run: |
           if [[ "${{ github.event.inputs.mode }}" == "generate" ]]; then
             echo "do_generate=true" >> $GITHUB_OUTPUT
             echo "do_cleanup=false" >> $GITHUB_OUTPUT
-            if [[ "${{ github.event.inputs.channel }}" == "all" || -z "${{ github.event.inputs.channel }}" ]]; then
-              echo "channels=CH-666,CH-333,CH-999" >> $GITHUB_OUTPUT
-            else
-              echo "channels=${{ github.event.inputs.channel }}" >> $GITHUB_OUTPUT
-            fi
           elif [[ "${{ github.event.inputs.mode }}" == "cleanup" ]]; then
             echo "do_generate=false" >> $GITHUB_OUTPUT
             echo "do_cleanup=true" >> $GITHUB_OUTPUT
-            echo "channels=" >> $GITHUB_OUTPUT
           elif [[ "${{ github.event.inputs.mode }}" == "both" ]]; then
             echo "do_generate=true" >> $GITHUB_OUTPUT
             echo "do_cleanup=true" >> $GITHUB_OUTPUT
-            if [[ "${{ github.event.inputs.channel }}" == "all" || -z "${{ github.event.inputs.channel }}" ]]; then
-              echo "channels=CH-666,CH-333,CH-999" >> $GITHUB_OUTPUT
-            else
-              echo "channels=${{ github.event.inputs.channel }}" >> $GITHUB_OUTPUT
-            fi
           else
             HOUR=$(date -u +%H)
             if [[ "$HOUR" == "10" ]]; then
               echo "do_generate=true" >> $GITHUB_OUTPUT
               echo "do_cleanup=false" >> $GITHUB_OUTPUT
-              echo "channels=CH-666,CH-333,CH-999" >> $GITHUB_OUTPUT
             elif [[ "$HOUR" == "03" ]]; then
               echo "do_generate=false" >> $GITHUB_OUTPUT
               echo "do_cleanup=true" >> $GITHUB_OUTPUT
-              echo "channels=" >> $GITHUB_OUTPUT
             else
               echo "do_generate=false" >> $GITHUB_OUTPUT
               echo "do_cleanup=false" >> $GITHUB_OUTPUT
-              echo "channels=" >> $GITHUB_OUTPUT
             fi
           fi
           echo "=== Detect Mode Result ==="
           echo "do_generate: ${{ steps.check.outputs.do_generate }}"
           echo "do_cleanup: ${{ steps.check.outputs.do_cleanup }}"
-          echo "channels: ${{ steps.check.outputs.channels }}"
 
   generate:
-    name: Generate ${{ matrix.channel }} Stories
+    name: Generate Stories
     needs: detect-mode
     if: needs.detect-mode.outputs.do_generate == 'true'
     runs-on: ubuntu-latest
@@ -101,38 +75,14 @@ jobs:
     permissions:
       contents: write
       actions: read
-    strategy:
-      fail-fast: false
-      matrix:
-        channel: [CH-666, CH-333, CH-999]
     steps:
-      - name: Check if channel should run
-        id: should_run
-        run: |
-          CHANNELS="${{ needs.detect-mode.outputs.channels }}"
-          echo "Input channels: '$CHANNELS'"
-          echo "Current matrix channel: '${{ matrix.channel }}'"
-          if [[ -z "$CHANNELS" ]]; then
-            echo "run=false" >> $GITHUB_OUTPUT
-            echo "Reason: channels list is empty"
-          elif [[ "$CHANNELS" == "all" ]] || [[ "$CHANNELS" == *"${{ matrix.channel }}"* ]]; then
-            echo "run=true" >> $GITHUB_OUTPUT
-            echo "Reason: channel in list"
-          else
-            echo "run=false" >> $GITHUB_OUTPUT
-            echo "Reason: channel NOT in list"
-          fi
-        if: needs.detect-mode.outputs.do_generate == 'true'
-
       - name: Checkout repository
-        if: steps.should_run.outputs.run == 'true'
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify required files
-        if: steps.should_run.outputs.run == 'true'
         run: |
           set -euo pipefail
           echo "=== Repository file check ==="
@@ -144,7 +94,7 @@ jobs:
             "scripts/notify_serv00.py"
             "config/generation.json"
             "config/ai-providers.json"
-            "config/channels.json"
+            "config/channel.json"
           )
           for file in "${required[@]}"; do
             if [[ ! -f "$file" ]]; then
@@ -155,39 +105,33 @@ jobs:
           done
 
       - name: Setup Python
-        if: steps.should_run.outputs.run == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install dependencies
-        if: steps.should_run.outputs.run == 'true'
         run: |
           python -m pip install --upgrade pip
           pip install requests python-dateutil pyyaml pillow python-dotenv
 
       - name: Load configuration
-        if: steps.should_run.outputs.run == 'true'
         id: config
         env:
           GENERATION_CONFIG: ${{ env.GENERATION_CONFIG }}
           AI_PROVIDERS_CONFIG: ${{ env.AI_PROVIDERS_CONFIG }}
-          CHANNELS_CONFIG: ${{ env.CHANNELS_CONFIG }}
-          MATRIX_CHANNEL: ${{ matrix.channel }}
+          CHANNEL_CONFIG: ${{ env.CHANNEL_CONFIG }}
           COUNT_OVERRIDE: ${{ github.event.inputs.count_override }}
         run: |
           python scripts/load_config.py
 
       - name: Check if generation enabled
-        if: steps.should_run.outputs.run == 'true'
         run: |
-          if [[ "${{ steps.config.outputs.enabled }}" != "true" ]] || [[ "${{ steps.config.outputs.channel_enabled }}" != "true" ]]; then
-            echo "Daily generation is disabled for ${{ matrix.channel }}"
+          if [[ "${{ steps.config.outputs.enabled }}" != "true" ]]; then
+            echo "Daily generation is disabled"
             exit 0
           fi
 
       - name: Determine target date
-        if: steps.should_run.outputs.run == 'true'
         id: date
         env:
           FORCE_DATE: ${{ github.event.inputs.force_date }}
@@ -195,7 +139,6 @@ jobs:
           python scripts/determine_date.py
 
       - name: Debug secrets availability
-        if: steps.should_run.outputs.run == 'true'
         run: |
           echo "=== Secrets Check ==="
           echo "NVIDIA_API_KEY: ${NVIDIA_API_KEY:+SET}"
@@ -225,7 +168,6 @@ jobs:
           SITE_URL: ${{ secrets.SITE_URL }}
 
       - name: Generate stories
-        if: steps.should_run.outputs.run == 'true'
         id: generate
         env:
           TARGET_DATE: ${{ steps.date.outputs.target_date }}
@@ -247,18 +189,17 @@ jobs:
             --count "${ARTICLES_PER_DAY}" \
             --config "${GENERATION_CONFIG}" \
             --providers "${AI_PROVIDERS_CONFIG}" \
-            --channels "${CHANNELS_CONFIG}" \
-            --content-dir "${CONTENT_DIR}" \
-            --channel "${{ matrix.channel }}"
+            --channel-config "${CHANNEL_CONFIG}" \
+            --content-dir "${CONTENT_DIR}"
           echo "=== Generated files ==="
           find content/ -name '*.json' -type f 2>/dev/null | head -20
           ls -la content/stories/ 2>/dev/null || echo "content/stories/ not found"
           ls -la content/daily/ 2>/dev/null || echo "content/daily/ not found"
           echo "=== Story codes generated ==="
-          ls content/stories/${{ matrix.channel }}-*.json 2>/dev/null | grep -v _prompts | sed 's/.*${{ matrix.channel }}-/${{ matrix.channel }}-/' | sed 's/.json//' || echo "None"
+          ls content/stories/CH-*.json 2>/dev/null | grep -v _prompts | sed 's/.*CH-/CH-/' | sed 's/.json//' || echo "None"
 
       - name: Generate images & FTP upload (Agnes Image 2.5 Flash)
-        if: steps.should_run.outputs.run == 'true' && steps.generate.outputs.generated_count != '0'
+        if: steps.generate.outputs.generated_count != '0'
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
@@ -268,7 +209,7 @@ jobs:
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
         run: |
           cd ${{ github.workspace }}
-          echo "=== Starting Agnes Image Generation for ${{ matrix.channel }} ==="
+          echo "=== Starting Agnes Image Generation ==="
           python scripts/generate_images_agnes_ftp.py \
             --content-dir "${CONTENT_DIR}" \
             --story-codes "${{ steps.generate.outputs.story_codes }}" \
@@ -280,7 +221,7 @@ jobs:
           echo "=== Agnes Image Generation Completed ==="
 
       - name: Commit and push generated stories (with image URLs)
-        if: steps.should_run.outputs.run == 'true' && steps.generate.outputs.generated_count != '0'
+        if: steps.generate.outputs.generated_count != '0'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -288,7 +229,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "auto: generate ${{ steps.generate.outputs.generated_count }} ${{ matrix.channel }} stories for ${{ steps.date.outputs.target_date }}"
+            git commit -m "auto: generate ${{ steps.generate.outputs.generated_count }} stories for ${{ steps.date.outputs.target_date }}"
             git push
             echo "PUSH OK"
           fi
@@ -297,7 +238,7 @@ jobs:
           git status
 
       - name: Verify stories in GitHub
-        if: steps.should_run.outputs.run == 'true' && steps.generate.outputs.generated_count != '0'
+        if: steps.generate.outputs.generated_count != '0'
         run: |
           sleep 3
           for code in $(echo "${{ steps.generate.outputs.story_codes }}" | tr ',' ' '); do
@@ -311,7 +252,7 @@ jobs:
           done
 
       - name: Validate SERV00_UPDATE_URL
-        if: steps.should_run.outputs.run == 'true' && steps.generate.outputs.generated_count != '0'
+        if: steps.generate.outputs.generated_count != '0'
         run: |
           URL="${{ secrets.SERV00_UPDATE_URL }}"
           if [[ -z "$URL" ]]; then
@@ -326,7 +267,7 @@ jobs:
           echo "SERV00_UPDATE_URL OK: $URL"
 
       - name: Notify Serv00
-        if: steps.should_run.outputs.run == 'true' && steps.generate.outputs.generated_count != '0'
+        if: steps.generate.outputs.generated_count != '0'
         env:
           SERV00_UPDATE_URL: ${{ secrets.SERV00_UPDATE_URL }}
           SERV00_UPDATE_TOKEN: ${{ secrets.SERV00_UPDATE_TOKEN }}
@@ -340,11 +281,9 @@ jobs:
             --content-dir "${CONTENT_DIR}"
 
       - name: Summary
-        if: steps.should_run.outputs.run == 'true'
         run: |
-          echo "## Generation Summary (${{ matrix.channel }})" >> $GITHUB_STEP_SUMMARY
+          echo "## Generation Summary" >> $GITHUB_STEP_SUMMARY
           echo "- **Date**: ${{ steps.date.outputs.target_date }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Channel**: ${{ matrix.channel }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Requested**: ${{ steps.config.outputs.articles_per_day }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Generated**: ${{ steps.generate.outputs.generated_count }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Failed**: ${{ steps.generate.outputs.failed_count }}" >> $GITHUB_STEP_SUMMARY

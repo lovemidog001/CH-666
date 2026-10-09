@@ -9,20 +9,23 @@ from pathlib import Path
 class JSONBuilder:
     """建構 Story JSON 與 Image Prompt JSON"""
     
-    def __init__(self, channel_config: Dict[str, Any], content_dir: str = 'content'):
+    def __init__(self, channel_config: Dict[str, Any], content_dir: str = 'content', category: str = '6'):
         self.channel_config = channel_config
-        self.channel_code = channel_config.get('code', 'CH-666')
+        self.channel_code = channel_config.get('code', 'CH')
+        # 使用分類代碼作為 story_code 前綴 (CH-3, CH-6, CH-9)
+        self.category = category
+        self.story_code_prefix = f"{self.channel_code}-{category}"
         self.content_dir = Path(content_dir)
         self.stories_dir = self.content_dir / 'stories'
         self.counter = self._load_counter()
     
     def _get_counter_file(self) -> Path:
-        """每頻道獨立計數器檔案"""
-        return Path(f'.story_counter_{self.channel_code}')
+        """每分類獨立計數器檔案"""
+        return Path(f'.story_counter_{self.story_code_prefix}')
     
     def _load_counter(self) -> int:
         """從現有故事檔案找最大編號，避免重複"""
-        # 先嘗試讀取頻道專屬 .story_counter（若存在）
+        # 先嘗試讀取分類專屬 .story_counter（若存在）
         counter_file = self._get_counter_file()
         if counter_file.exists():
             try:
@@ -31,9 +34,9 @@ class JSONBuilder:
             except:
                 pass
         
-        # 從現有檔案掃描最大編號（僅掃描該頻道前綴）
+        # 從現有檔案掃描最大編號（僅掃描該分類前綴）
         max_num = 0
-        prefix = f"{self.channel_code}-"
+        prefix = f"{self.story_code_prefix}-"
         if self.stories_dir.exists():
             for f in self.stories_dir.glob(f"{prefix}*.json"):
                 if f.name.endswith('_prompts.json'):
@@ -52,7 +55,7 @@ class JSONBuilder:
     def _next_story_code(self) -> str:
         self.counter += 1
         self._save_counter()
-        return f"{self.channel_code}-{self.counter:04d}"
+        return f"{self.story_code_prefix}-{self.counter:04d}"
     
     def _generate_slug(self, title: str) -> str:
         """從標題生成 slug"""
@@ -211,11 +214,13 @@ class JSONBuilder:
             '極端': '極端體驗恐怖', '時間閉環': '時間閉環', '禁忌知識': '禁忌知識', '末世': '末世啟示',
         }
         
+        # 使用分類的完整名稱 (CH-333, CH-666, CH-999) 作為顯示
+        display_name = self.channel_config.get('name', self.story_code_prefix)
         for kw, desc in scene_keywords.items():
             if kw in content:
-                return f"{self.channel_code} 檔案 // {desc}"
+                return f"{display_name} 檔案 // {desc}"
         
-        return f"{self.channel_code} 檔案 // 未知異常現象"
+        return f"{display_name} 檔案 // 未知異常現象"
     
     def _extract_summary(self, content: str, max_len: int = 200) -> str:
         """提煉摘要（前 200 字）"""
@@ -244,12 +249,13 @@ class JSONBuilder:
             "deep shadows", "cinematic lighting", "unsettling atmosphere"
         ]
         
-        # 不同頻道的視覺風格調整
+        # 使用分類的完整名稱 (CH-333, CH-666, CH-999) 判斷視覺風格
+        display_name = self.channel_config.get('name', self.story_code_prefix)
         channel_visual = {
             'CH-666': "phosphor green glow, scanlines, VHS static, analog horror, surveillance aesthetic",
             'CH-333': "candlelight flicker, incense smoke, talisman symbols, ritualistic atmosphere, warm amber tones",
             'CH-999': "harsh red warning lights, data corruption, glitch artifacts, cognitive hazard symbols, stark clinical lighting",
-        }.get(self.channel_code, style_keywords[0])
+        }.get(display_name, style_keywords[0])
         
         fantasy_visual = {
             'grounded': "photorealistic, documentary style, gritty realism, natural lighting",

@@ -1,0 +1,187 @@
+{
+  "code": "CH",
+  "name": "CH-666",
+  "description": "怪聞局 - 多頻道怪談自動生成系統",
+  "enabled": true,
+  "story_code_prefix": "CH",
+  "color": "#00ff88",
+  "genres": {
+    "3": {
+      "name": "CH-333",
+      "label": "靈頻頻道",
+      "description": "靈異通靈與神秘儀式檔案",
+      "color": "#ff6b35",
+      "genre": "occult",
+      "horror_types": [
+        {"key": "possession", "label": "附身憑依"},
+        {"key": "haunting", "label": "鬧鬼糾纏"},
+        {"key": "ritual", "label": "禁忌儀式"},
+        {"key": "curse", "label": "詛咒傳承"},
+        {"key": "mediumship", "label": "通靈媒介"},
+        {"key": "ancestral_sin", "label": "祖業因果"},
+        {"key": "spirit_contract", "label": "靈體契約"},
+        {"key": "exorcism", "label": "驅魔對抗"},
+        {"key": "afterlife_glimpse", "label": "陰間窺見"},
+        {"key": "folk_belief", "label": "民間信仰"}
+      ],
+      "fantasy_levels": [
+        {"key": "slightly_unreal", "label": "微妙失真"},
+        {"key": "supernatural", "label": "超自然介入"},
+        {"key": "reality_bending", "label": "現實扭曲"},
+        {"key": "mythic", "label": "神話具象"}
+      ],
+      "narrative_styles": [
+        {"key": "first_person", "label": "第一人稱"},
+        {"key": "third_person_limited", "label": "第三人稱限制視角"},
+        {"key": "epistolary", "label": "書信體"},
+        {"key": "found_footage", "label": "發現錄像"},
+        {"key": "interview_transcript", "label": "訪談紀錄"},
+        {"key": "diary_entry", "label": "日記手記"},
+        {"key": "ritual_record", "label": "儀式記錄"},
+        {"key": "oral_tradition", "label": "口述傳說"}
+      ],
+      "pacing_options": [
+        {"key": "slow_burn", "label": "慢熱鋪陳"},
+        {"key": "steady", "label": "穩定推進"},
+        {"key": "fragmented", "label": "碎片敘事"},
+        {"key": "ritualistic", "label": "儀式節奏"}
+      ],
+      "ending_types": [
+        {"key": "open", "label": "開放式"},
+        {"key": "tragic", "label": "悲劇收尾"},
+        {"key": "unsettling_resolution", "label": "不安解決"},
+        {"key": "cyclic", "label": "循環輪迴"},
+        {"key": "sealed", "label": "封印收束"},
+        {"key": "inherited", "label": "傳承延續"}
+      ],
+      "perspectives": [
+        {"key": "victim", "label": "受害者"},
+        {"key": "witness", "label": "目擊者"},
+        {"key": "medium", "label": "通靈者"},
+        {"key": "practitioner", "label": "修行者"},
+        {"key": "entity", "label": "靈體視角"},
+        {"key": "descendant", "label": "後代繼承者"},
+        {"key": "object", "label": "法器視角"}
+      ]
+    },
+    "6": {
+      "name": "CH-666",
+      "label": "怪聞頻道",
+      "description": "深夜異常事件紀實",
+      "color": "#00ff88",
+      "genre": "anomalous",
+      "horror_types": [
+        {"key": "psychological", "label": "心理恐怖"},
+        {"key": "urban_legend", "label": "都市傳說"},
+        {"key": "supernatural", "label": "超自然"},
+        {"key": "crime", "label": "犯罪實錄"},
+        {"key": "suspense", "label": "懸疑推理"},
+        {"key": "identity_horror", "label": "身分恐怖"},
+        {"key": "sci_fi_horror", "label": "科幻恐怖"},
+        {"key": "surveillance_horror", "label": "監控異常"},
+        {"key": "unknown_phenomenon", "label": "未知現象"},
+        {"key": "reality_horror", "label": "現實崩塌"}
+      ],
+      "fantasy_levels": [
+        {"key": "grounded", "label": "寫實接地"},
+        {"key": "slightly_unreal", "label": "微妙失真"},
+        {"key": "supernatural", "label": "超自然介入"},
+        {"key": "reality_bending", "label": "現實扭曲"}
+      ],
+      "narrative_styles": [
+        {"key": "first_person", "label": "第一人稱"},
+        {"key": "third_person_limited", "label": "第三人稱限制視角"},
+        {"key": "third_person_omniscient", "label": "第三人稱全知視角"},
+        {"key": "epistolary", "label": "書信體"},
+        {"key": "found_footage", "label": "發現錄像"},
+        {"key": "interview_transcript", "label": "訪談紀錄"},
+        {"key": "police_report", "label": "警方報告"},
+        {"key": "diary_entry", "label": "日記手記"}
+      ],
+      "pacing_options": [
+        {"key": "slow_burn", "label": "慢熱鋪陳"},
+        {"key": "steady", "label": "穩定推進"},
+        {"key": "fast_paced", "label": "急促緊湊"},
+        {"key": "fragmented", "label": "碎片敘事"}
+      ],
+      "ending_types": [
+        {"key": "open", "label": "開放式"},
+        {"key": "twist", "label": "反轉結局"},
+        {"key": "tragic", "label": "悲劇收尾"},
+        {"key": "unsettling_resolution", "label": "不安解決"},
+        {"key": "cyclic", "label": "循環輪迴"},
+        {"key": "missing_ending", "label": "缺失結尾"}
+      ],
+      "perspectives": [
+        {"key": "victim", "label": "受害者"},
+        {"key": "witness", "label": "目擊者"},
+        {"key": "investigator", "label": "調查者"},
+        {"key": "perpetrator", "label": "施害者"},
+        {"key": "bystander", "label": "旁觀者"},
+        {"key": "entity", "label": "實體視角"},
+        {"key": "object", "label": "物件視角"}
+      ]
+    },
+    "9": {
+      "name": "CH-999",
+      "label": "禁忌頻道",
+      "description": "認知危害與極端異常封存區",
+      "color": "#ff0044",
+      "genre": "forbidden",
+      "horror_types": [
+        {"key": "cognitive_hazard", "label": "認知危害"},
+        {"key": "memetic", "label": "模因傳染"},
+        {"key": "ontological", "label": "本體論恐怖"},
+        {"key": "reality_horror", "label": "現實崩塌"},
+        {"key": "cosmic_horror", "label": "宇宙恐怖"},
+        {"key": "body_horror_extreme", "label": "極端體驗恐怖"},
+        {"key": "time_loop", "label": "時間閉環"},
+        {"key": "identity_horror", "label": "身分恐怖"},
+        {"key": "forbidden_knowledge", "label": "禁忌知識"},
+        {"key": "apocalyptic", "label": "末世啟示"}
+      ],
+      "fantasy_levels": [
+        {"key": "supernatural", "label": "超自然介入"},
+        {"key": "reality_bending", "label": "現實扭曲"},
+        {"key": "mythic", "label": "神話具象"},
+        {"key": "conceptual", "label": "概念級實體"}
+      ],
+      "narrative_styles": [
+        {"key": "first_person", "label": "第一人稱"},
+        {"key": "third_person_omniscient", "label": "第三人稱全知視角"},
+        {"key": "epistolary", "label": "書信體"},
+        {"key": "found_footage", "label": "發現錄像"},
+        {"key": "interview_transcript", "label": "訪談紀錄"},
+        {"key": "police_report", "label": "機密檔案"},
+        {"key": "research_log", "label": "研究日誌"},
+        {"key": "fragmented_memory", "label": "破碎記憶"}
+      ],
+      "pacing_options": [
+        {"key": "slow_burn", "label": "慢熱鋪陳"},
+        {"key": "steady", "label": "穩定推進"},
+        {"key": "fast_paced", "label": "急促緊湊"},
+        {"key": "fragmented", "label": "碎片敘事"},
+        {"key": "disorienting", "label": "定向失序"}
+      ],
+      "ending_types": [
+        {"key": "open", "label": "開放式"},
+        {"key": "twist", "label": "反轉結局"},
+        {"key": "tragic", "label": "悲劇收尾"},
+        {"key": "unsettling_resolution", "label": "不安解決"},
+        {"key": "cyclic", "label": "循環輪迴"},
+        {"key": "missing_ending", "label": "缺失結尾"},
+        {"key": "erasure", "label": "抹除消解"}
+      ],
+      "perspectives": [
+        {"key": "victim", "label": "受害者"},
+        {"key": "witness", "label": "目擊者"},
+        {"key": "investigator", "label": "調查者"},
+        {"key": "researcher", "label": "研究員"},
+        {"key": "entity", "label": "異常實體"},
+        {"key": "object", "label": "收容物品"},
+        {"key": "concept", "label": "概念本身"}
+      ]
+    }
+  },
+  "valid_categories": ["3", "6", "9"]
+}

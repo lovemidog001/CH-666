@@ -23,29 +23,32 @@ def get_ai_providers(providers_path: str) -> List[Dict[str, Any]]:
     return sorted(enabled, key=lambda x: x.get('priority', 999))
 
 
-def get_channel_config(channels_path: str, channel_code: str) -> Dict[str, Any]:
-    """取得頻道設定"""
-    config = load_json_config(channels_path)
-    for ch in config.get('channels', []):
-        if ch.get('code') == channel_code:
-            return ch
-    raise ValueError(f"Channel {channel_code} not found")
+def get_channel_config(channel_path: str) -> Dict[str, Any]:
+    """取得統一頻道設定（包含 3/6/9 三種分類）"""
+    return load_json_config(channel_path)
 
 
-def get_all_enabled_channels(channels_path: str) -> List[Dict[str, Any]]:
-    """取得所有啟用的頻道"""
-    config = load_json_config(channels_path)
-    return [ch for ch in config.get('channels', []) if ch.get('enabled', True)]
+def get_genre_config(channel_config: Dict[str, Any], category: str) -> Dict[str, Any]:
+    """取得特定分類（3/6/9）的設定"""
+    genres = channel_config.get('genres', {})
+    if category not in genres:
+        raise ValueError(f"Category {category} not found in genres")
+    return genres[category]
+
+
+def get_all_categories(channel_config: Dict[str, Any]) -> List[str]:
+    """取得所有可用分類代碼"""
+    return channel_config.get('valid_categories', ['3', '6', '9'])
 
 
 class Config:
-    """統一設定存取（單一頻道）"""
+    """統一設定存取（單一頻道，多種分類）"""
     
-    def __init__(self, generation_path: str, providers_path: str, channels_path: str, channel_code: str = 'CH-666'):
+    def __init__(self, generation_path: str, providers_path: str, channel_path: str):
         self.generation = get_generation_config(generation_path)
         self.providers = get_ai_providers(providers_path)
-        self.channel = get_channel_config(channels_path, channel_code)
-        self.channel_code = channel_code
+        self.channel = get_channel_config(channel_path)
+        self.categories = get_all_categories(self.channel)
         
     @property
     def articles_per_day(self) -> int:
@@ -62,3 +65,19 @@ class Config:
     @property
     def timezone(self) -> str:
         return self.generation.get('timezone', 'Asia/Taipei')
+    
+    def get_category_config(self, category: str) -> Dict[str, Any]:
+        """取得特定分類的完整設定（合併基礎設定與分類設定）"""
+        base = {
+            'code': self.channel.get('code', 'CH'),
+            'name': self.channel.get('name', 'CH-666'),
+            'description': self.channel.get('description', ''),
+            'enabled': self.channel.get('enabled', True),
+            'story_code_prefix': f"{self.channel.get('code', 'CH')}-{category}",
+            'color': self.channel.get('color', '#00ff88'),
+        }
+        genre = get_genre_config(self.channel, category)
+        # 合併：分類設定覆蓋基礎設定
+        merged = {**base, **genre}
+        merged['category'] = category
+        return merged
