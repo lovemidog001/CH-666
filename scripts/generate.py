@@ -137,10 +137,17 @@ class StoryGenerator:
 
     def _build_labels(self) -> Dict[str, str]:
         labels = {}
+        # Handle both formats: [{'key': 'x', 'label': 'y'}] or ['x', 'y']
         for h in self.cat.get('horror_types', []):
-            labels[h['key']] = h.get('label', h['key'])
+            if isinstance(h, dict):
+                labels[h['key']] = h.get('label', h['key'])
+            else:
+                labels[h] = h  # string key
         for f in self.cat.get('fantasy_levels', []):
-            labels[f['key']] = f.get('label', f['key'])
+            if isinstance(f, dict):
+                labels[f['key']] = f.get('label', f['key'])
+            else:
+                labels[f] = f
         return labels
 
     def _build_system_prompt(self, dice: Dict[str, Any]) -> str:
