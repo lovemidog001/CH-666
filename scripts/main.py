@@ -9,6 +9,7 @@ import sys
 import json
 import argparse
 import os
+import time
 from datetime import datetime
 from pathlib import Path
 
@@ -58,6 +59,10 @@ def main():
     all_provider_used = 'none'
     all_story_codes = []
     
+    # 失敗閾值設定
+    MAX_CONSECUTIVE_FAILURES = 3  # 連續失敗次數超過此值，跳過該分類剩餘 seeds
+    MAX_CATEGORY_FAILURE_RATE = 0.8  # 分類失敗率超過 80% 視為該分類失敗
+    
     # 對每個分類生成故事
     for category in config.categories:
         cat_config = config.get_category_config(category)
@@ -74,10 +79,10 @@ def main():
         dice = DirectorDice(cat_config)
         generator = StoryGenerator(config.providers, cat_config)
         validator = StoryValidator(cat_config)
-        json_builder = JSONBuilder(cat_config, args.content_dir)
+        json_builder = JSONBuilder(cat_config, args.content_dir, category)
         saver = ContentSaver(args.content_dir, cat_name)
         
-        # 1. 取得最新新聞（每個分類獨立取得，或共用）
+        # 1. 取得最新新聞
         print(f"\n[1/8] Fetching latest news for {cat_name}...")
         articles = news_fetcher.fetch_latest_news(max_results=args.count * 3)
         print(f"  Found {len(articles)} candidate articles")
@@ -100,8 +105,24 @@ def main():
         cat_generated = 0
         cat_failed = 0
         cat_provider = 'none'
+        consecutive_failures = 0
         
         for i, seed in enumerate(seeds):
+            # 檢查連續失敗閾值
+            if consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
+                print(f"\n  ⚠️ 連續 {consecutive_failures} 次失敗，跳過 {cat_name} 剩餘 {len(seeds) - i} 個 seeds")
+                cat_failed += len(seeds) - i
+                all_failed_count += len(seeds) - i
+                break
+            
+            # 檢查分類整體失敗率
+            processed = i
+            if processed > 0 and cat_failed / processed > MAX_CATEGORY_FAILURE_RATE:
+                print(f"\n  ⚠️ {cat_name} 失敗率過高 ({cat_failed}/{processed} = {cat_failed/processed*100:.0f}%)，跳過剩餘 seeds")
+                cat_failed += len(seeds) - i
+                all_failed_count += len(seeds) - i
+                break
+            
             print(f"\n--- Processing seed {i+1}/{len(seeds)}: {seed['seed_id']} ---")
             
             try:
@@ -129,6 +150,7 @@ def main():
                     print(f"    FAILED: {gen_result.get('error')}")
                     cat_failed += 1
                     all_failed_count += 1
+                    consecutive_failures += 1
                     continue
                 
                 cat_provider = gen_result['provider_used']
@@ -148,6 +170,7 @@ def main():
                     print(f"    Validation failed: {errors}")
                     cat_failed += 1
                     all_failed_count += 1
+                    consecutive_failures += 1
                     continue
                 
                 # 驗證 Image Prompts
@@ -158,7 +181,7 @@ def main():
                 
                 print("    Validation passed")
                 
-                # 7. 儲存
+                # 7. 儲存 (立即儲存，不等全部完成)
                 print("  [7] Saving...")
                 saver.save_story(story_json)
                 saver.save_image_prompts(story_json['story_code'], image_prompts)
@@ -166,16 +189,25 @@ def main():
                 all_generated_stories.append(story_json)
                 all_story_codes.append(story_json['story_code'])
                 cat_generated += 1
-                print(f"    Saved: {story_json['story_code']}")
+                consecutive_failures = 0  # 成功重置計數器
+                print(f"    ✅ Saved: {story_json['story_code']}")
                 
+            except KeyboardInterrupt:
+                print(f"\n  ⚠️ 收到中斷信號，保存已生成的故事並退出")
+                break
             except Exception as e:
                 print(f"    ERROR: {e}")
                 import traceback
                 traceback.print_exc()
                 cat_failed += 1
                 all_failed_count += 1
+                consecutive_failures += 1
         
         print(f"\n--- {cat_name} Summary: Generated {cat_generated}, Failed {cat_failed} ---")
+        
+        # 若該分類完全失敗，記錄但繼續處理下一分類
+        if cat_generated == 0 and cat_failed > 0:
+            print(f"  ⚠️ {cat_name} 全部失敗，繼續處理下一分類...")
     
     # 8. 儲存每日合併 JSON（所有分類合併）
     print(f"\n[8] Saving daily merged JSON...")
@@ -185,6 +217,8 @@ def main():
         unified_saver = ContentSaver(args.content_dir, first_cat['name'])
         unified_saver.save_stories_merged(args.date, all_generated_stories)
         print(f"    Saved merged: {args.date}.json ({len(all_generated_stories)} stories)")
+    else:
+        print(f"    No stories to save")
     
     # 9. 標記新聞來源為已使用
     print("\n[9] Marking sources as used...")
@@ -214,9 +248,12 @@ def main():
     print(f"Total Failed: {all_failed_count}")
     print(f"Stories: {all_story_codes}")
     
+    # 只有當所有分類都完全失敗時才退出錯誤
     if len(all_generated_stories) == 0:
-        print("❌ No stories generated, exiting with error")
+        print("❌ All categories failed to generate any stories, exiting with error")
         sys.exit(1)
+    
+    print(f"✅ Generation completed with {len(all_generated_stories)} stories")
 
 
 if __name__ == '__main__':
