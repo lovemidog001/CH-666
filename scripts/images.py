@@ -85,8 +85,10 @@ class ImageGenerator:
         """Call Agnes API, return WebP bytes."""
         headers = {'Authorization': f'Bearer {self.api_key}', 'Content-Type': 'application/json'}
         
-        # 修正 Payload：改用 size 代替 width/height，並移除不相容的參數
+        # 根據 Agnes Image 2.5 Flash API 文檔
+        # 參考: https://www.agnes-ai.com/zh-Hans/docs/agnes-image-25-flash
         data = {
+            'model': 'agnes-image-2.5-flash',
             'prompt': prompt[:1000],
             'negative_prompt': self.negative_prompt,
             'size': '1024x1024',
@@ -94,17 +96,30 @@ class ImageGenerator:
             'response_format': 'b64_json',
             'quality': 'high',
         }
-        resp = requests.post(self.API_URL, headers=headers, json=data, timeout=180)
-        resp.raise_for_status()
-        b64 = resp.json()['data'][0]['b64_json']
-        img_bytes = base64.b64decode(b64)
+        
+        # Retry logic for 503 Service Unavailable
+        max_retries = 3
+        for attempt in range(max_retries):
+            resp = requests.post(self.API_URL, headers=headers, json=data, timeout=180)
+            if resp.status_code == 503 and attempt < max_retries - 1:
+                wait_time = (attempt + 1) * 10  # 10s, 20s, 30s
+                print(f"  ⚠️ 503 Service Unavailable, retrying in {wait_time}s... (attempt {attempt + 1}/{max_retries})")
+                time.sleep(wait_time)
+                continue
+            
+            if resp.status_code != 200:
+                print(f"  ❌ API Error {resp.status_code}: {resp.text[:500]}")
+            resp.raise_for_status()
+            
+            b64 = resp.json()['data'][0]['b64_json']
+            img_bytes = base64.b64decode(b64)
 
-        # Convert to WebP
-        img = Image.open(BytesIO(img_bytes))
-        img.thumbnail((1024, 1024), Image.LANCZOS)
-        out = BytesIO()
-        img.save(out, format='WEBP', quality=85, method=6)
-        return out.getvalue()
+            # Convert to WebP
+            img = Image.open(BytesIO(img_bytes))
+            img.thumbnail((1024, 1024), Image.LANCZOS)
+            out = BytesIO()
+            img.save(out, format='WEBP', quality=85, method=6)
+            return out.getvalue()
 
     def upload_ftp(self, filename: str, data: bytes) -> bool:
         """Upload to FTP, return success."""
