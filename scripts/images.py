@@ -122,7 +122,7 @@ class ImageGenerator:
     def process_story(self, story: Dict[str, Any], dice: Dict[str, Any]) -> Dict[str, str]:
         """Generate cover+scene, upload, return URLs."""
         prompts = self.generate_prompts(story, dice)
-        story_code = story['story_code']
+        story_code = story.get('story_code', f"STORY-{story.get('seed_id', 'UNKNOWN')}")
         cat = story.get('category', '6')
         urls = {}
 
