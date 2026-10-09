@@ -1,0 +1,157 @@
+name: Daily CH-666 Generation
+
+on:
+  schedule:
+    - cron: '5 3 * * *'    # 03:05 UTC = 11:05 CST
+    - cron: '5 15 * * *'   # 15:05 UTC = 23:05 CST
+  workflow_dispatch:
+    inputs:
+      count_override:
+        description: 'Stories per day (default 6)'
+        required: false
+        type: string
+      force_date:
+        description: 'Force date YYYY-MM-DD'
+        required: false
+        type: string
+
+env:
+  PYTHON_VERSION: '3.11'
+  GENERATION_CONFIG: ${{ github.workspace }}/config/generation.json
+  PROVIDERS_CONFIG: ${{ github.workspace }}/config/providers.json
+  CHANNELS_CONFIG: ${{ github.workspace }}/config/channels.json
+  CONTENT_DIR: ${{ github.workspace }}/content
+
+jobs:
+  generate:
+    name: Generate Stories
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify required files
+        run: |
+          for f in config/generation.json config/providers.json config/channels.json scripts/main.py; do
+            [[ -f "$f" ]] && echo "OK: $f" || { echo "MISSING: $f"; exit 1; }
+          done
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install deps
+        run: |
+          pip install -r requirements.txt
+
+      - name: Load config
+        id: config
+        env:
+          GENERATION_CONFIG: ${{ env.GENERATION_CONFIG }}
+          PROVIDERS_CONFIG: ${{ env.PROVIDERS_CONFIG }}
+          CHANNELS_CONFIG: ${{ env.CHANNELS_CONFIG }}
+          COUNT_OVERRIDE: ${{ github.event.inputs.count_override }}
+        run: python scripts/load_config.py
+
+      - name: Check enabled
+        if: steps.config.outputs.enabled != 'true'
+        run: echo "Disabled"; exit 0
+
+      - name: Determine date
+        id: date
+        env:
+          FORCE_DATE: ${{ github.event.inputs.force_date }}
+        run: python scripts/determine_date.py
+
+      - name: Debug secrets
+        run: |
+          echo "NEWSAPI_KEY: ${NEWSAPI_KEY:+SET}"
+          echo "NVIDIA_API_KEY: ${NVIDIA_API_KEY:+SET}"
+          echo "OPENAI_API_KEY: ${OPENAI_API_KEY:+SET}"
+          echo "GOOGLE_API_KEY: ${GOOGLE_API_KEY:+SET}"
+          echo "AGNES_API_KEY: ${AGNES_API_KEY:+SET}"
+          echo "SERV00_UPDATE_URL: ${SERV00_UPDATE_URL:+SET}"
+          echo "SERV00_UPDATE_TOKEN: ${SERV00_UPDATE_TOKEN:+SET}"
+          echo "FTP_HOST: ${FTP_HOST:+SET}"
+          echo "FTP_USER: ${FTP_USER:+SET}"
+          echo "FTP_PASS: ${FTP_PASS:+SET}"
+          echo "FTP_PATH: ${FTP_PATH:+SET}"
+          echo "SITE_URL: ${SITE_URL:+SET}"
+        env:
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          SERV00_UPDATE_URL: ${{ secrets.SERV00_UPDATE_URL }}
+          SERV00_UPDATE_TOKEN: ${{ secrets.SERV00_UPDATE_TOKEN }}
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+          FTP_PATH: ${{ secrets.FTP_PATH }}
+          SITE_URL: ${{ secrets.SITE_URL }}
+
+      - name: Generate stories
+        id: generate
+        env:
+          TARGET_DATE: ${{ steps.date.outputs.target_date }}
+          ARTICLES_PER_DAY: ${{ steps.config.outputs.articles_per_day }}
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
+          SERV00_UPDATE_URL: ${{ secrets.SERV00_UPDATE_URL }}
+          SERV00_UPDATE_TOKEN: ${{ secrets.SERV00_UPDATE_TOKEN }}
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+          FTP_PATH: ${{ secrets.FTP_PATH }}
+          SITE_URL: ${{ secrets.SITE_URL }}
+        run: |
+          python scripts/main.py \
+            --date "${TARGET_DATE}" \
+            --count "${ARTICLES_PER_DAY}" \
+            --config "${GENERATION_CONFIG}" \
+            --providers "${PROVIDERS_CONFIG}" \
+            --channels "${CHANNELS_CONFIG}" \
+            --content-dir "${CONTENT_DIR}"
+
+      - name: Commit & push
+        if: steps.generate.outputs.generated_count != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add content/
+          if ! git diff --cached --quiet; then
+            git commit -m "auto: generate ${{ steps.generate.outputs.generated_count }} stories for ${{ steps.date.outputs.target_date }}"
+            git push
+          fi
+
+      - name: Notify serv00
+        if: steps.generate.outputs.generated_count != '0'
+        env:
+          SERV00_UPDATE_URL: ${{ secrets.SERV00_UPDATE_URL }}
+          SERV00_UPDATE_TOKEN: ${{ secrets.SERV00_UPDATE_TOKEN }}
+        run: |
+          python scripts/notify.py \
+            --url "${SERV00_UPDATE_URL}" \
+            --token "${SERV00_UPDATE_TOKEN}" \
+            --stories "${{ steps.generate.outputs.story_codes }}" \
+            --content-dir "${CONTENT_DIR}"
+
+      - name: Summary
+        run: |
+          echo "## Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Date: ${{ steps.date.outputs.target_date }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Generated: ${{ steps.generate.outputs.generated_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Failed: ${{ steps.generate.outputs.failed_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Stories: ${{ steps.generate.outputs.story_codes }}" >> $GITHUB_STEP_SUMMARY

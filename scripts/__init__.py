@@ -1,1 +1,0 @@
-# ODDITY HUB / CH-666 Generation Scripts
