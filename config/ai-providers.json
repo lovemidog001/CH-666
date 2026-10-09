@@ -7,7 +7,9 @@
     "model": "nvidia/nemotron-3-ultra-550b-a55b",
     "api_key_env": "NVIDIA_API_KEY",
     "base_url": "https://integrate.api.nvidia.com/v1",
-    "timeout": 30,
+    "timeout": 120,
+    "max_retries": 3,
+    "retry_delay": 5,
     "max_tokens": 8000,
     "temperature": 0.7
   },
@@ -19,7 +21,9 @@
     "model": "gpt-4o-mini",
     "api_key_env": "OPENAI_API_KEY",
     "base_url": "https://api.openai.com/v1",
-    "timeout": 30,
+    "timeout": 120,
+    "max_retries": 3,
+    "retry_delay": 5,
     "max_tokens": 8000,
     "temperature": 0.7
   },
@@ -31,7 +35,9 @@
     "model": "gemini-1.5-flash",
     "api_key_env": "GOOGLE_API_KEY",
     "base_url": "https://generativelanguage.googleapis.com/v1beta",
-    "timeout": 30,
+    "timeout": 120,
+    "max_retries": 3,
+    "retry_delay": 5,
     "max_tokens": 8000,
     "temperature": 0.7
   },
@@ -43,7 +49,9 @@
     "model": "agnes-2.5-flash",
     "api_key_env": "AGNES_API_KEY",
     "base_url": "https://apihub.agnes-ai.com/v1",
-    "timeout": 60,
+    "timeout": 180,
+    "max_retries": 3,
+    "retry_delay": 10,
     "max_tokens": 8000,
     "temperature": 0.7
   }

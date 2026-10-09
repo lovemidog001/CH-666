@@ -96,13 +96,29 @@ class StoryGenerator:
     def _build_system_prompt(self, dice_result: Dict[str, Any], 
                             director_analysis: Dict[str, Any]) -> str:
         analysis = director_analysis.get('analysis', {})
+        channel_code = self.channel_config.get('code', 'CH-666')
+        channel_name = self.channel_config.get('name', 'CH-666')
+        channel_genre = self.channel_config.get('genre', 'anomalous')
+        channel_color = self.channel_config.get('color', '#00FF88')
         
-        return f"""你是 CH-666 怪聞頻道的故事導演。請根據參數創作一篇原創恐怖故事，**直接輸出 JSON**，不要任何額外文字。
+        # 根據頻道類型調整風格描述
+        genre_styles = {
+            'anomalous': "Retro CRT / Late-night TV / 廢棄監控系統 / 電影感恐怖 / 神秘資料庫",
+            'occult': "Candlelight / Incense / Talismans / Ritualistic / Ancient Archives",
+            'forbidden': "Harsh Red Alerts / Data Corruption / Cognitive Hazards / Clinical Archives / Stark Lighting",
+        }
+        style_desc = genre_styles.get(channel_genre, genre_styles['anomalous'])
+        
+        # 根據頻道類型調整 horror type 描述
+        valid_horror_types = [h.get('label', h.get('key', '')) for h in self.channel_config.get('horror_types', []) if h.get('key')]
+        horror_type_desc = '、'.join(valid_horror_types[:8])  # 限制長度
+        
+        return f"""你是 {channel_name} 頻道的故事導演。請根據參數創作一篇原創恐怖故事，**直接輸出 JSON**，不要任何額外文字。
 
 【頻道風格】
-- Retro CRT / Late-night TV / 廢棄監控系統 / 電影感恐怖 / 神秘資料庫
-- 類型：心理恐怖、都市怪談、超自然、犯罪、懸疑、身份恐怖、科幻恐怖、監視器恐怖、未知現象、現實恐怖
-- 色調：#0A0A0C (深空黑) #00FF88 (螢光綠) #FF0055 (警示紅) #E0E0E0 (磷光白)
+- {style_desc}
+- 類型：{horror_type_desc}
+- 色調：#0A0A0C (深空黑) {channel_color} (主色) #FF0055 (警示紅) #E0E0E0 (磷光白)
 
 【故事參數】
 - Horror Score: {dice_result.get('horror_score')}/100
@@ -124,7 +140,7 @@ class StoryGenerator:
 【嚴格輸出格式 (JSON only)】
 {{
   "title": "故事標題（不含新聞式前綴，15-40字，吸睛、具體、帶懸念）",
-  "subtitle": "副標題（CH-666 檔案 // 核心異常描述，如：監視系統異常、記憶交換、遊樂設施自運）",
+  "subtitle": "副標題（{channel_code} 檔案 // 核心異常描述）",
   "slug": "url-friendly-slug（小寫、連字號、不超過60字）",
   "content": "完整故事內容（可含段落換行、文件式格式、偽紀錄格式，至少 1500 字）"
 }}
@@ -133,7 +149,7 @@ class StoryGenerator:
 1. **原創性**：新聞只是觸發點，必須重新設計人物、場景、事件、因果、異常、敘事角度、結局
 2. **內部邏輯**：所有超自然元素必須有內在一致規則
 3. **恐怖質感**：靠氛圍、心理、未知感營造，非靠血腥/驚嚇
-4. **CH-666 風味**：像深夜電視台播放的檔案、監控紀錄、訪談筆錄、發現的錄影帶
+4. **{channel_name} 風味**：像深夜檔案、機密記錄、研究日誌、發現的錄影帶
 5. **嚴禁**：新聞標題/地名/人名/機構名/確切時間/機關單位/「據報導」「警方表示」等新聞用語
 6. **必須**：虛構場景/代號/原型角色/超自然規則系統/繁體中文
 """
@@ -145,6 +161,8 @@ class StoryGenerator:
         event_core = seed.get('event', '')
         people = seed.get('people', [])
         lang = seed.get('source_language', 'zh')
+        channel_code = self.channel_config.get('code', 'CH-666')
+        channel_name = self.channel_config.get('name', 'CH-666')
         
         lang_instruction = "請用繁體中文創作。" if lang == 'zh' else "請用繁體中文創作（素材來源為英文新聞）。"
         
@@ -155,7 +173,7 @@ class StoryGenerator:
 關鍵人物原型：{', '.join(people) or '無具體人物，請自行設計原創角色'}
 
 【任務】
-以此 Seed DNA 為靈感觸發點，創作一篇**完全原創**的 CH-666 風格恐怖故事。
+以此 Seed DNA 為靈感觸發點，創作一篇**完全原創**的 {channel_name} 風格恐怖故事。
 
 ⚠️ 絕對禁止：
 - 直接使用/改寫新聞標題（如「高雄市｜馬達未通電仍持續轉動超過 20 分鐘」）

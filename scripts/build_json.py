@@ -239,7 +239,7 @@ class JSONBuilder:
         
         # 基礎風格關鍵字
         style_keywords = [
-            "CH-666 aesthetic", "retro CRT", "analog horror", "scanlines",
+            f"{self.channel_code} aesthetic", "retro CRT", "analog horror", "scanlines",
             "static noise", "VHS tracking error", "phosphor green glow",
             "deep shadows", "cinematic lighting", "unsettling atmosphere"
         ]

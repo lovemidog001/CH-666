@@ -175,19 +175,37 @@ class StoryDirector:
     def decide_direction(self, analysis: Dict[str, Any]) -> Dict[str, Any]:
         """
         根據分析結果決定故事方向（供 Director Dice 參考）
+        使用頻道特定的 horror_types 和 fantasy_levels
         """
         reality = analysis.get('reality_level', 50)
         
-        # 現實程度影響 Horror Type 傾向
+        # 使用頻道配置的有效值
+        valid_horror = self.horror_types
+        valid_fantasy = self.fantasy_levels
+        
+        # 現實程度影響 Horror Type 傾向 - 從頻道有效值中篩選
         if reality > 70:
-            preferred_horror = ['psychological', 'crime', 'suspense', 'reality_horror', 'identity_horror']
-            preferred_fantasy = ['grounded', 'slightly_unreal']
+            # 高現實度：心理、犯罪、懸疑、現實恐怖、身份恐怖
+            candidates_horror = ['psychological', 'crime', 'suspense', 'reality_horror', 'identity_horror']
+            candidates_fantasy = ['grounded', 'slightly_unreal']
         elif reality > 40:
-            preferred_horror = ['psychological', 'urban_legend', 'surveillance_horror', 'unknown_phenomenon']
-            preferred_fantasy = ['slightly_unreal', 'supernatural']
+            # 中現實度：心理、都市傳說、監控恐怖、未知現象
+            candidates_horror = ['psychological', 'urban_legend', 'surveillance_horror', 'unknown_phenomenon']
+            candidates_fantasy = ['slightly_unreal', 'supernatural']
         else:
-            preferred_horror = ['supernatural', 'urban_legend', 'sci_fi_horror', 'unknown_phenomenon']
-            preferred_fantasy = ['supernatural', 'reality_bending']
+            # 低現實度：超自然、都市傳說、科幻恐怖、未知現象
+            candidates_horror = ['supernatural', 'urban_legend', 'sci_fi_horror', 'unknown_phenomenon']
+            candidates_fantasy = ['supernatural', 'reality_bending']
+        
+        # 只保留頻道支援的類型
+        preferred_horror = [h for h in candidates_horror if h in valid_horror]
+        preferred_fantasy = [f for f in candidates_fantasy if f in valid_fantasy]
+        
+        # 兜底：如果篩選後為空，使用頻道所有有效值
+        if not preferred_horror:
+            preferred_horror = valid_horror
+        if not preferred_fantasy:
+            preferred_fantasy = valid_fantasy
         
         return {
             'preferred_horror_types': preferred_horror,

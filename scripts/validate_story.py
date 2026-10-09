@@ -88,8 +88,10 @@ class StoryValidator:
         
         # 6. Story Code 格式
         story_code = story.get('story_code', '')
-        if story_code and not re.match(r'^CH-666-\d{4}$', story_code):
-            errors.append(f"Invalid story_code format: {story_code} (expected CH-666-NNNN)")
+        # 使用頻道的 story_code_prefix (預設 CH-666)
+        expected_prefix = self.channel_config.get('story_code_prefix', 'CH-666')
+        if story_code and not re.match(rf'^{re.escape(expected_prefix)}-\d{4}$', story_code):
+            errors.append(f"Invalid story_code format: {story_code} (expected {expected_prefix}-NNNN)")
         
         # 7. Slug 格式
         slug = story.get('slug', '')

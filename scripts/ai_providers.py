@@ -20,6 +20,9 @@ class AIProvider(ABC):
         self.max_tokens = config.get('max_tokens', 8000)
         self.temperature = config.get('temperature', 0.7)
         self.api_key = os.environ.get(self.api_key_env, '')
+        # Retry 設定
+        self.max_retries = config.get('max_retries', 3)
+        self.retry_delay = config.get('retry_delay', 5)  # 秒
     
     @abstractmethod
     def generate(self, prompt: str, system_prompt: str = '') -> str:
@@ -28,6 +31,37 @@ class AIProvider(ABC):
     
     def is_available(self) -> bool:
         return bool(self.api_key)
+    
+    def _make_request_with_retry(self, request_func):
+        """帶重試機制的請求執行"""
+        last_error = None
+        for attempt in range(self.max_retries):
+            try:
+                return request_func()
+            except requests.exceptions.Timeout as e:
+                last_error = f"Timeout after {self.timeout}s: {e}"
+                print(f"  ⚠️ {self.name} 請求超時 (嘗試 {attempt + 1}/{self.max_retries})")
+            except requests.exceptions.ConnectionError as e:
+                last_error = f"Connection error: {e}"
+                print(f"  ⚠️ {self.name} 連線錯誤 (嘗試 {attempt + 1}/{self.max_retries})")
+            except requests.exceptions.HTTPError as e:
+                status = e.response.status_code if e.response else 'unknown'
+                last_error = f"HTTP {status}: {e}"
+                # 5xx 錯誤重試，4xx 不重試
+                if e.response and 500 <= e.response.status_code < 600:
+                    print(f"  ⚠️ {self.name} 伺服器錯誤 {status} (嘗試 {attempt + 1}/{self.max_retries})")
+                else:
+                    raise
+            except Exception as e:
+                last_error = str(e)
+                print(f"  ⚠️ {self.name} 未預期錯誤: {e} (嘗試 {attempt + 1}/{self.max_retries})")
+            
+            if attempt < self.max_retries - 1:
+                delay = self.retry_delay * (2 ** attempt)  # 指數退避
+                print(f"  ⏳ 等待 {delay}s 後重試...")
+                time.sleep(delay)
+        
+        raise Exception(f"All retries failed. Last error: {last_error}")
 
 
 class NVIDIAProvider(AIProvider):
@@ -53,15 +87,18 @@ class NVIDIAProvider(AIProvider):
             'stream': False,
         }
         
-        response = requests.post(
-            f'{self.base_url}/chat/completions',
-            headers=headers,
-            json=data,
-            timeout=self.timeout
-        )
-        response.raise_for_status()
-        result = response.json()
-        return result['choices'][0]['message']['content']
+        def make_request():
+            response = requests.post(
+                f'{self.base_url}/chat/completions',
+                headers=headers,
+                json=data,
+                timeout=self.timeout
+            )
+            response.raise_for_status()
+            result = response.json()
+            return result['choices'][0]['message']['content']
+        
+        return self._make_request_with_retry(make_request)
 
 
 class OpenAIProvider(AIProvider):
@@ -86,15 +123,18 @@ class OpenAIProvider(AIProvider):
             'temperature': self.temperature,
         }
         
-        response = requests.post(
-            f'{self.base_url}/chat/completions',
-            headers=headers,
-            json=data,
-            timeout=self.timeout
-        )
-        response.raise_for_status()
-        result = response.json()
-        return result['choices'][0]['message']['content']
+        def make_request():
+            response = requests.post(
+                f'{self.base_url}/chat/completions',
+                headers=headers,
+                json=data,
+                timeout=self.timeout
+            )
+            response.raise_for_status()
+            result = response.json()
+            return result['choices'][0]['message']['content']
+        
+        return self._make_request_with_retry(make_request)
 
 
 class GoogleProvider(AIProvider):
@@ -118,10 +158,13 @@ class GoogleProvider(AIProvider):
             }
         }
         
-        response = requests.post(url, json=data, timeout=self.timeout)
-        response.raise_for_status()
-        result = response.json()
-        return result['candidates'][0]['content']['parts'][0]['text']
+        def make_request():
+            response = requests.post(url, json=data, timeout=self.timeout)
+            response.raise_for_status()
+            result = response.json()
+            return result['candidates'][0]['content']['parts'][0]['text']
+        
+        return self._make_request_with_retry(make_request)
 
 
 class AgnesProvider(AIProvider):
@@ -146,15 +189,18 @@ class AgnesProvider(AIProvider):
             'temperature': self.temperature,
         }
         
-        response = requests.post(
-            f'{self.base_url}/chat/completions',
-            headers=headers,
-            json=data,
-            timeout=self.timeout
-        )
-        response.raise_for_status()
-        result = response.json()
-        return result['choices'][0]['message']['content']
+        def make_request():
+            response = requests.post(
+                f'{self.base_url}/chat/completions',
+                headers=headers,
+                json=data,
+                timeout=self.timeout
+            )
+            response.raise_for_status()
+            result = response.json()
+            return result['choices'][0]['message']['content']
+        
+        return self._make_request_with_retry(make_request)
 
 
 PROVIDER_MAP = {
