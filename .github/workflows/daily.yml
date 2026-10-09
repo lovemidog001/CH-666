@@ -155,3 +155,18 @@ jobs:
           echo "- Generated: ${{ steps.generate.outputs.generated_count }}" >> $GITHUB_STEP_SUMMARY
           echo "- Failed: ${{ steps.generate.outputs.failed_count }}" >> $GITHUB_STEP_SUMMARY
           echo "- Stories: ${{ steps.generate.outputs.story_codes }}" >> $GITHUB_STEP_SUMMARY
+
+  cleanup:
+    name: Cleanup Old Workflow Runs
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Delete old workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 3
+          keep_minimum_runs: 5
