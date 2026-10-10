@@ -1,0 +1,34 @@
+{
+  "story_code": "CH-666-0004",
+  "category": "6",
+  "channel": "CH-666",
+  "title": "選舉夜的監視者",
+  "subtitle": "CH-666 怪聞頻道檔案 | 編號：surveillance_horror-062",
+  "slug": "election-night-surveillor",
+  "summary": "新住民林晚晴搬入老城社區後，發現鄰居們每晚都盯著一扇不存在的窗。選舉前夕，候選人陳默出現在監視畫面中，卻被居民誤認為通緝犯。當她試圖揭發真相，鏡頭裡的自己開始微笑。",
+  "content": "十月初，我搬進青梧里。這棟老公寓在鎮西頭，牆皮剝落得像老人的手背。租約簽好第三天，樓下便利商店的老闆娘塞給我一把鑰匙。「晚晴啊，頂樓機房有套監視系統，幫你盯著點。」她眼神閃躲，「但別輕易按開關。」\n\n第一週平安無事。第二週開始，每當夜色沉下來，我總听见樓梯間傳來輕微的腳步聲。不是老鼠——是那種極有節奏的停頓，像在數階梯。第三天深夜，我終於忍不住上頂樓。機房裡只有嗡嗡作響的監視器主機，十四路鏡頭靜靜環繞著青梧里每個角落。\n\n我鬼使神差地按下第一個開關。\n\n畫面亮起，是我租住的三樓窗戶。但鏡像反了——窗內沒有我，只有一把空椅子，椅子上擺著一張照片。照片裡的男人穿著深色夾克，左眉有一道疤。監視器時間戳顯示：今晚十二點零三分。而現在，時鐘才剛敲過九點。\n\n我嚇得退後，卻撞見隔壁陳太太站在門口。她臉色慘白，嘴唇發抖：「你怎麼能開這個？他今晚會來！」\n\n「誰？」我聲音發緊。\n\n「候選人啊……不，通緝犯。」她顫著手指向監視器，「每晚他都從這裡出現，盯著我們。選舉前夜最頻繁。」\n\n我重新看向螢幕。畫面變了——男人真的站在三樓窗前，隔著鏡頭與我對視。他的臉，正是照片上那個。但奇怪的是，監視器顯示的時間開始倒數：23:47、23:46……離那個時刻越來越近。\n\n第四天，鎮上貼出候選人海報。陳默，四十二歲，參選區長。照片裡的男人左眉無疤。我拿著海報衝下樓找陳太太，但她已搬走，房門掛著「空置」的木牌。鄰居們說她「終於受不了了」，卻沒人解釋是什麼让他们忍受不了。\n\n選舉前夜，青梧里異常安靜。我再次爬上頂樓，這次自備電筒。監視器全部關閉，主機螢幕閃爍著一行字：「觀看者即被觀看者。」\n\n我正要拔電源，十二點整。所有鏡頭同時亮起，顯示同一個畫面——我的房間。我看到自己坐在床沿，手在發抖。但現實中的我明明站在機房。螢幕裡的「我」緩緩抬頭，對鏡頭露出微笑。那笑容，與陳默海報上的表情一模一樣。\n\n第二天，鎮民們討論起昨夜「通緝犯闖入青梧里」的新聞。警察搜尋無果，只找到一台被棄置的監視器主機。而我，在新住民登記簿上，名字後面被補上一行小字：「候選人備选人」。\n\n我終於明白陳太太為什麼離開。這棟公寓從不出租給「新人」——它只收容「被替代者」。選舉每四年一次，每次都有人誤認身份，每次都有人變成畫面裡的那個微笑。而今晚，當我再次看向手機裡的照片，那道疤正緩緩出現在我左眉上。\n\n監視器的紅燈，又亮了。",
+  "horror_score": 62,
+  "horror_type": [
+    "surveillance_horror"
+  ],
+  "fantasy_level": "reality_bending",
+  "narrative_style": "diary_entry",
+  "pacing": "fast_paced",
+  "ending_type": "twist",
+  "perspective": "entity",
+  "source_date": "2026-10-09",
+  "source_hash": "95e01ea5d9e7",
+  "event_hash": "8f67374a3681",
+  "source_url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFAwbUtQMHhFNUxGYXlGSHB6eEJVVWlwWGdwaWVzTXhhUjlpX3dNTVNmUHYySHdjdVhMMWtVcElKZmVpeFA2ZjNRQjBVMnpTZ9IBTEFVX3lxTE52aVQ0WlFmSURvcW5FOEk1MHNwUVdFdHh2VGkxMmlRdjJqdUJaNUstcjJzbkhFTHVmU3AxUy11Y19BOVlFYjRCc1M4SzA?oc=5",
+  "provider_used": "agnes",
+  "provider_model": "agnes-2.5-flash",
+  "dice_seed": 226212711,
+  "director_analysis": {
+    "anomaly_core": "監視系統成為現實篡改媒介，觀看行為本身會將觀看者編碼進監視畫面，形成身份替換的因果循環",
+    "character_core": "新住民林晚晴因搬入而被系統標記為候選容器，陳默既是真實候選人也是被監視器吸收的過去受害者，陳太太則是逃離替代命運的倖存者",
+    "internal_rule": "青梧里監視系統每四年選舉週期激活，會選取新住民作為候選人身份的載體；觀看鏡頭超過三次者將開始被畫面同化，最終取代原候選人並成為新的監視對象"
+  },
+  "created_at": "2026-10-10T09:35:01.292168Z",
+  "cover_image": "https://ailoom.ccwu.cc/images/CH-666-0004_cover.webp",
+  "scene_images": "https://ailoom.ccwu.cc/images/CH-666-0004_scene.webp"
+}
