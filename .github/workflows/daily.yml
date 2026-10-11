@@ -2,8 +2,7 @@ name: Daily CH-666 Generation
 
 on:
   schedule:
-    - cron: '4 12 * * *'   # UTC 早上 8:00
-    - cron: '6 0 * * *'  # UTC 晚上 8:00
+    - cron: '6 0 * * *'  # 台灣時間每天 08:00
   workflow_dispatch:
     inputs:
       count_override:
@@ -15,14 +14,10 @@ on:
         description: 'Target date YYYY-MM-DD (leave blank for yesterday UTC)'
         required: false
         type: string
-      repair_story_code:
-        description: 'Repair images for an existing story, e.g. CH-666-0001 (leave blank for normal generation)'
-        required: false
-        type: string
-        default: ''
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: ch666-daily-generation
@@ -84,7 +79,6 @@ jobs:
           PY
       - name: Generate stories and images
         id: generate
-        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.repair_story_code == '' }}
         env:
           TARGET_DATE: ${{ steps.target.outputs.target_date }}
           ARTICLES_PER_DAY: ${{ github.event.inputs.count_override || '6' }}
@@ -97,21 +91,8 @@ jobs:
           SITE_URL: ${{ secrets.SITE_URL }}
         run: |
           python scripts/main.py --date "$TARGET_DATE" --count "$ARTICLES_PER_DAY" --content-dir content
-      - name: Repair images for an existing story
-        id: repair
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.repair_story_code != '' }}
-        env:
-          REPAIR_STORY_CODE: ${{ github.event.inputs.repair_story_code }}
-          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASS: ${{ secrets.FTP_PASS }}
-          FTP_PATH: ${{ secrets.FTP_PATH }}
-          SITE_URL: ${{ secrets.SITE_URL }}
-        run: |
-          python scripts/repair_images.py --story-code "$REPAIR_STORY_CODE" --content-dir content
       - name: Commit generated JSON
-        if: (steps.generate.outputs.generated_count != '' && steps.generate.outputs.generated_count != '0') || steps.repair.outputs.generated_count == '1'
+        if: steps.generate.outputs.generated_count != '' && steps.generate.outputs.generated_count != '0'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -126,14 +107,14 @@ jobs:
           SERV00_UPDATE_URL: ${{ secrets.SERV00_UPDATE_URL }}
           SERV00_UPDATE_TOKEN: ${{ secrets.SERV00_UPDATE_TOKEN }}
         run: |
-          python scripts/notify.py --url "$SERV00_UPDATE_URL" --token "$SERV00_UPDATE_TOKEN" --stories "${{ steps.generate.outputs.story_codes || steps.repair.outputs.story_codes }}" --content-dir content
+          python scripts/notify.py --url "$SERV00_UPDATE_URL" --token "$SERV00_UPDATE_TOKEN" --stories "${{ steps.generate.outputs.story_codes }}" --content-dir content
       - name: Run summary
         if: always()
         env:
           TARGET_DATE: ${{ steps.target.outputs.target_date }}
-          GENERATED: ${{ steps.generate.outputs.generated_count || steps.repair.outputs.generated_count }}
-          FAILED: ${{ steps.generate.outputs.failed_count || steps.repair.outputs.failed_count }}
-          CODES: ${{ steps.generate.outputs.story_codes || steps.repair.outputs.story_codes }}
+          GENERATED: ${{ steps.generate.outputs.generated_count }}
+          FAILED: ${{ steps.generate.outputs.failed_count }}
+          CODES: ${{ steps.generate.outputs.story_codes }}
         run: |
           {
             echo "## CH-666 generation summary"
