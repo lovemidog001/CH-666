@@ -142,3 +142,11 @@ jobs:
             echo "- Failed: ${FAILED:-0}"
             echo "- Story codes: ${CODES:-none}"
           } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Delete old workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 3
+          keep_minimum_runs: 0
