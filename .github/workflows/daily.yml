@@ -102,7 +102,7 @@ jobs:
             git push
           fi
       - name: Notify Serv00
-        if: (steps.generate.outputs.generated_count != '' && steps.generate.outputs.generated_count != '0') || steps.repair.outputs.generated_count == '1'
+        if: steps.generate.outputs.generated_count != '' && steps.generate.outputs.generated_count != '0'
         env:
           SERV00_UPDATE_URL: ${{ secrets.SERV00_UPDATE_URL }}
           SERV00_UPDATE_TOKEN: ${{ secrets.SERV00_UPDATE_TOKEN }}
