@@ -198,7 +198,8 @@ def make_story(article,cat,dice):
             log(f"  {provider} failed: {e}"); errors.append(str(e))
     raise RuntimeError("all text providers failed: "+"; ".join(errors))
 
-def generate_image(prompt):
+def generate_image_nvidia(prompt):
+
     """Generate with NVIDIA FLUX; detect content-filter responses and blank frames."""
     key=os.getenv("NVIDIA_API_KEY","")
     if not key: raise RuntimeError("NVIDIA_API_KEY missing")
@@ -252,6 +253,61 @@ def generate_image(prompt):
             log(f"  Image attempt {attempt+1}/2 failed: {e}")
             if attempt==0: time.sleep(2)
     raise RuntimeError(f"Image generation failed after retry: {last_error}")
+
+
+def generate_image_agnes(prompt):
+    """Use Agnes Image 2.5 Flash and return validated WebP bytes."""
+    key=os.getenv("AGNES_API_KEY","")
+    if not key: raise RuntimeError("AGNES_API_KEY missing")
+    url="https://apihub.agnes-ai.com/v1/images/generations"
+    model=os.getenv("AGNES_IMAGE_MODEL","agnes-image-2.5-flash")
+    from PIL import Image, ImageStat
+    last=None
+    for attempt in range(2):
+        try:
+            payload={"model":model,"prompt":prompt,"n":1,"size":"1024x1024","extra_body":{"response_format":"url"}}
+            r=requests.post(url,headers={"Authorization":"Bearer "+key,"Accept":"application/json","Content-Type":"application/json"},json=payload,timeout=300)
+            if r.status_code in (429,500,502,503,504) and attempt==0:
+                time.sleep(3)
+                continue
+            r.raise_for_status()
+            items=r.json().get("data") or []
+            item=items[0] if items else {}
+            encoded=item.get("b64_json") or item.get("base64") or item.get("image")
+            image_url=item.get("url") or item.get("image_url")
+            if encoded:
+                if encoded.startswith("data:"): encoded=encoded.split(",",1)[1]
+                raw=base64.b64decode(encoded,validate=True)
+            elif image_url:
+                image_response=requests.get(image_url,timeout=120)
+                image_response.raise_for_status()
+                raw=image_response.content
+            else: raise RuntimeError("Agnes response contains no usable image URL or base64")
+            im=Image.open(BytesIO(raw)).convert("RGB")
+            im.thumbnail((1024,1024))
+            stats=ImageStat.Stat(im)
+            if sum(stats.mean)/3<7 or sum(stats.stddev)/3<3: raise RuntimeError("Agnes returned a blank/near-black image")
+            out=BytesIO()
+            im.save(out,format="WEBP",quality=88,method=6)
+            result=out.getvalue()
+            check=Image.open(BytesIO(result)).convert("RGB")
+            stats=ImageStat.Stat(check)
+            if sum(stats.mean)/3<7 or sum(stats.stddev)/3<3: raise RuntimeError("Agnes WebP validation detected a blank image")
+            log(f"  Agnes image accepted: {im.width}x{im.height}, {len(result)} bytes, model={model}")
+            return result
+        except Exception as e:
+            last=e
+            log(f"  Agnes image attempt {attempt+1}/2 failed: {e}")
+            if attempt==0: time.sleep(2)
+    raise RuntimeError(f"Agnes image generation failed after retry: {last}")
+
+def generate_image(prompt):
+    """Try Agnes first; use NVIDIA FLUX as a fallback."""
+    try:
+        return generate_image_agnes(prompt)
+    except Exception as e:
+        log(f"  Agnes failed; falling back to NVIDIA: {e}")
+    return generate_image_nvidia(prompt)
 
 def upload_image(filename,data):
     required=["FTP_HOST","FTP_USER","FTP_PASS","FTP_PATH","SITE_URL"]
