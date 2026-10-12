@@ -103,31 +103,130 @@ def _fetch_google_news_rss(target,count):
     log(f"WARNING: Google News RSS fallback failed: {last}")
     return []
 
+def _rss_pub_date(value):
+    """Return a strict UTC date for RSS/Atom timestamps; unknown dates are rejected."""
+    from email.utils import parsedate_to_datetime
+    value=(value or "").strip()
+    if not value: return None
+    try:
+        dt=parsedate_to_datetime(value)
+        if dt:
+            if dt.tzinfo is None: dt=dt.replace(tzinfo=UTC)
+            return dt.astimezone(UTC).strftime("%Y-%m-%d")
+    except Exception: pass
+    try:
+        dt=datetime.fromisoformat(value.replace("Z","+00:00"))
+        if dt.tzinfo is None: dt=dt.replace(tzinfo=UTC)
+        return dt.astimezone(UTC).strftime("%Y-%m-%d")
+    except Exception: return None
+
+def _parse_rss_feed(feed_url,source_name,target,limit=30):
+    """Parse RSS 2.0 or Atom using stdlib XML; keep only dated real articles."""
+    import xml.etree.ElementTree as ET
+    rows=[]
+    try:
+        response=requests.get(feed_url,timeout=12,headers={"User-Agent":"Mozilla/5.0 (compatible; CH666NewsBot/1.0)"})
+        response.raise_for_status()
+        root=ET.fromstring(response.content)
+        def local(tag): return tag.rsplit("}",1)[-1].lower()
+        for node in root.iter():
+            if local(node.tag) not in ("item","entry"): continue
+            fields={}
+            for child in list(node):
+                key=local(child.tag)
+                if key=="link":
+                    fields["link"]=child.attrib.get("href","").strip() or (child.text or "").strip()
+                elif key in ("title","pubdate","published","updated","date","description","summary"):
+                    fields[key]=(child.text or "").strip()
+            title=fields.get("title","")
+            link=fields.get("link","")
+            pub=fields.get("pubdate") or fields.get("published") or fields.get("updated") or fields.get("date","")
+            if _rss_pub_date(pub)!=target: continue
+            row=_article_row(title,link,pub,target,source_name)
+            if row:
+                row["source_summary"]=(source_name+" | "+(fields.get("summary") or fields.get("description") or title))[:1200]
+                rows.append(row)
+                if len(rows)>=limit: break
+    except Exception as e:
+        log(f"  RSS source unavailable ({source_name}): {e}")
+    return rows
+
+def _fetch_newsdir_rss(target,count):
+    """Use the public NEWS-dir source registry as an RSS fallback, not its stale daily JSON."""
+    config_url="https://raw.githubusercontent.com/lovemidog001/NEWS-dir/main/config/sources.json"
+    try:
+        response=requests.get(config_url,timeout=12,headers={"User-Agent":"CH666-story-pipeline/1.0"})
+        response.raise_for_status()
+        config=response.json()
+        sources=config.get("sources",[]) if isinstance(config,dict) else []
+    except Exception as e:
+        log(f"WARNING: NEWS-dir source registry unavailable: {e}")
+        return []
+    # Prioritize social/lifestyle/entertainment and broad Taiwan news over specialist feeds.
+    priority={"cna_social":0,"cna_lifehealth":1,"cna_entertainment":2,"ltn":3,"udn_news":4,"tvbs_news":5,"storm_media":6,"cna_politics":7,"cna_finance":8,"cna_technology":9,"ithome":10,"inside":11,"cna_sport":12}
+    sources=sorted((s for s in sources if s.get("enabled") and s.get("type")=="rss" and s.get("url")),key=lambda s:priority.get(s.get("id"),99))
+    rows=[]; seen=set()
+    for source in sources:
+        rows.extend(_parse_rss_feed(source["url"],source.get("name") or source.get("id") or "NEWS-dir RSS",target,count-len(rows)))
+        rows=[r for r in rows if not (r["source_url"] in seen or seen.add(r["source_url"]))]
+        if len(rows)>=count: break
+    log(f"INFO: NEWS-dir RSS provided {len(rows)} usable real articles.")
+    return rows[:count]
+
+def _fetch_newsbot_rss(target,count):
+    """Use the public news-bot feed list as the final, tech/gaming-heavy fallback."""
+    config_url="https://raw.githubusercontent.com/lovemidog001/news-bot/main/rss_sources.json"
+    try:
+        response=requests.get(config_url,timeout=12,headers={"User-Agent":"CH666-story-pipeline/1.0"})
+        response.raise_for_status()
+        sources=response.json()
+        if not isinstance(sources,list): raise ValueError("RSS source list is not an array")
+    except Exception as e:
+        log(f"WARNING: news-bot RSS registry unavailable: {e}")
+        return []
+    rows=[]; seen=set()
+    for source in sources:
+        if not isinstance(source,dict) or not source.get("url"): continue
+        name=source.get("name") or source.get("category") or "news-bot RSS"
+        for row in _parse_rss_feed(source["url"],name,target,count-len(rows)):
+            if row["source_url"] not in seen:
+                seen.add(row["source_url"]); rows.append(row)
+            if len(rows)>=count: break
+        if len(rows)>=count: break
+    log(f"INFO: news-bot RSS provided {len(rows)} usable real articles.")
+    return rows[:count]
+
 def fetch_news(target,count):
     start=datetime.strptime(target,"%Y-%m-%d").replace(tzinfo=UTC)
     end=start+timedelta(days=1)
     query='(Taiwan OR 台灣 OR 高雄 OR 台北 OR 日本 OR 韓國) (mystery OR unusual OR missing OR strange OR 異常 OR 神秘 OR 失蹤 OR 詭異 OR 事故 OR 發現) sourcelang:Chinese'
     params={"query":query,"mode":"ArtList","format":"json","maxrecords":min(100,max(20,count*8)),"sort":"DateDesc","startdatetime":start.strftime("%Y%m%d%H%M%S"),"enddatetime":(end-timedelta(seconds=1)).strftime("%Y%m%d%H%M%S")}
     articles=_fetch_gdelt(params)
-    rows=[]; seen=set()
+    rows=[]; seen=set(); seen_titles=set()
     if articles is not None:
         for a in articles:
             row=_article_row(a.get("title",""),a.get("url",""),a.get("seendate",""),target,a.get("domain",""))
-            if not row or row["source_url"] in seen: continue
-            # GDELT seendate is YYYYMMDD...; enforce requested date.
+            if not row or row["source_url"] in seen or row["event_hash"] in seen_titles: continue
             if row["source_date"]!=target: continue
-            seen.add(row["source_url"]); rows.append(row)
+            seen.add(row["source_url"]); seen_titles.add(row["event_hash"]); rows.append(row)
             if len(rows)>=count: break
-    if len(rows)<count:
-        log(f"INFO: GDELT returned {len(rows)} usable real articles; trying Google News RSS for the remaining items.")
-        fallback=_fetch_google_news_rss(target,count-len(rows))
-        for row in fallback:
-            if row["source_url"] not in seen:
-                seen.add(row["source_url"]); rows.append(row)
+    fallbacks=[
+        ("Google News RSS",lambda n:_fetch_google_news_rss(target,n)),
+        ("NEWS-dir RSS",lambda n:_fetch_newsdir_rss(target,n)),
+        ("news-bot RSS",lambda n:_fetch_newsbot_rss(target,n)),
+    ]
+    for label,fetcher in fallbacks:
+        if len(rows)>=count: break
+        log(f"INFO: {label} fallback: {len(rows)} usable articles so far; requesting {count-len(rows)} more.")
+        for row in fetcher(count-len(rows)):
+            title_key=row.get("event_hash","")
+            if row["source_url"] in seen or (title_key and title_key in seen_titles): continue
+            seen.add(row["source_url"])
+            if title_key: seen_titles.add(title_key)
+            rows.append(row)
             if len(rows)>=count: break
     if len(rows)<count: log(f"WARNING: only {len(rows)} real articles found for {target}; no mock stories will be added.")
     return rows
-
 def clean_image_urls(value):
     """Remove accidental whitespace from image URLs throughout nested JSON payloads."""
     if isinstance(value,dict):
