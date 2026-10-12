@@ -167,8 +167,10 @@ def _fetch_newsdir_rss(target,count):
     sources=sorted((s for s in sources if s.get("enabled") and s.get("type")=="rss" and s.get("url")),key=lambda s:priority.get(s.get("id"),99))
     rows=[]; seen=set()
     for source in sources:
-        rows.extend(_parse_rss_feed(source["url"],source.get("name") or source.get("id") or "NEWS-dir RSS",target,count-len(rows)))
-        rows=[r for r in rows if not (r["source_url"] in seen or seen.add(r["source_url"]))]
+        for row in _parse_rss_feed(source["url"],source.get("name") or source.get("id") or "NEWS-dir RSS",target,count-len(rows)):
+            if row["source_url"] not in seen:
+                seen.add(row["source_url"]); rows.append(row)
+            if len(rows)>=count: break
         if len(rows)>=count: break
     log(f"INFO: NEWS-dir RSS provided {len(rows)} usable real articles.")
     return rows[:count]
