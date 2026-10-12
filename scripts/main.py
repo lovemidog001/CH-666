@@ -170,7 +170,20 @@ def make_story(article,cat,dice):
     c=CHANNELS[cat]
     system="你是繁體中文原創怪談作家。新聞只能當抽象靈感，不得把真實新聞改寫成故事，不可使用真實人物或機構。只輸出合法 JSON。故事 content 必須是可供網站安全清理後直接渲染的 HTML 片段，不是 Markdown；只使用 p、strong、b、em、i、blockquote、br、span、mark、small、cite、q、ruby、rt、rp 這些標籤，允許的屬性只有 class。不得輸出 h1-h6、div、style、script、iframe、任何 on* 事件屬性、CSS、JavaScript 或完整 HTML 文件。標籤必須正確閉合。"
     prompt=f"""頻道：{c['channel']}（{c['name']}）
-骰選：恐怖分數 {dice['horror_score']}/100；恐怖類型 {dice['horror_type'以抽象概念為靈感，重新設計人物、虛構地點、因果規則、情節與結局。故事用繁體中文，至少 1200 個中文字，分段清楚，有鋪陳、轉折和不安結尾。不可寫成新聞，不可聲稱是真實事件。\n\n【故事 HTML 排版規則，必須遵守】\n1. content 必須是 HTML 片段，不是純文字、Markdown，也不是完整 HTML 文件。\n2. 每個一般段落都用 <p>文字</p> 包起來；不要只用 \\n 代替段落。\n3. 只可使用以下標籤：<p>、<strong>、<b>、<em>、<i>、<blockquote>、<br>、<span>、<mark>、<small>、<cite>、<q>、<ruby>、<rt>、<rp>。\n4. 如需 class，只能使用 class 屬性；可少量使用 class="dialogue"、class="eerie"、class="handwritten"、class="highlight"，但不要依賴它們才能理解故事。\n5. <strong> 用於少量關鍵恐怖重點或重要線索；<em> 用於心理活動或語氣；<mark> 用於真正重要的線索；<blockquote> 用於日記、錄音、檔案或引用內容。不要過度裝飾。\n6. 對白可直接放在 <p> 中，必要時使用 <p class="dialogue">；不要輸出 h2、h3、div、style、script、iframe、圖片標籤、CSS、JavaScript 或任何事件屬性。\n7. 所有 HTML 標籤必須正確閉合；不要把 HTML 標籤包在 Markdown 程式碼區塊內。\n純 JSON 格式：{{"title":"15至40字標題","subtitle":"頻道檔案副標題","slug":"lowercase-ascii-slug","summary":"80至160字摘要","content":"以 HTML 段落標籤排版的完整故事","director_analysis":{{"anomaly_core":"異常核心","character_core":"角色核心","internal_rule":"異常規則"}}}} JSON 格式：{{"title":"15至40字標題","subtitle":"頻道檔案副標題","slug":"lowercase-ascii-slug","summary":"80至160字摘要","content":"完整故事，以\\n分段","director_analysis":{{"anomaly_core":"異常核心","character_core":"角色核心","internal_rule":"異常規則"}}}}"""
+骰選：恐怖分數 {dice['horror_score']}/100；恐怖類型 {dice['horror_type']}；幻想等級 {dice['fantasy_level']}；敘事風格 {dice['narrative_style']}；節奏 {dice['pacing']}；結局 {dice['ending_type']}；視角 {dice['perspective']}。
+新聞標題（只提取抽象概念，不得沿用措辭）：{article['source_title']}
+新聞資訊：{article.get('source_summary','')}
+以抽象概念為靈感，重新設計人物、虛構地點、因果規則、情節與結局。故事用繁體中文，至少 1200 個中文字，分段清楚，有鋪陳、轉折和不安結尾。不可寫成新聞，不可聲稱是真實事件。
+
+【故事 HTML 排版規則，必須遵守】
+1. content 必須是 HTML 片段，不是純文字、Markdown，也不是完整 HTML 文件。
+2. 每個一般段落都用 <p>文字</p> 包起來；不要只用 \\n 代替段落。
+3. 只可使用以下標籤：<p>、<strong>、<b>、<em>、<i>、<blockquote>、<br>、<span>、<mark>、<small>、<cite>、<q>、<ruby>、<rt>、<rp>。
+4. 如需 class，只能使用 class 屬性；可少量使用 class="dialogue"、class="eerie"、class="handwritten"、class="highlight"，但不要依賴它們才能理解故事。
+5. <strong> 用於少量關鍵恐怖重點或重要線索；<em> 用於心理活動或語氣；<mark> 用於真正重要的線索；<blockquote> 用於日記、錄音、檔案或引用內容。不要過度裝飾。
+6. 對白可直接放在 <p> 中，必要時使用 <p class="dialogue">；不要輸出 h2、h3、div、style、script、iframe、圖片標籤、CSS、JavaScript 或任何事件屬性。
+7. 所有 HTML 標籤必須正確閉合；不要把 HTML 標籤包在 Markdown 程式碼區塊內。
+純 JSON 格式：{{"title":"15至40字標題","subtitle":"頻道檔案副標題","slug":"lowercase-ascii-slug","summary":"80至160字摘要","content":"以 HTML 段落標籤排版的完整故事","director_analysis":{{"anomaly_core":"異常核心","character_core":"角色核心","internal_rule":"異常規則"}}}}"""
     errors=[]
     for provider in ("nvidia","agnes"):
         try:
