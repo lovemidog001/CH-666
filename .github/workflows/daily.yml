@@ -2,7 +2,8 @@ name: Daily CH-666 Generation
 
 on:
   schedule:
-    - cron: '6 0 * * *'  # 台灣時間每天 08:00
+    - cron: '6 6 * * *'
+    - cron: '18 5 * * *'# 台灣時間每天 08:00
   workflow_dispatch:
     inputs:
       count_override:
