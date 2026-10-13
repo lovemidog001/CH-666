@@ -39,7 +39,7 @@ def _article_row(title,url,pub,target,domain=""):
         compact=re.sub(r"[^0-9]","",pub)
         if len(compact)>=8 and compact[:8].startswith(("19","20")):
             date=f"{compact[:4]}-{compact[4:6]}-{compact[6:8]}"
-    return {"source_title":title,"source_summary":(domain or "")+" | "+(pub or ""),"source_content":"","source_url":url,"source_date":date,"source_location":"台灣/亞洲新聞","source_language":"zh","unusual_detail":title,"event":title,"people":[],"source_hash":hashlib.sha256((title+"|"+url).encode()).hexdigest()[:12],"event_hash":hashlib.sha256(re.sub(r"\W","",title.lower()).encode()).hexdigest()[:12]}
+    return {"source_title":title,"source_summary":(domain or "")+" | "+(pub or ""),"source_content":"","source_url":url,"source_date":date,"source_location":"台灣/亞洲新聞","source_language":"zh","source_kind":"recent_news","case_date":"","unusual_detail":title,"event":title,"people":[],"source_hash":hashlib.sha256((title+"|"+url).encode()).hexdigest()[:12],"event_hash":hashlib.sha256(re.sub(r"\W","",title.lower()).encode()).hexdigest()[:12]}
 
 def _fetch_gdelt(params):
     url="https://api.gdeltproject.org/api/v2/doc/doc"
@@ -198,7 +198,7 @@ def _fetch_newsbot_rss(target,count):
     log(f"INFO: news-bot RSS provided {len(rows)} usable real articles.")
     return rows[:count]
 
-def fetch_historical_cases(target,count):
+def fetch_historical_cases(target,count,exclude_urls=None):
     """Collect older real cases from Wikipedia search; never fabricate a case record."""
     if count <= 0: return []
     endpoint="https://en.wikipedia.org/w/api.php"
@@ -211,14 +211,14 @@ def fetch_historical_cases(target,count):
         'serial murder investigation case',
         'mysterious historical disappearance'
     ]
-    rows=[]; seen=set()
+    rows=[]; seen=set(); exclude_urls=set(exclude_urls or [])
     headers={"User-Agent":"ODDITY-HUB-ResearchBot/1.0 (fiction research; contact via GitHub repository)"}
     for query in queries:
         if len(rows)>=count: break
         try:
             response=requests.get(endpoint,params={
                 "action":"query","format":"json","generator":"search",
-                "gsrsearch":query,"gsrnamespace":0,"gsrlimit":8,
+                "gsrsearch":query,"gsrnamespace":0,"gsrlimit":8,"gsroffset":0,
                 "prop":"extracts|info","exintro":1,"explaintext":1,"inprop":"url"
             },headers=headers,timeout=18)
             response.raise_for_status()
@@ -228,7 +228,7 @@ def fetch_historical_cases(target,count):
                 title=re.sub(r"\\s+"," ",(page.get("title") or "").strip())
                 extract=re.sub(r"\\s+"," ",(page.get("extract") or "").strip())
                 url=(page.get("fullurl") or "").strip()
-                if not title or not extract or not url or len(extract)<180: continue
+                if not title or not extract or not url or len(extract)<180 or url in exclude_urls: continue
                 key=hashlib.sha256(re.sub(r"\\W","",title.lower()).encode()).hexdigest()[:12]
                 if key in seen: continue
                 seen.add(key)
@@ -238,6 +238,7 @@ def fetch_historical_cases(target,count):
                     "source_content":extract[:5000],
                     "source_url":url,
                     "source_date":target,
+                    "case_date":"",
                     "source_location":"Historical case; see cited source article",
                     "source_language":"en",
                     "source_kind":"historical_case",
@@ -254,12 +255,19 @@ def fetch_historical_cases(target,count):
     log(f"INFO: historical case search provided {len(rows)} sourced case records.")
     return rows[:count]
 
-def fetch_story_sources(target,count):
+def fetch_story_sources(target,count,case_dir=None):
     """Mix recent real news with sourced historical cases; fall back only to real records."""
     recent_target=(count+1)//2
     recent=fetch_news(target,recent_target)
     seen={row.get("event_hash") for row in recent}
-    historical=fetch_historical_cases(target,count-len(recent))
+    known_urls=set()
+    if case_dir and Path(case_dir).exists():
+        for case_file in Path(case_dir).glob("*.json"):
+            try:
+                saved=json.loads(case_file.read_text(encoding="utf-8"))
+                if saved.get("source_url"): known_urls.add(saved["source_url"])
+            except Exception: pass
+    historical=fetch_historical_cases(target,count-len(recent),exclude_urls=known_urls)
     mixed=recent[:]
     for row in historical:
         if row.get("event_hash") in seen: continue
@@ -354,7 +362,14 @@ def make_story(article,cat,dice):
 來源標題：{article['source_title']}
 來源摘要／可核對線索：{article.get('source_summary','')}
 來源連結：{article.get('source_url','')}
-改編原則：若是歷史案件，先分清來源中可核對的事實、調查方式、線索與仍有爭議／未知的部分；不可把推測寫成事實。若是近期新聞，只提取抽象概念。兩者都必須重新設計人物、虛構地點、動機、因果規則、情節與結局，不得照搬真實案件，也不可使用真實人物姓名或暗示虛構故事是真實案件。故事用繁體中文，至少 1200 個中文字，分段清楚，有鋪陳、轉折和不安結尾。
+改編原則：若是歷史案件，先分清來源中可核對的事實、調查方式、線索與仍有爭議／未知的部分；不可把推測寫成事實。若是近期新聞，只提取抽象概念。兩者都必須重新設計人物、虛構地點、動機、因果規則、情節與結局，不得照搬真實案件，也不可使用真實人物姓名或暗示虛構故事是真實案件。來源連結是研究線索，不代表其中每一項說法都已獨立證實；未知內容請明確當作未知，不要自行補成「真實細節」。
+【整合寫作 Skills 流程】
+A. 案件分析：抽取「可確認資訊、調查方法／線索、未解問題、不可直接照搬的識別細節」，不要只改人名就重述原案。
+B. 故事設計：先在內部規劃主角目標、核心異常、因果規則、至少兩個有效線索、誤導線索、轉折與結局；每一個線索都要在結局前後有作用。
+C. 懸疑邏輯檢查：檢查人物何時知道什麼、時間線是否矛盾、行為是否符合動機、結局是否回答主要問題；若採開放結局，也要讓核心衝突有進展。
+D. 中文活人感修訂：避免新聞報告腔、空泛形容詞、重複解釋同一恐怖感；每場景至少推進情節、揭露角色或改變讀者理解其中一項。用具體動作、物件、感官細節承載情緒。
+E. 最後才排版：完成內容後再整理 HTML 段落、對白、章節提示與重點標記；不可為了排版改動事實邏輯或額外增加劇情。
+故事用繁體中文，至少 1200 個中文字，分段清楚，有鋪陳、轉折和不安結尾。
 
 【閱讀排版規則：重要交付要求】
 1. content 是 HTML 片段，不是 Markdown，也不是完整 HTML 文件；不要把標籤包在程式碼區塊內。
@@ -528,9 +543,9 @@ def main():
     a=p.parse_args()
     datetime.strptime(a.date,"%Y-%m-%d")
     if not 1<=a.count<=12: raise SystemExit("--count must be 1..12")
-    root=Path(a.content_dir); sd=root/"stories"; dd=root/"daily"; sd.mkdir(parents=True,exist_ok=True); dd.mkdir(parents=True,exist_ok=True)
+    root=Path(a.content_dir); sd=root/"stories"; dd=root/"daily"; cd=root/"cases"; sd.mkdir(parents=True,exist_ok=True); dd.mkdir(parents=True,exist_ok=True); cd.mkdir(parents=True,exist_ok=True)
     log(f"CH-666 pipeline | date={a.date} | requested={a.count}")
-    articles=fetch_story_sources(a.date,a.count)
+    articles=fetch_story_sources(a.date,a.count,cd)
     if not articles: raise RuntimeError("No sourced news or historical cases returned; refusing to generate from mock data.")
     rng=random.SystemRandom(); cats=[rng.choice(["3","6","9"]) for _ in articles]
     counts={x:cats.count(x) for x in ("3","6","9")}
@@ -542,6 +557,11 @@ def main():
             c={"333":"3","666":"6","999":"9"}[m.group(1)]; maxima[c]=max(maxima[c],int(m.group(2)))
     generated=[]; failed=0
     for i,article in enumerate(articles):
+        if article.get("source_kind")=="historical_case":
+            case_file=cd/("case_"+article["source_hash"]+".json")
+            if not case_file.exists():
+                case_record={"case_id":article["source_hash"],"title":article["source_title"],"source_url":article["source_url"],"source_summary":article.get("source_summary",""),"source_excerpt":article.get("source_content",""),"case_date":article.get("case_date",""),"source_kind":"historical_case","verification_note":"Research lead from linked source; facts and disputed details require source-level verification before factual reuse.","adaptable_elements":["investigation approach","clue pattern","timeline structure","unresolved question"],"created_at":now_iso()}
+                case_file.write_text(json.dumps(case_record,ensure_ascii=False,indent=2),encoding="utf-8")
         cat=cats[i]; c=CHANNELS[cat]
         rr=random.Random(hashlib.sha256(f"{a.date}|{article['event_hash']}|{os.getenv('GITHUB_RUN_ID','manual')}".encode()).hexdigest())
         dice={"horror_score":rr.randint(20,98),"horror_type":rr.sample(c["types"],rr.randint(1,3)),"fantasy_level":rr.choice(c["fantasy"]),"narrative_style":rr.choice(c["styles"]),"pacing":rr.choice(PACINGS),"ending_type":rr.choice(ENDINGS),"perspective":rr.choice(PERSPECTIVES),"structure":rr.choice(["investigation_timeline","slow_reveal","unreliable_narrator","multiple_testimonies","found_document","reverse_chronology"]),"adaptation_mode":rr.choice(["inspired_by_method","inspired_by_clue","inspired_by_investigation","inspired_by_consequence","inspired_by_core_mystery"]),"reveal_density":rr.choice(["subtle","balanced","layered"]),"dice_seed":rr.randint(0,2**31-1)}
@@ -551,7 +571,7 @@ def main():
         log(f"[{i+1}/{len(articles)}] {c['channel']} | {article.get('source_kind','recent_news')} | {article['source_title'][:80]}")
         try:
             ai,provider,model=make_story(article,cat,dice); maxima[cat]+=1; code=f"CH-{cat*3}-{maxima[cat]:04d}"
-            story={"story_code":code,"category":cat,"channel":c["channel"],"title":ai["title"],"subtitle":ai["subtitle"],"slug":ai["slug"],"summary":ai["summary"],"content":ai["content"],"horror_score":dice["horror_score"],"horror_type":dice["horror_type"],"fantasy_level":dice["fantasy_level"],"narrative_style":dice["narrative_style"],"pacing":dice["pacing"],"ending_type":dice["ending_type"],"perspective":dice["perspective"],"story_structure":dice["structure"],"adaptation_mode":dice["adaptation_mode"],"reveal_density":dice["reveal_density"],"source_kind":article.get("source_kind","recent_news"),"source_date":article["source_date"],"source_hash":article["source_hash"],"event_hash":article["event_hash"],"source_url":article["source_url"],"provider_used":provider,"provider_model":model,"dice_seed":dice["dice_seed"],"director_analysis":ai["director_analysis"],"created_at":now_iso(),"cover_image":"","scene_images":""}
+            story={"story_code":code,"category":cat,"channel":c["channel"],"title":ai["title"],"subtitle":ai["subtitle"],"slug":ai["slug"],"summary":ai["summary"],"content":ai["content"],"horror_score":dice["horror_score"],"horror_type":dice["horror_type"],"fantasy_level":dice["fantasy_level"],"narrative_style":dice["narrative_style"],"pacing":dice["pacing"],"ending_type":dice["ending_type"],"perspective":dice["perspective"],"story_structure":dice["structure"],"adaptation_mode":dice["adaptation_mode"],"reveal_density":dice["reveal_density"],"source_kind":article.get("source_kind","recent_news"),"source_date":article["source_date"],"case_date":article.get("case_date",""),"source_hash":article["source_hash"],"event_hash":article["event_hash"],"source_url":article["source_url"],"provider_used":provider,"provider_model":model,"dice_seed":dice["dice_seed"],"director_analysis":ai["director_analysis"],"created_at":now_iso(),"cover_image":"","scene_images":""}
             if not a.skip_images:
                 imgs=make_images(story,cat,dice); story["cover_image"]=imgs["cover"]; story["scene_images"]=imgs["scene"]
             story=clean_image_urls(story)
