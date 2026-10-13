@@ -38,6 +38,8 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Validate Python syntax
+        run: python -m py_compile scripts/main.py
       - name: Validate required secrets
         env:
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
