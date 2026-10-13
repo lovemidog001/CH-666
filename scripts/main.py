@@ -226,7 +226,7 @@ def fetch_historical_cases(target,count,exclude_urls=None):
         try:
             response=requests.get(endpoint,params={
                 "action":"query","format":"json","generator":"search",
-                "gsrsearch":query,"gsrnamespace":0,"gsrlimit":8,"gsroffset":0,
+                "gsrsearch":query,"gsrnamespace":0,"gsrlimit":20,"gsroffset":0,
                 "prop":"extracts|info","exintro":1,"explaintext":1,"inprop":"url"
             },headers=headers,timeout=18)
             response.raise_for_status()
@@ -569,9 +569,13 @@ def main():
         cat=cats[i]; c=CHANNELS[cat]
         rr=random.Random(hashlib.sha256(f"{a.date}|{article['event_hash']}|{os.getenv('GITHUB_RUN_ID','manual')}".encode()).hexdigest())
         dice={"horror_score":rr.randint(20,98),"horror_type":rr.sample(c["types"],rr.randint(1,3)),"fantasy_level":rr.choice(c["fantasy"]),"narrative_style":rr.choice(c["styles"]),"pacing":rr.choice(PACINGS),"ending_type":rr.choice(ENDINGS),"perspective":rr.choice(PERSPECTIVES),"structure":rr.choice(["investigation_timeline","slow_reveal","unreliable_narrator","multiple_testimonies","found_document","reverse_chronology"]),"adaptation_mode":rr.choice(["inspired_by_method","inspired_by_clue","inspired_by_investigation","inspired_by_consequence","inspired_by_core_mystery"]),"reveal_density":rr.choice(["subtle","balanced","layered"]),"dice_seed":rr.randint(0,2**31-1)}
-        # Conflict guard: keep grounded crime styles compatible with a grounded setting.
-        if "crime" in dice["horror_type"] and dice["fantasy_level"]=="grounded" and dice["narrative_style"] in ("ritual_record","oral_tradition"):
-            dice["narrative_style"]="third_person_limited"
+        # Conflict guard: avoid combinations that undermine the chosen story premise.
+        if "crime" in dice["horror_type"] and dice["fantasy_level"]=="grounded" and dice["perspective"] in ("entity","object"):
+            dice["perspective"]=rr.choice(["victim","witness","investigator"])
+        if dice["narrative_style"] in ("police_report","interview_transcript") and dice["perspective"]=="entity":
+            dice["perspective"]="witness"
+        if dice["structure"]=="reverse_chronology" and dice["pacing"]=="slow_burn":
+            dice["reveal_density"]="layered"
         log(f"[{i+1}/{len(articles)}] {c['channel']} | {article.get('source_kind','recent_news')} | {article['source_title'][:80]}")
         try:
             ai,provider,model=make_story(article,cat,dice); maxima[cat]+=1; code=f"CH-{cat*3}-{maxima[cat]:04d}"
