@@ -47,3 +47,10 @@
 
 ## 輸出要求
 最終只輸出指定 JSON 結構。以上分析、規劃和檢查留在內部，不要把檢查清單或推理過程放進故事正文。
+
+## 參考專案與採用方式
+- Sumeru — https://github.com/xindoo/sumeru ：採用「先規劃、再寫作、再檢查」的分階段工作流程概念；不搬入長篇小說專用功能。
+- Oh Story — https://github.com/zenstory-ai/oh-story-claudecode ：參考中文故事寫作與潤飾流程；不依賴 Claude Code 專用命令。
+- story-skills — https://github.com/bs779517/story-skills ：作為故事素材與寫作流程模組化的參考；不假設其工具可直接在 GitHub Actions 執行。
+- Human Writing — https://github.com/KKKKhazix/human-writing ：參考降低報告腔、避免重複、強化場景作用及修訂檢查的方向。
+以上為本專案重新編寫的整合規範，不是第三方 Skill 的逐字複製；實際執行由 scripts/main.py 載入本文件。
