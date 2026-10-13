@@ -269,7 +269,7 @@ def call_provider(name,prompt,system):
 
 def make_story(article,cat,dice):
     c=CHANNELS[cat]
-    system="你是繁體中文原創怪談作家與小說排版編輯。新聞只能當抽象靈感，不得把真實新聞改寫成故事，不可使用真實人物或機構。只輸出合法 JSON。故事 content 必須是適合手機閱讀、可供網站渲染的 HTML 片段，不是 Markdown；允許使用 h2、h3、p、strong、b、em、i、blockquote、br、hr、span、mark、small、cite、q、ruby、rt、rp 這些標籤，允許的屬性只有 class。不得輸出 h1、h4-h6、div、style、script、iframe、img、任何 on* 事件屬性、CSS、JavaScript 或完整 HTML 文件。故事標題由獨立的 title 欄位顯示，正文不可重複輸出 h1。標籤必須正確閉合。"
+    system="你是繁體中文原創怪談作家與小說排版編輯。新聞只能當抽象靈感，不得把真實新聞改寫成故事，不可使用真實人物或機構。只輸出合法 JSON。故事 content 必須是適合手機閱讀、可供網站安全清理後直接渲染的 HTML 片段，不是 Markdown；只使用 p、strong、b、em、i、blockquote、br、span、mark、small、cite、q、ruby、rt、rp 這些標籤，允許的屬性只有 class。不得輸出 h1-h6、div、style、script、iframe、hr、img、任何 on* 事件屬性、CSS、JavaScript 或完整 HTML 文件。故事標題由獨立的 title 欄位顯示。標籤必須正確閉合。"
     prompt=f"""頻道：{c['channel']}（{c['name']}）
 骰選：恐怖分數 {dice['horror_score']}/100；恐怖類型 {dice['horror_type']}；幻想等級 {dice['fantasy_level']}；敘事風格 {dice['narrative_style']}；節奏 {dice['pacing']}；結局 {dice['ending_type']}；視角 {dice['perspective']}。
 新聞標題（只提取抽象概念，不得沿用措辭）：{article['source_title']}
@@ -278,15 +278,15 @@ def make_story(article,cat,dice):
 
 【閱讀排版規則：重要交付要求】
 1. content 是 HTML 片段，不是 Markdown，也不是完整 HTML 文件；不要把標籤包在程式碼區塊內。
-2. title 欄位是故事主標題，由網站獨立顯示；正文不要重複主標題或輸出 h1。
-3. 故事較長時，使用 <h2>章節標題</h2> 分段（通常 3–6 章，依劇情需要決定，不可為分章而硬切）；需要小節時才用 <h3>。
+2. title 欄位是故事主標題，由網站獨立顯示；正文不要再重複完整主標題。
+3. 故事較長時，通常分成 3–6 個自然章節。因網站安全清理可能不保留標題標籤，章節標題請使用 <p><strong>第一章｜章節名稱</strong></p> 的形式；不要使用 h1-h6。
 4. 每個一般敘事段落都必須使用 <p>...</p>，每段約 2–5 句為原則；避免一整頁只有一個大段落，也不要把每一句都拆成獨立段落。
-5. 對白要有清楚的換行與說話者區隔。可使用 <p class="dialogue">...</p>，但不必每句對白都加 class。
+5. 對白要有清楚的說話者區隔，重要對白可各自使用 <p class="dialogue">...</p>；不要把多位角色的對白擠在同一段。
 6. 角色內心活動或特別語氣可使用 <em>；真正關鍵的線索可少量使用 <mark>；重要瞬間可少量使用 <strong>；日記、錄音、警方紀錄或文件摘錄可使用 <blockquote>。
-7. 需要明確切換時間、地點或敘事視角時，可用 <hr /> 作場景分隔；不要頻繁使用裝飾標籤。
-8. 只可使用以下標籤：<h2>、<h3>、<p>、<strong>、<b>、<em>、<i>、<blockquote>、<br>、<hr>、<span>、<mark>、<small>、<cite>、<q>、<ruby>、<rt>、<rp>。
+7. 場景切換請用一個簡短的獨立段落呈現，例如 <p><em>—— 三小時後，地下室 ——</em></p>，避免使用可能被網站清理的分隔標籤。
+8. 只可使用以下標籤：<p>、<strong>、<b>、<em>、<i>、<blockquote>、<br>、<span>、<mark>、<small>、<cite>、<q>、<ruby>、<rt>、<rp>。
 9. 允許的屬性只有 class；可少量使用 class="dialogue"、class="eerie"、class="handwritten"、class="highlight"，不可依賴 class 才能理解內容。
-10. 不得輸出 div、style、script、iframe、img、CSS、JavaScript、任何 on* 事件屬性或完整 HTML 文件。所有標籤必須正確閉合。
+10. 不得輸出 h1-h6、div、style、script、iframe、hr、img、CSS、JavaScript、任何 on* 事件屬性或完整 HTML 文件。所有標籤必須正確閉合。
 11. 排版服務故事，不要為了視覺效果亂加粗、亂切段、濫用章節標題；節奏自然、適合手機連續閱讀。
 純 JSON 格式：{{"title":"15至40字標題","subtitle":"頻道檔案副標題","slug":"lowercase-ascii-slug","summary":"80至160字摘要","content":"以 HTML 段落標籤排版的完整故事","director_analysis":{{"anomaly_core":"異常核心","character_core":"角色核心","internal_rule":"異常規則"}}}}"""
     errors=[]
