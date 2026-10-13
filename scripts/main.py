@@ -18,6 +18,14 @@ PACINGS=["slow_burn","steady","fast_paced","fragmented","disorienting"]
 PERSPECTIVES=["victim","witness","investigator","bystander","entity","object"]
 
 def log(s): print(s,flush=True)
+def load_story_skill_guidance():
+    """Load the repository's reusable story-writing skill modules."""
+    path=Path(__file__).resolve().parent.parent/"config"/"story_skills.md"
+    try:
+        return path.read_text(encoding="utf-8")
+    except OSError as e:
+        log(f"WARNING: story skills file unavailable; using inline baseline: {e}")
+        return "先規劃角色目標、線索、轉折與結局；檢查時間線和人物動機；以繁體中文修訂並遵守 HTML 閱讀排版規則。"
 def now_iso(): return datetime.now(UTC).isoformat().replace("+00:00","Z")
 def output(vals):
     p=os.getenv("GITHUB_OUTPUT")
@@ -363,12 +371,8 @@ def make_story(article,cat,dice):
 來源摘要／可核對線索：{article.get('source_summary','')}
 來源連結：{article.get('source_url','')}
 改編原則：若是歷史案件，先分清來源中可核對的事實、調查方式、線索與仍有爭議／未知的部分；不可把推測寫成事實。若是近期新聞，只提取抽象概念。兩者都必須重新設計人物、虛構地點、動機、因果規則、情節與結局，不得照搬真實案件，也不可使用真實人物姓名或暗示虛構故事是真實案件。來源連結是研究線索，不代表其中每一項說法都已獨立證實；未知內容請明確當作未知，不要自行補成「真實細節」。
-【整合寫作 Skills 流程】
-A. 案件分析：抽取「可確認資訊、調查方法／線索、未解問題、不可直接照搬的識別細節」，不要只改人名就重述原案。
-B. 故事設計：先在內部規劃主角目標、核心異常、因果規則、至少兩個有效線索、誤導線索、轉折與結局；每一個線索都要在結局前後有作用。
-C. 懸疑邏輯檢查：檢查人物何時知道什麼、時間線是否矛盾、行為是否符合動機、結局是否回答主要問題；若採開放結局，也要讓核心衝突有進展。
-D. 中文活人感修訂：避免新聞報告腔、空泛形容詞、重複解釋同一恐怖感；每場景至少推進情節、揭露角色或改變讀者理解其中一項。用具體動作、物件、感官細節承載情緒。
-E. 最後才排版：完成內容後再整理 HTML 段落、對白、章節提示與重點標記；不可為了排版改動事實邏輯或額外增加劇情。
+【本專案寫作 Skills 規範，生成時必須實際遵守】
+{load_story_skill_guidance()}
 故事用繁體中文，至少 1200 個中文字，分段清楚，有鋪陳、轉折和不安結尾。
 
 【閱讀排版規則：重要交付要求】
