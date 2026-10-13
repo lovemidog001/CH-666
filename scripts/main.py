@@ -198,6 +198,84 @@ def _fetch_newsbot_rss(target,count):
     log(f"INFO: news-bot RSS provided {len(rows)} usable real articles.")
     return rows[:count]
 
+def fetch_historical_cases(target,count):
+    """Collect older real cases from Wikipedia search; never fabricate a case record."""
+    if count <= 0: return []
+    endpoint="https://en.wikipedia.org/w/api.php"
+    queries=[
+        '"Wisconsin suitcase" murder case',
+        '"Baton Rouge" serial killer case',
+        '"Joanna Lopez" missing case',
+        'historical unsolved murder cold case',
+        'famous disappearance investigation case',
+        'serial murder investigation case',
+        'mysterious historical disappearance'
+    ]
+    rows=[]; seen=set()
+    headers={"User-Agent":"ODDITY-HUB-ResearchBot/1.0 (fiction research; contact via GitHub repository)"}
+    for query in queries:
+        if len(rows)>=count: break
+        try:
+            response=requests.get(endpoint,params={
+                "action":"query","format":"json","generator":"search",
+                "gsrsearch":query,"gsrnamespace":0,"gsrlimit":8,
+                "prop":"extracts|info","exintro":1,"explaintext":1,"inprop":"url"
+            },headers=headers,timeout=18)
+            response.raise_for_status()
+            pages=response.json().get("query",{}).get("pages",{})
+            ordered=sorted(pages.values(),key=lambda page:page.get("index",9999))
+            for page in ordered:
+                title=re.sub(r"\\s+"," ",(page.get("title") or "").strip())
+                extract=re.sub(r"\\s+"," ",(page.get("extract") or "").strip())
+                url=(page.get("fullurl") or "").strip()
+                if not title or not extract or not url or len(extract)<180: continue
+                key=hashlib.sha256(re.sub(r"\\W","",title.lower()).encode()).hexdigest()[:12]
+                if key in seen: continue
+                seen.add(key)
+                rows.append({
+                    "source_title":title,
+                    "source_summary":("Historical case reference | Wikipedia article extract: "+extract)[:1800],
+                    "source_content":extract[:5000],
+                    "source_url":url,
+                    "source_date":target,
+                    "source_location":"Historical case; see cited source article",
+                    "source_language":"en",
+                    "source_kind":"historical_case",
+                    "unusual_detail":extract[:500],
+                    "event":title,
+                    "people":[],
+                    "source_hash":hashlib.sha256((title+"|"+url).encode()).hexdigest()[:12],
+                    "event_hash":key
+                })
+                if len(rows)>=count: break
+        except Exception as e:
+            log(f"  Historical case search unavailable ({query}): {e}")
+        time.sleep(0.25)
+    log(f"INFO: historical case search provided {len(rows)} sourced case records.")
+    return rows[:count]
+
+def fetch_story_sources(target,count):
+    """Mix recent real news with sourced historical cases; fall back only to real records."""
+    recent_target=(count+1)//2
+    recent=fetch_news(target,recent_target)
+    seen={row.get("event_hash") for row in recent}
+    historical=fetch_historical_cases(target,count-len(recent))
+    mixed=recent[:]
+    for row in historical:
+        if row.get("event_hash") in seen: continue
+        seen.add(row.get("event_hash")); mixed.append(row)
+        if len(mixed)>=count: break
+    if len(mixed)<count:
+        # Try the recent-news pipeline for additional real articles if the history API is sparse.
+        extra=fetch_news(target,count)
+        for row in extra:
+            if row.get("event_hash") in seen: continue
+            seen.add(row.get("event_hash")); mixed.append(row)
+            if len(mixed)>=count: break
+    random.SystemRandom().shuffle(mixed)
+    log(f"INFO: source mix = {sum(1 for row in mixed if row.get('source_kind')=='historical_case')} historical cases, {sum(1 for row in mixed if row.get('source_kind')!='historical_case')} recent news.")
+    return mixed[:count]
+
 def fetch_news(target,count):
     start=datetime.strptime(target,"%Y-%m-%d").replace(tzinfo=UTC)
     end=start+timedelta(days=1)
@@ -271,10 +349,12 @@ def make_story(article,cat,dice):
     c=CHANNELS[cat]
     system="你是繁體中文原創怪談作家與小說排版編輯。新聞只能當抽象靈感，不得把真實新聞改寫成故事，不可使用真實人物或機構。只輸出合法 JSON。故事 content 必須是適合手機閱讀、可供網站安全清理後直接渲染的 HTML 片段，不是 Markdown；只使用 p、strong、b、em、i、blockquote、br、span、mark、small、cite、q、ruby、rt、rp 這些標籤，允許的屬性只有 class。不得輸出 h1-h6、div、style、script、iframe、hr、img、任何 on* 事件屬性、CSS、JavaScript 或完整 HTML 文件。故事標題由獨立的 title 欄位顯示。標籤必須正確閉合。"
     prompt=f"""頻道：{c['channel']}（{c['name']}）
-骰選：恐怖分數 {dice['horror_score']}/100；恐怖類型 {dice['horror_type']}；幻想等級 {dice['fantasy_level']}；敘事風格 {dice['narrative_style']}；節奏 {dice['pacing']}；結局 {dice['ending_type']}；視角 {dice['perspective']}。
-新聞標題（只提取抽象概念，不得沿用措辭）：{article['source_title']}
-新聞資訊：{article.get('source_summary','')}
-以抽象概念為靈感，重新設計人物、虛構地點、因果規則、情節與結局。故事用繁體中文，至少 1200 個中文字，分段清楚，有鋪陳、轉折和不安結尾。不可寫成新聞，不可聲稱是真實事件。
+骰選：恐怖分數 {dice['horror_score']}/100；恐怖類型 {dice['horror_type']}；幻想等級 {dice['fantasy_level']}；敘事風格 {dice['narrative_style']}；節奏 {dice['pacing']}；結局 {dice['ending_type']}；視角 {dice['perspective']}；故事結構 {dice.get('structure','slow_reveal')}；改編切入點 {dice.get('adaptation_mode','inspired_by_core_mystery')}；揭露密度 {dice.get('reveal_density','balanced')}。
+素材類型：{"歷史案件參考" if article.get("source_kind")=="historical_case" else "近期新聞靈感"}
+來源標題：{article['source_title']}
+來源摘要／可核對線索：{article.get('source_summary','')}
+來源連結：{article.get('source_url','')}
+改編原則：若是歷史案件，先分清來源中可核對的事實、調查方式、線索與仍有爭議／未知的部分；不可把推測寫成事實。若是近期新聞，只提取抽象概念。兩者都必須重新設計人物、虛構地點、動機、因果規則、情節與結局，不得照搬真實案件，也不可使用真實人物姓名或暗示虛構故事是真實案件。故事用繁體中文，至少 1200 個中文字，分段清楚，有鋪陳、轉折和不安結尾。
 
 【閱讀排版規則：重要交付要求】
 1. content 是 HTML 片段，不是 Markdown，也不是完整 HTML 文件；不要把標籤包在程式碼區塊內。
@@ -450,8 +530,8 @@ def main():
     if not 1<=a.count<=12: raise SystemExit("--count must be 1..12")
     root=Path(a.content_dir); sd=root/"stories"; dd=root/"daily"; sd.mkdir(parents=True,exist_ok=True); dd.mkdir(parents=True,exist_ok=True)
     log(f"CH-666 pipeline | date={a.date} | requested={a.count}")
-    articles=fetch_news(a.date,a.count)
-    if not articles: raise RuntimeError("No real news returned; refusing to generate from mock data.")
+    articles=fetch_story_sources(a.date,a.count)
+    if not articles: raise RuntimeError("No sourced news or historical cases returned; refusing to generate from mock data.")
     rng=random.SystemRandom(); cats=[rng.choice(["3","6","9"]) for _ in articles]
     counts={x:cats.count(x) for x in ("3","6","9")}
     log("Channel dice: "+", ".join(f"CH-{x*3}={counts[x]}" for x in ("3","6","9")))
@@ -464,11 +544,14 @@ def main():
     for i,article in enumerate(articles):
         cat=cats[i]; c=CHANNELS[cat]
         rr=random.Random(hashlib.sha256(f"{a.date}|{article['event_hash']}|{os.getenv('GITHUB_RUN_ID','manual')}".encode()).hexdigest())
-        dice={"horror_score":rr.randint(20,98),"horror_type":rr.sample(c["types"],rr.randint(1,3)),"fantasy_level":rr.choice(c["fantasy"]),"narrative_style":rr.choice(c["styles"]),"pacing":rr.choice(PACINGS),"ending_type":rr.choice(ENDINGS),"perspective":rr.choice(PERSPECTIVES),"dice_seed":rr.randint(0,2**31-1)}
-        log(f"[{i+1}/{len(articles)}] {c['channel']} | {article['source_title'][:80]}")
+        dice={"horror_score":rr.randint(20,98),"horror_type":rr.sample(c["types"],rr.randint(1,3)),"fantasy_level":rr.choice(c["fantasy"]),"narrative_style":rr.choice(c["styles"]),"pacing":rr.choice(PACINGS),"ending_type":rr.choice(ENDINGS),"perspective":rr.choice(PERSPECTIVES),"structure":rr.choice(["investigation_timeline","slow_reveal","unreliable_narrator","multiple_testimonies","found_document","reverse_chronology"]),"adaptation_mode":rr.choice(["inspired_by_method","inspired_by_clue","inspired_by_investigation","inspired_by_consequence","inspired_by_core_mystery"]),"reveal_density":rr.choice(["subtle","balanced","layered"]),"dice_seed":rr.randint(0,2**31-1)}
+        # Conflict guard: keep grounded crime styles compatible with a grounded setting.
+        if "crime" in dice["horror_type"] and dice["fantasy_level"]=="grounded" and dice["narrative_style"] in ("ritual_record","oral_tradition"):
+            dice["narrative_style"]="third_person_limited"
+        log(f"[{i+1}/{len(articles)}] {c['channel']} | {article.get('source_kind','recent_news')} | {article['source_title'][:80]}")
         try:
             ai,provider,model=make_story(article,cat,dice); maxima[cat]+=1; code=f"CH-{cat*3}-{maxima[cat]:04d}"
-            story={"story_code":code,"category":cat,"channel":c["channel"],"title":ai["title"],"subtitle":ai["subtitle"],"slug":ai["slug"],"summary":ai["summary"],"content":ai["content"],"horror_score":dice["horror_score"],"horror_type":dice["horror_type"],"fantasy_level":dice["fantasy_level"],"narrative_style":dice["narrative_style"],"pacing":dice["pacing"],"ending_type":dice["ending_type"],"perspective":dice["perspective"],"source_date":article["source_date"],"source_hash":article["source_hash"],"event_hash":article["event_hash"],"source_url":article["source_url"],"provider_used":provider,"provider_model":model,"dice_seed":dice["dice_seed"],"director_analysis":ai["director_analysis"],"created_at":now_iso(),"cover_image":"","scene_images":""}
+            story={"story_code":code,"category":cat,"channel":c["channel"],"title":ai["title"],"subtitle":ai["subtitle"],"slug":ai["slug"],"summary":ai["summary"],"content":ai["content"],"horror_score":dice["horror_score"],"horror_type":dice["horror_type"],"fantasy_level":dice["fantasy_level"],"narrative_style":dice["narrative_style"],"pacing":dice["pacing"],"ending_type":dice["ending_type"],"perspective":dice["perspective"],"story_structure":dice["structure"],"adaptation_mode":dice["adaptation_mode"],"reveal_density":dice["reveal_density"],"source_kind":article.get("source_kind","recent_news"),"source_date":article["source_date"],"source_hash":article["source_hash"],"event_hash":article["event_hash"],"source_url":article["source_url"],"provider_used":provider,"provider_model":model,"dice_seed":dice["dice_seed"],"director_analysis":ai["director_analysis"],"created_at":now_iso(),"cover_image":"","scene_images":""}
             if not a.skip_images:
                 imgs=make_images(story,cat,dice); story["cover_image"]=imgs["cover"]; story["scene_images"]=imgs["scene"]
             story=clean_image_urls(story)
