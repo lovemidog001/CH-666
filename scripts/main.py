@@ -4,6 +4,7 @@ import argparse, base64, hashlib, json, os, random, re, sys, time
 from datetime import datetime, timedelta, timezone
 from ftplib import FTP
 from io import BytesIO
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
 import requests
@@ -340,6 +341,70 @@ def parse_json(s):
             except ValueError: pass
     return None
 
+class StoryHTMLValidator(HTMLParser):
+    """Check generated story HTML against the mobile reader's allowed subset."""
+    ALLOWED_TAGS={"p","strong","b","em","i","blockquote","br","span","mark","small","cite","q","ruby","rt","rp"}
+    VOID_TAGS={"br"}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack=[]
+        self.text=[]
+        self.errors=[]
+
+    def handle_starttag(self, tag, attrs):
+        if tag not in self.ALLOWED_TAGS:
+            self.errors.append(f"disallowed HTML tag: <{tag}>")
+        if any(name != "class" for name, _ in attrs):
+            self.errors.append(f"disallowed attribute on <{tag}>")
+        if tag not in self.VOID_TAGS:
+            self.stack.append(tag)
+
+    def handle_startendtag(self, tag, attrs):
+        if tag not in self.ALLOWED_TAGS:
+            self.errors.append(f"disallowed HTML tag: <{tag}/>")
+        if any(name != "class" for name, _ in attrs):
+            self.errors.append(f"disallowed attribute on <{tag}/>")
+
+    def handle_endtag(self, tag):
+        if tag not in self.ALLOWED_TAGS or tag in self.VOID_TAGS:
+            self.errors.append(f"unexpected closing tag: </{tag}>")
+        elif not self.stack or self.stack[-1] != tag:
+            self.errors.append(f"unbalanced HTML tag: </{tag}>")
+        else:
+            self.stack.pop()
+
+    def handle_data(self, data):
+        self.text.append(data)
+
+def validate_story_output(story):
+    """Return deterministic output issues before a story can be saved."""
+    if not isinstance(story, dict):
+        return ["JSON response must be an object"]
+    issues=[]
+    for field in ("title", "subtitle", "slug", "summary", "content"):
+        if not isinstance(story.get(field), str) or not story[field].strip():
+            issues.append(f"missing or invalid field: {field}")
+    if issues:
+        return issues
+    if not isinstance(story.get("director_analysis"), dict):
+        issues.append("director_analysis must be an object")
+    if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", story["slug"]):
+        issues.append("slug must contain lowercase ASCII letters, digits, and single hyphens")
+    parser=StoryHTMLValidator()
+    try:
+        parser.feed(story["content"])
+        parser.close()
+    except Exception as e:
+        issues.append(f"invalid story HTML: {e}")
+    issues.extend(parser.errors)
+    if parser.stack:
+        issues.append("unclosed HTML tags: " + ", ".join(parser.stack[-5:]))
+    visible_text="".join(parser.text).strip()
+    if len(visible_text) < 900:
+        issues.append(f"story text too short: {len(visible_text)} visible characters (min 900)")
+    return issues
+
 def call_provider(name,prompt,system):
     if name=="nvidia":
         key=os.getenv("NVIDIA_API_KEY",""); url="https://integrate.api.nvidia.com/v1/chat/completions"; model=os.getenv("NVIDIA_MODEL","nvidia/nemotron-3-super-49b-v1")
@@ -354,7 +419,7 @@ def call_provider(name,prompt,system):
             if r.status_code in (429,500,502,503,504) and attempt==0: time.sleep(3); continue
             r.raise_for_status(); obj=r.json()
             story=parse_json(obj["choices"][0]["message"]["content"])
-            if not story: raise RuntimeError("invalid JSON response")
+            if not isinstance(story,dict): raise RuntimeError("response must be a JSON object")
             return story,model
         except Exception as e:
             last=e
@@ -371,6 +436,13 @@ def make_story(article,cat,dice):
 來源摘要／可核對線索：{article.get('source_summary','')}
 來源連結：{article.get('source_url','')}
 改編原則：若是歷史案件，先分清來源中可核對的事實、調查方式、線索與仍有爭議／未知的部分；不可把推測寫成事實。若是近期新聞，只提取抽象概念。兩者都必須重新設計人物、虛構地點、動機、因果規則、情節與結局，不得照搬真實案件，也不可使用真實人物姓名或暗示虛構故事是真實案件。來源連結是研究線索，不代表其中每一項說法都已獨立證實；未知內容請明確當作未知，不要自行補成「真實細節」。
+【本專案分階段寫作流程，請依序完成但不要輸出過程】
+階段一：辨別素材的可核對資訊、說法、推測與未知，抽取可安全轉化的核心，不帶入真實識別資訊。
+階段二：先規劃角色目標、阻礙、異常規則、線索、誤導、轉折及結局，並讓所有骰選真正進入情節。
+階段三：依提綱寫出完整故事，維持角色動機、知情範圍、時間線和規則一致。
+階段四：檢查因果、線索順序、轉折公平性及結局回應，先修矛盾，再刪重複與空泛句；不可添加未鋪墊的新事實。
+階段五：完成語句修訂後再轉成安全 HTML，檢查標籤與 JSON 格式，只輸出指定 JSON。
+
 【本專案寫作 Skills 規範，生成時必須實際遵守】
 {load_story_skill_guidance()}
 故事用繁體中文，至少 1200 個中文字，分段清楚，有鋪陳、轉折和不安結尾。
@@ -392,11 +464,11 @@ def make_story(article,cat,dice):
     for provider in ("nvidia","agnes"):
         try:
             story,model=call_provider(provider,prompt,system)
-            if not str(story.get("title","")).strip() or not str(story.get("content","")).strip(): raise RuntimeError("missing title/content")
-            if len(story["content"])<900: raise RuntimeError(f"story too short ({len(story['content'])} chars)")
             slug=re.sub(r"[^a-z0-9-]+","-",str(story.get("slug") or story["title"].lower())).strip("-")[:70].strip("-") or "case-"+article["source_hash"]
             story["slug"]=slug; story["subtitle"]=str(story.get("subtitle") or c["channel"]+" 檔案 // 未知異常"); story["summary"]=str(story.get("summary") or story["content"][:160])
             story["director_analysis"]=story.get("director_analysis") if isinstance(story.get("director_analysis"),dict) else {}
+            issues=validate_story_output(story)
+            if issues: raise RuntimeError("story validation failed: " + "; ".join(issues[:5]))
             return story,provider,model
         except Exception as e:
             log(f"  {provider} failed: {e}"); errors.append(str(e))
