@@ -331,6 +331,33 @@ def clean_image_urls(value):
     if isinstance(value,list): return [clean_image_urls(v) for v in value]
     return value
 
+def traditionalize_story(story):
+    """Convert generated prose to Traditional Chinese with Taiwan terminology."""
+    try:
+        from opencc import OpenCC
+    except ImportError as e:
+        raise RuntimeError("Traditional Chinese conversion requires opencc-python-reimplemented") from e
+    converter=OpenCC("s2twp")
+
+    def convert(value, key=""):
+        if isinstance(value,dict):
+            return {name: convert(item,name) for name,item in value.items()}
+        if isinstance(value,list):
+            return [convert(item,key) for item in value]
+        if isinstance(value,str) and key != "slug":
+            return converter.convert(value)
+        return value
+
+    result=convert(story)
+    # Keep block-level HTML readable in the stored JSON as well as on screen.
+    result["content"]=re.sub(
+        r"(</(?:p|blockquote)>)\s*(?=<(?:p|blockquote)\b)",
+        r"\1\n\n",
+        result["content"],
+        flags=re.IGNORECASE,
+    )
+    return result
+
 def parse_json(s):
     s=(s or "").strip(); s=re.sub(r"^\x60\x60\x60(?:json)?\s*","",s); s=re.sub(r"\s*\x60\x60\x60$","",s)
     try: return json.loads(s)
@@ -428,7 +455,7 @@ def call_provider(name,prompt,system):
 
 def make_story(article,cat,dice):
     c=CHANNELS[cat]
-    system="你是繁體中文原創怪談作家與小說排版編輯。新聞只能當抽象靈感，不得把真實新聞改寫成故事，不可使用真實人物或機構。只輸出合法 JSON。故事 content 必須是適合手機閱讀、可供網站安全清理後直接渲染的 HTML 片段，不是 Markdown；只使用 p、strong、b、em、i、blockquote、br、span、mark、small、cite、q、ruby、rt、rp 這些標籤，允許的屬性只有 class。不得輸出 h1-h6、div、style、script、iframe、hr、img、任何 on* 事件屬性、CSS、JavaScript 或完整 HTML 文件。故事標題由獨立的 title 欄位顯示。標籤必須正確閉合。"
+    system="你是台灣繁體中文原創怪談作家與小說排版編輯。全篇使用正體中文（zh-TW／繁體中文）及台灣常用詞彙，禁止輸出簡體字或中國大陸用語；完成後逐段檢查並改為台灣繁體中文。新聞只能當抽象靈感，不得把真實新聞改寫成故事，不可使用真實人物或機構。只輸出合法 JSON。故事 content 必須是適合手機閱讀、可供網站安全清理後直接渲染的 HTML 片段，不是 Markdown；只使用 p、strong、b、em、i、blockquote、br、span、mark、small、cite、q、ruby、rt、rp 這些標籤，允許的屬性只有 class。不得輸出 h1-h6、div、style、script、iframe、hr、img、任何 on* 事件屬性、CSS、JavaScript 或完整 HTML 文件。故事標題由獨立的 title 欄位顯示。標籤必須正確閉合。"
     prompt=f"""頻道：{c['channel']}（{c['name']}）
 骰選：恐怖分數 {dice['horror_score']}/100；恐怖類型 {dice['horror_type']}；幻想等級 {dice['fantasy_level']}；敘事風格 {dice['narrative_style']}；節奏 {dice['pacing']}；結局 {dice['ending_type']}；視角 {dice['perspective']}；故事結構 {dice.get('structure','slow_reveal')}；改編切入點 {dice.get('adaptation_mode','inspired_by_core_mystery')}；揭露密度 {dice.get('reveal_density','balanced')}。
 素材類型：{"歷史案件參考" if article.get("source_kind")=="historical_case" else "近期新聞靈感"}
@@ -445,13 +472,13 @@ def make_story(article,cat,dice):
 
 【本專案寫作 Skills 規範，生成時必須實際遵守】
 {load_story_skill_guidance()}
-故事用繁體中文，至少 1200 個中文字，分段清楚，有鋪陳、轉折和不安結尾。
+全篇使用台灣繁體中文（zh-TW），至少 1200 個中文字，包含 title、subtitle、summary、content、director_analysis；不得混用簡體字或中國大陸詞彙。故事分段清楚，有鋪陳、轉折和不安結尾。
 
 【閱讀排版規則：重要交付要求】
 1. content 是 HTML 片段，不是 Markdown，也不是完整 HTML 文件；不要把標籤包在程式碼區塊內。
 2. title 欄位是故事主標題，由網站獨立顯示；正文不要再重複完整主標題。
 3. 故事較長時，通常分成 3–6 個自然章節。因網站安全清理可能不保留標題標籤，章節標題請使用 <p><strong>第一章｜章節名稱</strong></p> 的形式；不要使用 h1-h6。
-4. 每個一般敘事段落都必須使用 <p>...</p>，每段約 2–5 句為原則；避免一整頁只有一個大段落，也不要把每一句都拆成獨立段落。
+4. 每個一般敘事段落都必須使用獨立的 <p>...</p>，每段約 2–5 句為原則；段落與段落之間必須留一個空行（兩個換行字元），避免一整頁只有一個大段落，也不要把每一句都拆成獨立段落。
 5. 對白要有清楚的說話者區隔，重要對白可各自使用 <p class="dialogue">...</p>；不要把多位角色的對白擠在同一段。
 6. 角色內心活動或特別語氣可使用 <em>；真正關鍵的線索可少量使用 <mark>；重要瞬間可少量使用 <strong>；日記、錄音、警方紀錄或文件摘錄可使用 <blockquote>。
 7. 場景切換請用一個簡短的獨立段落呈現，例如 <p><em>—— 三小時後，地下室 ——</em></p>，避免使用可能被網站清理的分隔標籤。
@@ -464,6 +491,7 @@ def make_story(article,cat,dice):
     for provider in ("nvidia","agnes"):
         try:
             story,model=call_provider(provider,prompt,system)
+            story=traditionalize_story(story)
             slug=re.sub(r"[^a-z0-9-]+","-",str(story.get("slug") or story["title"].lower())).strip("-")[:70].strip("-") or "case-"+article["source_hash"]
             story["slug"]=slug; story["subtitle"]=str(story.get("subtitle") or c["channel"]+" 檔案 // 未知異常"); story["summary"]=str(story.get("summary") or story["content"][:160])
             story["director_analysis"]=story.get("director_analysis") if isinstance(story.get("director_analysis"),dict) else {}
@@ -670,3 +698,4 @@ if __name__=="__main__":
     try: main()
     except Exception as e:
         log("FATAL: "+str(e)); output({"generated_count":0,"failed_count":1,"story_codes":""}); sys.exit(1)
+
