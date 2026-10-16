@@ -2,15 +2,20 @@ name: Daily CH-666 Generation
 
 on:
   schedule:
-    - cron: '0 12 * * *'  # 美東早上 8 點 (UTC 12:00)
-    - cron: '0 0 * * *'   # 美東晚上 8 點 (UTC 00:00)
+    # Asia/Taipei (UTC+8): 07:04, 10:06, 13:03, 16:07, 19:02, 01:01
+    - cron: '4 23 * * *'  # 07:04 TWT
+    - cron: '6 2 * * *'   # 10:06 TWT
+    - cron: '3 5 * * *'   # 13:03 TWT
+    - cron: '7 8 * * *'   # 16:07 TWT
+    - cron: '2 11 * * *'  # 19:02 TWT
+    - cron: '1 17 * * *'  # 01:01 TWT
   workflow_dispatch:
     inputs:
       count_override:
-        description: 'Stories to generate (default 6)'
+        description: 'Stories to generate (default 1)'
         required: false
         type: string
-        default: '6'
+        default: '1'
       force_date:
         description: 'Target date YYYY-MM-DD (leave blank for yesterday UTC)'
         required: false
@@ -84,7 +89,7 @@ jobs:
         id: generate
         env:
           TARGET_DATE: ${{ steps.target.outputs.target_date }}
-          ARTICLES_PER_DAY: ${{ github.event.inputs.count_override || '6' }}
+          ARTICLES_PER_DAY: ${{ github.event.inputs.count_override || '1' }}
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
           FTP_HOST: ${{ secrets.FTP_HOST }}
