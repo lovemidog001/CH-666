@@ -1,8 +1,8 @@
 {
   "daily_generation": {
     "enabled": true,
-    "articles_per_day": 6,
-    "schedule": "03:05",
-    "timezone": "America/Los_Angeles"
+    "articles_per_day": 1,
+    "schedule": "07:04,10:06,13:03,16:07,19:02,01:01",
+    "timezone": "Asia/Taipei"
   }
 }
