@@ -396,10 +396,14 @@ class StoryHTMLValidator(HTMLParser):
     def handle_endtag(self, tag):
         if tag not in self.ALLOWED_TAGS or tag in self.VOID_TAGS:
             self.errors.append(f"unexpected closing tag: </{tag}>")
-        elif not self.stack or self.stack[-1] != tag:
-            self.errors.append(f"unbalanced HTML tag: </{tag}>")
-        else:
-            self.stack.pop()
+        elif tag in self.stack:
+            # HTML parsing ignores stray end tags and implicitly closes any
+            # nested elements above the matching tag. Match that browser
+            # behavior while still detecting unclosed tags in the final stack.
+            while self.stack:
+                current = self.stack.pop()
+                if current == tag:
+                    break
 
     def handle_data(self, data):
         self.text.append(data)
@@ -434,7 +438,7 @@ def validate_story_output(story):
 
 def call_provider(name,prompt,system):
     if name=="nvidia":
-        key=os.getenv("NVIDIA_API_KEY",""); url="https://integrate.api.nvidia.com/v1/chat/completions"; model=os.getenv("NVIDIA_MODEL","nvidia/nemotron-3-super-49b-v1")
+        key=os.getenv("NVIDIA_API_KEY",""); url="https://integrate.api.nvidia.com/v1/chat/completions"; model=os.getenv("NVIDIA_MODEL","nvidia/nemotron-3-ultra-550b-a55b")
     else:
         key=os.getenv("AGNES_API_KEY",""); url="https://apihub.agnes-ai.com/v1/chat/completions"; model=os.getenv("AGNES_MODEL","agnes-2.5-flash")
     if not key: raise RuntimeError(name+" API key missing")
@@ -698,4 +702,5 @@ if __name__=="__main__":
     try: main()
     except Exception as e:
         log("FATAL: "+str(e)); output({"generated_count":0,"failed_count":1,"story_codes":""}); sys.exit(1)
+
 
