@@ -408,6 +408,18 @@ class StoryHTMLValidator(HTMLParser):
     def handle_data(self, data):
         self.text.append(data)
 
+def repair_story_html(content):
+    """Remove unsupported horizontal rules and close safe, unclosed HTML tags."""
+    # Models occasionally use <hr> as a visual separator despite being told not to.
+    # It carries no story content, so remove it before validating the allowed subset.
+    content=re.sub(r"</?hr\b[^>]*>", "", content, flags=re.IGNORECASE)
+    parser=StoryHTMLValidator()
+    parser.feed(content)
+    parser.close()
+    if not parser.errors and parser.stack:
+        content += "".join(f"</{tag}>" for tag in reversed(parser.stack))
+    return content
+
 def validate_story_output(story):
     """Return deterministic output issues before a story can be saved."""
     if not isinstance(story, dict):
@@ -444,17 +456,21 @@ def call_provider(name,prompt,system):
     if not key: raise RuntimeError(name+" API key missing")
     body={"model":model,"messages":[{"role":"system","content":system},{"role":"user","content":prompt}],"temperature":0.85,"max_tokens":6500,"stream":False}
     last=None
-    for attempt in range(2):
+    for attempt in range(4):
         try:
             r=requests.post(url,headers={"Authorization":"Bearer "+key,"Content-Type":"application/json"},json=body,timeout=180)
-            if r.status_code in (429,500,502,503,504) and attempt==0: time.sleep(3); continue
+            if r.status_code in (429,500,502,503,504) and attempt<3:
+                delay=3*(2**attempt)
+                log(f"  {name} HTTP {r.status_code}; retry {attempt+1}/3 after {delay}s")
+                time.sleep(delay)
+                continue
             r.raise_for_status(); obj=r.json()
             story=parse_json(obj["choices"][0]["message"]["content"])
             if not isinstance(story,dict): raise RuntimeError("response must be a JSON object")
             return story,model
         except Exception as e:
             last=e
-            if attempt==0: time.sleep(2)
+            if attempt<3: time.sleep(min(12,2**(attempt+1)))
     raise RuntimeError(f"{name} failed: {last}")
 
 def make_story(article,cat,dice):
@@ -499,6 +515,7 @@ def make_story(article,cat,dice):
             slug=re.sub(r"[^a-z0-9-]+","-",str(story.get("slug") or story["title"].lower())).strip("-")[:70].strip("-") or "case-"+article["source_hash"]
             story["slug"]=slug; story["subtitle"]=str(story.get("subtitle") or c["channel"]+" 檔案 // 未知異常"); story["summary"]=str(story.get("summary") or story["content"][:160])
             story["director_analysis"]=story.get("director_analysis") if isinstance(story.get("director_analysis"),dict) else {}
+            story["content"]=repair_story_html(story["content"])
             issues=validate_story_output(story)
             if issues: raise RuntimeError("story validation failed: " + "; ".join(issues[:5]))
             return story,provider,model
