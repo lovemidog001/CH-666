@@ -434,9 +434,9 @@ def validate_story_output(story):
         issues.append("director_analysis must be an object")
     if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", story["slug"]):
         issues.append("slug must contain lowercase ASCII letters, digits, and single hyphens")
-    if re.search(r"(?i)\bCH[-\s]?(?:333|666|999)\b|第[零〇一二三四五六七八九十百千\d]+(?:號|号|份|篇|案|卷|集)", story["title"]):
+    if re.search(r"(?i)\bCH[-\s]?(?:333|666|999)(?!\d)|第[零〇一二三四五六七八九十百千\d]+(?:號|号|份|篇|案|卷|集)", story["title"]):
         issues.append("title must be a direct story-theme title, without a channel code or serial/file numbering")
-    if re.search(r"(?i)\bCH[-\s]?(?:333|666|999)\b|(?:頻道|频道)?\s*(?:檔案|档案|案件|報告|报告)\s*(?:編號|编号|第|#)", story["subtitle"]):
+    if re.search(r"(?i)\bCH[-\s]?(?:333|666|999)(?!\d)|第[零〇一二三四五六七八九十百千\d]+(?:號|号|份|篇|案|卷|集)|(?:頻道|频道)?\s*(?:檔案|档案|案件|報告|报告)\s*(?:編號|编号|第|#)", story["subtitle"]):
         issues.append("subtitle must describe the story, without channel or dossier/serial framing")
     parser=StoryHTMLValidator()
     try:
