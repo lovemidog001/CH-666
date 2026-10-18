@@ -8,8 +8,8 @@
   "genres": {
     "3": {
       "name": "CH-333",
-      "label": "靈頻頻道",
-      "description": "靈異通靈與神秘儀式檔案",
+      "label": "靈異分類",
+      "description": "以靈異、通靈與神祕儀式為範圍；僅作故事分類",
       "color": "#ff6b35",
       "genre": "occult",
       "horror_types": [
@@ -66,8 +66,8 @@
     },
     "6": {
       "name": "CH-666",
-      "label": "怪聞頻道",
-      "description": "深夜異常事件紀實",
+      "label": "怪聞分類",
+      "description": "以怪聞、都市傳說與異常現象為範圍；僅作故事分類",
       "color": "#00ff88",
       "genre": "anomalous",
       "horror_types": [
@@ -124,8 +124,8 @@
     },
     "9": {
       "name": "CH-999",
-      "label": "禁忌頻道",
-      "description": "認知危害與極端異常封存區",
+      "label": "禁忌分類",
+      "description": "以禁忌知識、認知危害與極端異常為範圍；僅作故事分類",
       "color": "#ff0044",
       "genre": "forbidden",
       "horror_types": [
