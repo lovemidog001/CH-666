@@ -11,9 +11,9 @@ import requests
 
 UTC=timezone.utc
 CHANNELS={
-"3":{"channel":"CH-333","name":"靈頻頻道","types":["possession","haunting","ritual","curse","mediumship","ancestral_sin","spirit_contract","exorcism","afterlife_glimpse","folk_belief"],"fantasy":["slightly_unreal","supernatural","reality_bending","mythic"],"styles":["first_person","third_person_limited","epistolary","found_footage","interview_transcript","diary_entry","ritual_record","oral_tradition"]},
-"6":{"channel":"CH-666","name":"怪聞頻道","types":["psychological","urban_legend","supernatural","crime","suspense","identity_horror","sci_fi_horror","surveillance_horror","unknown_phenomenon","reality_horror"],"fantasy":["grounded","slightly_unreal","supernatural","reality_bending"],"styles":["first_person","third_person_limited","third_person_omniscient","epistolary","found_footage","interview_transcript","police_report","diary_entry"]},
-"9":{"channel":"CH-999","name":"禁忌頻道","types":["cognitive_hazard","memetic","ontological","reality_horror","cosmic_horror","body_horror_extreme","time_loop","identity_horror","forbidden_knowledge","apocalyptic"],"fantasy":["supernatural","reality_bending","mythic","conceptual"],"styles":["first_person","third_person_omniscient","epistolary","found_footage","interview_transcript","police_report","research_log","fragmented_memory"]}}
+"3":{"channel":"CH-333","name":"靈異分類","types":["possession","haunting","ritual","curse","mediumship","ancestral_sin","spirit_contract","exorcism","afterlife_glimpse","folk_belief"],"fantasy":["slightly_unreal","supernatural","reality_bending","mythic"],"styles":["first_person","third_person_limited","epistolary","found_footage","interview_transcript","diary_entry","ritual_record","oral_tradition"]},
+"6":{"channel":"CH-666","name":"怪聞分類","types":["psychological","urban_legend","supernatural","crime","suspense","identity_horror","sci_fi_horror","surveillance_horror","unknown_phenomenon","reality_horror"],"fantasy":["grounded","slightly_unreal","supernatural","reality_bending"],"styles":["first_person","third_person_limited","third_person_omniscient","epistolary","found_footage","interview_transcript","police_report","diary_entry"]},
+"9":{"channel":"CH-999","name":"禁忌分類","types":["cognitive_hazard","memetic","ontological","reality_horror","cosmic_horror","body_horror_extreme","time_loop","identity_horror","forbidden_knowledge","apocalyptic"],"fantasy":["supernatural","reality_bending","mythic","conceptual"],"styles":["first_person","third_person_omniscient","epistolary","found_footage","interview_transcript","police_report","research_log","fragmented_memory"]}}
 ENDINGS=["open","twist","tragic","unsettling_resolution","cyclic","missing_ending"]
 PACINGS=["slow_burn","steady","fast_paced","fragmented","disorienting"]
 PERSPECTIVES=["victim","witness","investigator","bystander","entity","object"]
@@ -434,6 +434,10 @@ def validate_story_output(story):
         issues.append("director_analysis must be an object")
     if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", story["slug"]):
         issues.append("slug must contain lowercase ASCII letters, digits, and single hyphens")
+    if re.search(r"(?i)\bCH[-\s]?(?:333|666|999)\b|第[零〇一二三四五六七八九十百千\d]+(?:號|号|份|篇|案|卷|集)", story["title"]):
+        issues.append("title must be a direct story-theme title, without a channel code or serial/file numbering")
+    if re.search(r"(?i)\bCH[-\s]?(?:333|666|999)\b|(?:頻道|频道)?\s*(?:檔案|档案|案件|報告|报告)\s*(?:編號|编号|第|#)", story["subtitle"]):
+        issues.append("subtitle must describe the story, without channel or dossier/serial framing")
     parser=StoryHTMLValidator()
     try:
         parser.feed(story["content"])
@@ -476,10 +480,10 @@ def call_provider(name,prompt,system):
 def make_story(article,cat,dice):
     c=CHANNELS[cat]
     system="你是台灣繁體中文原創怪談作家與小說排版編輯。全篇使用正體中文（zh-TW／繁體中文）及台灣常用詞彙，禁止輸出簡體字或中國大陸用語；完成後逐段檢查並改為台灣繁體中文。新聞只能當抽象靈感，不得把真實新聞改寫成故事，不可使用真實人物或機構。只輸出合法 JSON。故事 content 必須是適合手機閱讀、可供網站安全清理後直接渲染的 HTML 片段，不是 Markdown；只使用 p、strong、b、em、i、blockquote、br、span、mark、small、cite、q、ruby、rt、rp 這些標籤，允許的屬性只有 class。不得輸出 h1-h6、div、style、script、iframe、hr、img、任何 on* 事件屬性、CSS、JavaScript 或完整 HTML 文件。故事標題由獨立的 title 欄位顯示。標籤必須正確閉合。"
-    prompt=f"""頻道：{c['channel']}（{c['name']}）
-骰選：恐怖分數 {dice['horror_score']}/100；恐怖類型 {dice['horror_type']}；幻想等級 {dice['fantasy_level']}；敘事風格 {dice['narrative_style']}；節奏 {dice['pacing']}；結局 {dice['ending_type']}；視角 {dice['perspective']}；故事結構 {dice.get('structure','slow_reveal')}；改編切入點 {dice.get('adaptation_mode','inspired_by_core_mystery')}；揭露密度 {dice.get('reveal_density','balanced')}。
+    prompt=f"""分類：{c['name']}（分類代號 {c['channel']}；僅供分類及限制本篇可抽取的恐怖類型、幻想程度與敘事風格範圍，不是故事題材、世界觀或故事標題）
+骰選結果決定本篇故事的主導方向與恐怖呈現：恐怖分數 {dice['horror_score']}/100；恐怖類型 {dice['horror_type']}；幻想等級 {dice['fantasy_level']}；敘事風格 {dice['narrative_style']}；節奏 {dice['pacing']}；結局 {dice['ending_type']}；視角 {dice['perspective']}；故事結構 {dice.get('structure','slow_reveal')}；改編切入點 {dice.get('adaptation_mode','inspired_by_core_mystery')}；揭露密度 {dice.get('reveal_density','balanced')}。
 素材類型：{"歷史案件參考" if article.get("source_kind")=="historical_case" else "近期新聞靈感"}
-來源標題：{article['source_title']}
+素材核心：先從採集資料中辨認可用的異常現象、行為模式、矛盾線索或未解問題；由上述骰選決定要如何轉化及呈現。分類只限定可抽取的類型範圍，不得把分類代號寫成故事主題。\n來源標題（僅供辨認素材，不得直接改寫成故事標題）：{article['source_title']}
 來源摘要／可核對線索：{article.get('source_summary','')}
 來源連結：{article.get('source_url','')}
 改編原則：若是歷史案件，先分清來源中可核對的事實、調查方式、線索與仍有爭議／未知的部分；不可把推測寫成事實。若是近期新聞，只提取抽象概念。兩者都必須重新設計人物、虛構地點、動機、因果規則、情節與結局，不得照搬真實案件，也不可使用真實人物姓名或暗示虛構故事是真實案件。來源連結是研究線索，不代表其中每一項說法都已獨立證實；未知內容請明確當作未知，不要自行補成「真實細節」。
@@ -496,7 +500,7 @@ def make_story(article,cat,dice):
 
 【閱讀排版規則：重要交付要求】
 1. content 是 HTML 片段，不是 Markdown，也不是完整 HTML 文件；不要把標籤包在程式碼區塊內。
-2. title 欄位是故事主標題，由網站獨立顯示；正文不要再重複完整主標題。
+2. title 欄位是故事主標題，由網站獨立顯示；直接命名故事中的人物、異常、物件、地點或核心事件。不得以 CH-333／CH-666／CH-999、頻道名稱、檔案、案件、報告、紀錄等包裝詞開頭，不得使用「第X號／第X份／第X案」等系列編號標題，也不可照抄素材標題；正文不要再重複完整主標題。
 3. 故事較長時，通常分成 3–6 個自然章節。因網站安全清理可能不保留標題標籤，章節標題請使用 <p><strong>第一章｜章節名稱</strong></p> 的形式；不要使用 h1-h6。
 4. 每個一般敘事段落都必須使用獨立的 <p>...</p>，每段約 2–5 句為原則；段落與段落之間必須留一個空行（兩個換行字元），避免一整頁只有一個大段落，也不要把每一句都拆成獨立段落。
 5. 對白要有清楚的說話者區隔，重要對白可各自使用 <p class="dialogue">...</p>；不要把多位角色的對白擠在同一段。
@@ -506,14 +510,14 @@ def make_story(article,cat,dice):
 9. 允許的屬性只有 class；可少量使用 class="dialogue"、class="eerie"、class="handwritten"、class="highlight"，不可依賴 class 才能理解內容。
 10. 不得輸出 h1-h6、div、style、script、iframe、hr、img、CSS、JavaScript、任何 on* 事件屬性或完整 HTML 文件。所有標籤必須正確閉合。
 11. 排版服務故事，不要為了視覺效果亂加粗、亂切段、濫用章節標題；節奏自然、適合手機連續閱讀。
-純 JSON 格式：{{"title":"15至40字標題","subtitle":"頻道檔案副標題","slug":"lowercase-ascii-slug","summary":"80至160字摘要","content":"以 HTML 段落標籤排版的完整故事","director_analysis":{{"anomaly_core":"異常核心","character_core":"角色核心","internal_rule":"異常規則"}}}}"""
+純 JSON 格式：{{"title":"15至40字、直接呈現故事主題且不含分類或系列編號的標題","subtitle":"補充故事核心的短副標題，不含頻道名、檔案或案件編號","slug":"lowercase-ascii-slug","summary":"80至160字摘要","content":"以 HTML 段落標籤排版的完整故事","director_analysis":{{"anomaly_core":"異常核心","character_core":"角色核心","internal_rule":"異常規則"}}}}"""
     errors=[]
     for provider in ("nvidia","agnes"):
         try:
             story,model=call_provider(provider,prompt,system)
             story=traditionalize_story(story)
             slug=re.sub(r"[^a-z0-9-]+","-",str(story.get("slug") or story["title"].lower())).strip("-")[:70].strip("-") or "case-"+article["source_hash"]
-            story["slug"]=slug; story["subtitle"]=str(story.get("subtitle") or c["channel"]+" 檔案 // 未知異常"); story["summary"]=str(story.get("summary") or story["content"][:160])
+            story["slug"]=slug; story["summary"]=str(story.get("summary") or story["content"][:160]); story["subtitle"]=str(story.get("subtitle") or story["summary"] or story["title"])
             story["director_analysis"]=story.get("director_analysis") if isinstance(story.get("director_analysis"),dict) else {}
             story["content"]=repair_story_html(story["content"])
             issues=validate_story_output(story)
