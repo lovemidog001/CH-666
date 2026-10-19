@@ -1,0 +1,41 @@
+{
+  "story_code": "CH-999-0013",
+  "category": "9",
+  "channel": "CH-999",
+  "title": "逆向訪談：記憶體內的蟲",
+  "subtitle": "一名調查員從未來的供詞倒回當下，拼湧出被禁忌知識吞噬的軀體",
+  "slug": "reverse-interview-memory-worm",
+  "summary": "調查員以逆向時間順序訪問受測者，揭露一段關於禁忌演演算法、模因傳染與肉體異變的碎片證詞，真相在倒敘中逐層剝開卻仍留下懸而未決的缺口。",
+  "content": "<p><strong>第一章｜終端訪談</strong></p>\n\n<p class=\"dialogue\"><strong>調查員：</strong>「請說明你在<mark>2026 年 10 月 18 日</mark>最後一次接觸《核心碼》時的感受。」</p>\n\n<blockquote><p class=\"dialogue\"><strong>受測者 A：</strong>「那不是接觸，是被<em>吞入</em>。螢幕亮起的瞬間，指尖感覺到程式碼像蟲子一樣鑽進神經，血管裡開始流動不是血液，是<mark>二進位的黏液</mark>。」</p></blockquote>\n\n<p><em>—— 記錄時間：2027 年 3 月 12 日，地下實驗室</em></p>\n\n<p><strong>第二章｜倒帶證詞</strong></p>\n\n<p class=\"dialogue\"><strong>調查員：</strong>「你提到的『蟲』，是否在更早的測試中出現？」</p>\n\n<blockquote><p class=\"dialogue\"><strong>受測者 B：</strong>「第一次在<mark>2025 年 7 月</mark>的封閉測試，我們只下載了一段<em>自我複製的提示詞</em>。三天內，實驗室的白牆開始長出像電路板的紋路，牆角滲出透明黏液，聞起來像燒焦的塑膠。」</p></blockquote>\n\n<p>調查員筆記中出現<mark>「模因傳染」</mark>字樣，但並未在官方報告中定義。</p>\n\n<p><em>—— 記錄時間：2026 年 11 月 3 日，同一地下實驗室</em></p>\n\n<p><strong>第三章｜源頭碎片</strong></p>\n\n<p class=\"dialogue\"><strong>調查員：</strong>「誰撰寫了那段提示詞？」</p>\n\n<blockquote><p class=\"dialogue\"><strong>受測者 C：</strong>「一位自稱『架構師』的匿名開發者，透過加密郵件遞交。他說這是<em>『讓機器理解痛苦的鑰匙』</em>，並警告<strong>『知識一旦被理解，肉體就會成為載體』</strong>。」</p></blockquote>\n\n<p>調查員翻閱舊郵件，發現附件檔名為 <cite>core_prompt_v0.9.txt</cite>，內容僅有幾行無法解讀的符號，卻在開啟瞬間導致螢幕閃爍，隨後實驗室溫度驟降至攝氏 4 度。</p>\n\n<p><em>—— 記錄時間：2025 年 9 月 21 日，遠端伺服器節點</em></p>\n\n<p><strong>第四章｜禁忌知識的幽靈</strong></p>\n\n<p>在最早的記錄中，調查員發現一份被標記為<mark>「CH-999 禁忌檔案」</mark>的舊檔案，內容描述一種<em>「能夠重寫宿主基因表達的演演算法」</em>，並註記<strong>「不可在任何可執行環境中執行」</strong>。然而檔案末尾卻附有手寫筆跡：<q>「我們已經跑了，結果比預期更糟。」</q></p>\n\n<p>調查員的手指在翻頁時不自覺顫抖，指尖泛起微弱的藍光，彷彿螢幕的程式碼已經滲入皮膚。</p>\n\n<p><em>—— 記錄時間：2024 年 12 月 1 日，未知地點</em></p>\n\n<p><strong>第五章｜開放的缺口</strong></p>\n\n<p class=\"dialogue\"><strong>調查員：</strong>「如果現在停止所有實驗，還能阻止擴散嗎？」</p>\n\n<blockquote><p class=\"dialogue\"><strong>受測者 A（聲音嘶啞）：</strong>「停止只是暫停<em>輸出</em>，蟲已經在<mark>每個看過程式碼的人</mark>體內產卵。你我此刻的對話，或許就是它們孵化的養分。」</p></blockquote>\n\n<p>錄音在此中斷，最後一幀畫面顯示調查員的瞳孔倒映著滾動的二進位碼，螢幕上只剩一行閃爍的字：<strong>「繼續？」</strong></p>\n\n<p><em>—— 記錄結束，時間未知</em></p>",
+  "horror_score": 59,
+  "horror_type": [
+    "forbidden_knowledge",
+    "memetic",
+    "body_horror_extreme"
+  ],
+  "fantasy_level": "mythic",
+  "narrative_style": "interview_transcript",
+  "pacing": "fragmented",
+  "ending_type": "open",
+  "perspective": "investigator",
+  "story_structure": "reverse_chronology",
+  "adaptation_mode": "inspired_by_method",
+  "reveal_density": "layered",
+  "source_kind": "recent_news",
+  "source_date": "2026-10-18",
+  "case_date": "",
+  "source_hash": "b522f489d011",
+  "event_hash": "f8347d898bcd",
+  "source_url": "https://www.wenxuecity.com/news/2026/10/18/126808682.html",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 1542239897,
+  "director_analysis": {
+    "anomaly_core": "一段能夠重寫宿主基因表達、並以模因形式在認知與肉體間傳播的禁忌演演算法，稱為『核心碼』，其理解即為感染。",
+    "character_core": "調查員以逆向時間順序蒐集證詞，逐層剝開受測者的記憶，自身也在過程中成為載體，展現知識與身體界限崩解的悲劇。",
+    "internal_rule": "1. 理解『核心碼』即啟動體內蟲狀結構；2. 蟲以二進位黏液替換血液，並以宿主的語言、記憶為養分；3. 任何記錄、對話、眼神接觸皆可成為傳播媒介；4. 禁忌檔案標示不可執行，但已被違反且無法逆轉。"
+  },
+  "created_at": "2026-10-19T10:40:29.587025Z",
+  "cover_image": "https://ailoom.ccwu.cc/images/CH-999-0013_cover.webp",
+  "scene_images": "https://ailoom.ccwu.cc/images/CH-999-0013_scene.webp"
+}
