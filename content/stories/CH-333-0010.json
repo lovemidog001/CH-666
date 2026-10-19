@@ -1,0 +1,39 @@
+{
+  "story_code": "CH-333-0010",
+  "category": "3",
+  "channel": "CH-333",
+  "title": "路標下的紅色休旅車",
+  "subtitle": "一段被遺忘的民間信仰與現實扭曲的記錄",
+  "slug": "red-suv-under-sign",
+  "summary": "一輛紅色休旅車莫名卡在鄉間路標下，警方筆錄、民俗學者田野筆記與當地長老口述交織，揭示路標背後潛藏的民間信仰如何扭曲現實，最終導向無法挽回的悲劇。",
+  "content": "<p><strong>第一章｜現場筆錄</strong></p>\n\n<p>警方在凌晨三點接獲報案，稱縣道 112 號路段有一輛<mark>紅色休旅車</mark>車頭嵌入路標柱體，車門無法開啟，駕駛失蹤。現場勘查筆錄記載：路標表面無明顯撞擊痕跡，漆面完好，唯獨標誌牌上的「禁止通行」紅圈在夜燈下微微閃爍，彷彿有呼吸般起伏。</p>\n\n<blockquote>\n<p>「車輛懸浮於地面約十公分，輪胎未接觸路面，底盤與路標之間維持固定距離，疑似受不明力場影響。」</p>\n</blockquote>\n\n<p>勘查員在筆錄末端以紅筆標註：<strong>「不可以常規物理邏輯解釋」</strong>，並建議轉交民俗學顧問協助。</p>\n\n<p><strong>第二章｜民間傳說</strong></p>\n\n<p>民俗學者陳怡君在田野筆記中寫道：<em>「這條路段原為『土地公』巡視邊界的古道，路標立於舊廟基石之上，傳說若車輛在子夜經過且未祭拜，便會被『路標公』攔住，成為守護邊界的代價。」</em> 她記錄了三位長老的口述，其中一位說：<span class=\"dialogue\">「我兒子年前開車經過，聽見路標發出低吟，隔天車就停在原地不動了。」</span></p>\n\n<p>筆記另一頁貼著一張泛黃的符咒紙，中央繪有<mark>紅色圓圈</mark>與一輛簡略車輪，旁註：「以紅色車輪鎮壓路標之氣，勿讓陰氣外洩。」</p>\n\n<p><strong>第三章｜扭曲的現實</strong></p>\n\n<p>隨著調查深入，現場開始出現<strong>現實扭曲</strong>的跡象：路標四周的空氣折射率異常，遠處的樹影在路標表面重疊、拉長，甚至出現不屬於此時空的舊式腳踏車影像。陳怡君在錄音筆記中低聲說：<em>「路標不只是標示，它是一扇門，門後的規則由信仰編寫，若有人違背，門便會吞噬違規者。」</em></p>\n\n<p>警方嘗試用拖吊車移動休旅車，但鋼纜一接觸路標便瞬間斷裂，彷彿被無形之手剪斷。現場監控畫面顯示：<mark>紅色休旅車</mark>在夜色中緩緩旋轉，車燈照亮路標上的「禁止通行」紅圈，紅圈隨之亮滅，節奏與車輛旋轉同步。</p>\n\n<p><strong>第四章｜最後的見證</strong></p>\n\n<p>第七天清晨，陳怡君在路標前發現一本手寫日記，封面以硃砂寫著「路標公見證錄」。日記末頁寫著：<blockquote>\n<p>「我本是守護此地的靈體，因信仰斷絕而逐漸虛弱。紅色休旅車駕駛未祭拜，闖入禁區，我只能以身軀化為路標，將其困於此間，維持邊界不至崩塌。若無人續祭，路標將永久吞噬一切闖入者，包括我自己。」</p>\n</blockquote></p>\n\n<p>日記落款處沒有署名，只有一行細小的字跡：<span class=\"dialogue\">「若有人讀到此，請在子夜以紅燈照亮路標，替我送一炷香。」</span> 陳怡君點燃紅燈，光芒觸及路標瞬間，路標發出一聲悶響，紅色休旅車車門緩緩開啟，駕駛座空無一人，僅留一縷青煙飄散於晨霧中。</p>\n\n<p>警方最終將案件歸檔為「失蹤人口，原因不明」。路標依舊矗立，紅圈在夜晚仍舊閃爍，彷彿在等待下一位闖入者，也在等待那一炷永不熄滅的香火。</p>",
+  "horror_score": 29,
+  "horror_type": [
+    "folk_belief"
+  ],
+  "fantasy_level": "reality_bending",
+  "narrative_style": "third_person_limited",
+  "pacing": "slow_burn",
+  "ending_type": "tragic",
+  "perspective": "entity",
+  "story_structure": "found_document",
+  "adaptation_mode": "inspired_by_core_mystery",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2026-10-18",
+  "case_date": "",
+  "source_hash": "61e209647a66",
+  "event_hash": "9eff129ebc35",
+  "source_url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE11dFczNlNTaHlENGhvSFVWTU5qZmNKWEhmTUl6Q0JqUFc1S29RY0kzcU9Sd19Eb0E2Q0RRd1RFMlkwRDB4WV9PV0VlWDgtaS1j?oc=5",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 1772664708,
+  "director_analysis": {
+    "anomaly_core": "路標作為民間信仰具象化的靈體邊界，透過信仰斷層產生現實扭曲，將違規車輛與駕駛固定於時空夾縫。",
+    "character_core": "民俗學者陳怡君以理性觀察介入，卻逐漸被信仰規則捲入，最終以見證者身份完成祭祀，卻無法挽回駕駛命運。",
+    "internal_rule": "1. 路標需定期祭拜才能維持邊界穩定。2. 違規車輛於子夜經過且未祭拜，將被路標靈體以物理與非物理方式固定。3. 若無人續祭，路標將持續吞噬闖入者並自我消解。"
+  },
+  "created_at": "2026-10-19T07:49:05.217517Z",
+  "cover_image": "https://ailoom.ccwu.cc/images/CH-333-0010_cover.webp",
+  "scene_images": "https://ailoom.ccwu.cc/images/CH-333-0010_scene.webp"
+}
