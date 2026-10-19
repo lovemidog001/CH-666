@@ -15,10 +15,13 @@ on:
         description: 'Target date YYYY-MM-DD (leave blank for yesterday UTC)'
         required: false
         type: string
+      video_only_story_code:
+        description: 'Optional: render videos for an existing story without generating a new story or images'
+        required: false
+        type: string
 
 permissions:
   contents: write
-  actions: write
 
 concurrency:
   group: ch666-daily-generation
@@ -26,21 +29,25 @@ concurrency:
 
 jobs:
   generate:
-    name: Generate and sync stories
+    name: Generate and sync story with illustrations
+    outputs:
+      story_codes: ${{ steps.route.outputs.story_codes }}
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 120
     steps:
-      - name: Checkout
+      - name: Checkout main branch
         uses: actions/checkout@v4
-      - name: Setup Python
+
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Validate Python syntax
-        run: python -m py_compile scripts/main.py
-      - name: Validate required secrets
+        run: python -m pip install -r requirements.txt
+
+      - name: Check story and illustration secrets
+        if: ${{ !inputs.video_only_story_code }}
         env:
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
@@ -56,32 +63,35 @@ jobs:
           import os, sys
           required = ['NVIDIA_API_KEY','AGNES_API_KEY','SERV00_UPDATE_URL','SERV00_UPDATE_TOKEN',
                       'FTP_HOST','FTP_USER','FTP_PASS','FTP_PATH','SITE_URL']
-          missing = [k for k in required if not os.getenv(k)]
+          missing = [key for key in required if not os.getenv(key)]
           if missing:
               print('Missing GitHub Secrets: ' + ', '.join(missing))
               sys.exit(1)
-          print('Required secrets are configured; values are not printed.')
+          print('Required story and illustration secrets are configured; values are not printed.')
           PY
+
       - name: Determine target date
         id: target
         env:
-          FORCE_DATE: ${{ github.event.inputs.force_date }}
+          FORCE_DATE: ${{ inputs.force_date }}
         run: |
           python - <<'PY'
           import os
           from datetime import datetime, timedelta, timezone
-          value = os.getenv('FORCE_DATE','').strip()
+          value = os.getenv('FORCE_DATE', '').strip()
           if value:
               datetime.strptime(value, '%Y-%m-%d')
               target = value
           else:
-              target = (datetime.now(timezone.utc)-timedelta(days=1)).strftime('%Y-%m-%d')
-          with open(os.environ['GITHUB_OUTPUT'],'a') as f:
-              f.write(f'target_date={target}\n')
+              target = (datetime.now(timezone.utc) - timedelta(days=1)).strftime('%Y-%m-%d')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f'target_date={target}\n')
           print('Target date:', target)
           PY
-      - name: Generate stories and images
+
+      - name: Generate story and illustrations
         id: generate
+        if: ${{ !inputs.video_only_story_code }}
         env:
           TARGET_DATE: ${{ steps.target.outputs.target_date }}
           ARTICLES_PER_DAY: '1'
@@ -92,9 +102,35 @@ jobs:
           FTP_PASS: ${{ secrets.FTP_PASS }}
           FTP_PATH: ${{ secrets.FTP_PATH }}
           SITE_URL: ${{ secrets.SITE_URL }}
+        run: python scripts/main.py --date "$TARGET_DATE" --count "$ARTICLES_PER_DAY" --content-dir content
+
+      - name: Resolve story codes for the video job
+        id: route
+        env:
+          VIDEO_ONLY_STORY_CODE: ${{ inputs.video_only_story_code }}
+          GENERATED_STORY_CODES: ${{ steps.generate.outputs.story_codes }}
         run: |
-          python scripts/main.py --date "$TARGET_DATE" --count "$ARTICLES_PER_DAY" --content-dir content
-      - name: Commit generated JSON
+          python - <<'PY'
+          import os, re, sys
+          from pathlib import Path
+          requested = os.getenv('VIDEO_ONLY_STORY_CODE', '').strip()
+          generated = os.getenv('GENERATED_STORY_CODES', '').strip()
+          if requested:
+              if not re.fullmatch(r'CH-(333|666|999)-[0-9]{4}', requested):
+                  print('Invalid story code; expected CH-333-0001, CH-666-0001, or CH-999-0001.')
+                  sys.exit(1)
+              story_file = Path('content/stories') / f'{requested}.json'
+              if not story_file.is_file():
+                  print(f'Existing story not found on the feature branch: {story_file}')
+                  sys.exit(1)
+              codes = requested
+              print(f'Video-only retry selected for {requested}; story and illustration generation will be skipped.')
+          else:
+              codes = generated
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f'story_codes={codes}\n')
+          PY
+      - name: Commit generated story records
         if: steps.generate.outputs.generated_count != '' && steps.generate.outputs.generated_count != '0'
         run: |
           git config user.name "github-actions[bot]"
@@ -104,33 +140,99 @@ jobs:
             git commit -m "auto: generate CH stories for ${{ steps.target.outputs.target_date }}"
             git push
           fi
+
       - name: Notify Serv00
         if: steps.generate.outputs.generated_count != '' && steps.generate.outputs.generated_count != '0'
         env:
           SERV00_UPDATE_URL: ${{ secrets.SERV00_UPDATE_URL }}
           SERV00_UPDATE_TOKEN: ${{ secrets.SERV00_UPDATE_TOKEN }}
-        run: |
-          python scripts/notify.py --url "$SERV00_UPDATE_URL" --token "$SERV00_UPDATE_TOKEN" --stories "${{ steps.generate.outputs.story_codes }}" --content-dir content
-      - name: Run summary
+          STORY_CODES: ${{ steps.generate.outputs.story_codes }}
+        run: python scripts/notify.py --url "$SERV00_UPDATE_URL" --token "$SERV00_UPDATE_TOKEN" --stories "$STORY_CODES" --content-dir content
+
+      - name: Generation summary
         if: always()
         env:
           TARGET_DATE: ${{ steps.target.outputs.target_date }}
           GENERATED: ${{ steps.generate.outputs.generated_count }}
           FAILED: ${{ steps.generate.outputs.failed_count }}
-          CODES: ${{ steps.generate.outputs.story_codes }}
+          CODES: ${{ steps.route.outputs.story_codes }}
         run: |
           {
             echo "## CH-666 generation summary"
             echo "- Target date: ${TARGET_DATE:-unknown}"
-            echo "- Generated: ${GENERATED:-0}"
-            echo "- Failed: ${FAILED:-0}"
+            echo "- Generated stories: ${GENERATED:-0}"
+            echo "- Failed stories: ${FAILED:-0}"
             echo "- Story codes: ${CODES:-none}"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Delete old workflow runs
-        uses: Mattraks/delete-workflow-runs@v2
+  video:
+    name: Render and upload illustrated story videos
+    needs: generate
+    continue-on-error: true
+    if: github.event_name == 'workflow_dispatch' && needs.generate.outputs.story_codes != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout latest feature branch
+        uses: actions/checkout@v4
         with:
-          token: ${{ github.token }}
-          repository: ${{ github.repository }}
-          retain_days: 3
-          keep_minimum_runs: 0
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pipeline dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Check video upload secrets
+        env:
+          VFTP_HOST: ${{ secrets.VFTP_HOST }}
+          VFTP_USER: ${{ secrets.VFTP_USER }}
+          VFTP_PASS: ${{ secrets.VFTP_PASS }}
+        run: |
+          python - <<'PY'
+          import os, sys
+          required = ['VFTP_HOST', 'VFTP_USER', 'VFTP_PASS']
+          missing = [key for key in required if not os.getenv(key)]
+          if missing:
+              print('Missing GitHub Secrets: ' + ', '.join(missing))
+              sys.exit(1)
+          print('Video upload secrets are configured; values are not printed.')
+          PY
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Generate and upload videos for selected story codes
+        env:
+          STORY_CODES: ${{ needs.generate.outputs.story_codes }}
+          VFTP_HOST: ${{ secrets.VFTP_HOST }}
+          VFTP_USER: ${{ secrets.VFTP_USER }}
+          VFTP_PASS: ${{ secrets.VFTP_PASS }}
+        run: |
+          IFS=',' read -r -a codes <<< "$STORY_CODES"
+          for code in "${codes[@]}"; do
+            if [[ ! "$code" =~ ^CH-(333|666|999)-[0-9]{4}$ ]]; then
+              echo "Invalid generated story code: $code"
+              exit 1
+            fi
+            python scripts/run_story_video_pipeline.py \
+              "content/stories/${code}.json" \
+              --output-dir "$RUNNER_TEMP/${code}-video" \
+              --generate --upload
+          done
+
+      - name: Video summary
+        if: always()
+        env:
+          STORY_CODES: ${{ needs.generate.outputs.story_codes }}
+        run: |
+          {
+            echo "## CH-666 illustrated video summary"
+            echo "- Story codes: ${STORY_CODES:-none}"
+            echo "- Result: see job steps above"
+          } >> "$GITHUB_STEP_SUMMARY"
