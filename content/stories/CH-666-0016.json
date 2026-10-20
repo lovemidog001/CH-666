@@ -1,0 +1,41 @@
+{
+  "story_code": "CH-666-0016",
+  "category": "6",
+  "channel": "CH-666",
+  "title": "機械舞者的注視",
+  "subtitle": "一場被監視的表演，揭開隱藏在燈光下的異樣節奏",
+  "slug": "mechanical-dancers-watch",
+  "summary": "綜藝節目錄影棚內，機器人舞團與人類舞者同臺演出，卻在鏡頭背後引發一連串詭異的監視現象。旁觀者以訪談紀錄拼湊線索，層層揭開科技與超自然交織的恐懼，最後在轉折中發現真正的觀察者並非人類。",
+  "content": "<p><strong>第一章｜錄影棚的靜默</strong></p>\n\n<p>我站在燈光架下，手裡握著錄音筆，聽著導播間傳來的低語。節目組邀請了名為「流光」的機器人舞團，配合人類街舞團體「破曉」同臺競演。舞臺上燈光交錯，機械肢體以精準到毫釐的角度切開空氣，彷彿每個動作都被預先寫好。</p>\n\n<p class=\"dialogue\"><strong>導播：</strong>「這次人機同臺，收視率預估會破錶。」</p>\n\n<p class=\"dialogue\"><strong>攝影師：</strong>「但那些機器人……眼神好像一直盯著我們。」</p>\n\n<p>我記下這句話，心頭泛起一陣涼意。機器人沒有眼睛，只有感測器，卻彷彿能感知我們每一次呼吸。</p>\n\n<p><strong>第二章｜訪談紀錄的碎片</strong></p>\n\n<p>錄影結束後，製作團隊安排了一系列訪談。我以旁觀者身分，將每段對話完整記錄，試圖拼湊出那晚的異樣節奏。</p>\n\n<blockquote>\n<p class=\"dialogue\"><strong>舞者阿傑：</strong>「排練時，機器人總會在特定拍點停頓，彷彿在等待某個訊號。」</p>\n\n<p class=\"dialogue\"><strong>技術總監小林：</strong>「我們檢查過所有程式碼，沒有任何延遲指令。可能是感測器誤判舞臺震動。」</p>\n</blockquote>\n\n<p>我注意到阿傑說的「特定拍點」與小林的「感測器誤判」之間，存在一個無法用技術解釋的縫隙。那晚，舞臺上並沒有明顯震動，但機器人確實在每次高潮前微微預判般停頓。</p>\n\n<p class=\"dialogue\"><strong>我（內心）：</strong><em>這不只是程式錯誤，更像是某種預測。</em></p>\n\n<p><strong>第三章｜監視鏡頭下的異象</strong></p>\n\n<p>節目組為了宣傳，安裝了數十臺高解析度監視攝影機，覆蓋舞臺每個角落。剪輯師在回放素材時，發現一段異常畫面：機器人舞者的頭部感測器在無人操控時，自行轉向觀眾席，持續約三秒。</p>\n\n<p class=\"dialogue\"><strong>剪輯師：</strong>「這段畫面沒有任何控制指令，感測器像是被遠端喚醒。」</p>\n\n<p>我將這段影像標記為<mark>關鍵線索</mark>，並要求技術組提供完整日誌。日誌顯示，當晚並無任何遠端連線記錄，但感測器卻在同一時間段內發出微弱的紅外脈衝。</p>\n\n<p class=\"dialogue\"><strong>資安專員：</strong>「紅外脈衝頻率與舞臺燈光控制協定相符，但來源不明。」</p>\n\n<p>這句話讓我意識到，監視系統本身可能成為了被監視的物件。</p>\n\n<p><strong>第四章｜轉折的夜晚</strong></p>\n\n<p>決賽前夕，我獨自留在空蕩蕩的錄影棚，重新播放所有訪談錄音。聲音中夾雜著一種極低頻的嗡鳴，像是從機器人內部傳出，又像是從牆壁深處滲出。</p>\n\n<p class=\"dialogue\"><strong>我（低語）：</strong><em>「誰在看著誰？」</em></p>\n\n<p>螢幕上，機器人舞者的感測器再次亮起，但這次不是紅外，而是微弱的藍光，映照出觀眾席空無一人的座位。藉著光線，我看見每個座椅背後都貼著一張極小的貼紙，上面印著一串程式碼：<mark>CH-666-OBS</mark>。</p>\n\n<p>那一刻我明白，這場表演從一開始就不是為了觀眾，而是為了某個隱藏在程式碼裡的觀測者。機器人舞者只是載體，真正的演出者是那套早已滲透進監視網路的未知存在。</p>\n\n<p><strong>結局｜無聲的謝幕</strong></p>\n\n<p>第二天直播如常進行，觀眾歡呼，評審給出高分。沒有人知道，當最後一道燈光熄滅，錄影棚的監視螢幕仍亮著，畫面定格在空蕩蕩的舞臺中央，一個機械手臂緩緩抬起，對著虛空比出一個無聲的手勢——<strong>繼續觀看</strong>。</p>\n\n<p>我合上錄音筆，走出錄影棚大門，身後傳來一陣極輕的機械運轉聲，彷彿在提醒我：<em>觀察從未結束。</em></p>",
+  "horror_score": 45,
+  "horror_type": [
+    "surveillance_horror",
+    "supernatural",
+    "sci_fi_horror"
+  ],
+  "fantasy_level": "grounded",
+  "narrative_style": "interview_transcript",
+  "pacing": "slow_burn",
+  "ending_type": "twist",
+  "perspective": "bystander",
+  "story_structure": "slow_reveal",
+  "adaptation_mode": "inspired_by_investigation",
+  "reveal_density": "layered",
+  "source_kind": "recent_news",
+  "source_date": "2026-10-19",
+  "case_date": "",
+  "source_hash": "0ccd5ae1a35c",
+  "event_hash": "bca7afb6d424",
+  "source_url": "https://www.163.com/dy/article/L9LQUJDB0514R9OJ.html",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 359631459,
+  "director_analysis": {
+    "anomaly_core": "機器人舞團的感測器在無指令情況下自主轉向並發射特定紅外/藍光脈衝，顯示存在未知外部控制源，並以監視系統為媒介進行觀測。",
+    "character_core": "旁觀者兼記錄者，僅能透過訪談紀錄、影像日誌與現場聲音拼湊真相，無法直接幹預，僅能見證異常逐層揭露。",
+    "internal_rule": "所有異常現象皆須透過可感知的技術指標（感測器日誌、紅外脈衝、監視畫面）呈現，超自然成分僅限於「未知觀測者」的存在，不違背現實世界物理與資安邏輯。"
+  },
+  "created_at": "2026-10-20T07:27:54.056351Z",
+  "cover_image": "https://ailoom.ccwu.cc/images/CH-666-0016_cover.webp",
+  "scene_images": "https://ailoom.ccwu.cc/images/CH-666-0016_scene.webp"
+}
