@@ -1,0 +1,40 @@
+{
+  "story_code": "CH-999-0016",
+  "category": "9",
+  "channel": "CH-999",
+  "title": "能量水的碎片記憶",
+  "subtitle": "禁忌知識在斷裂時間線中浮現",
+  "slug": "neng-liang-shui-de-sui-pian-ji-yi",
+  "summary": "一個不知名實體在白色走廊中醒來，手握標示「能量水」的瓶子，每一口都喚醒斷裂的記憶片段。隨著調查時間線的推進，倒三角符號與古老低語揭示知識被切割成毒藥的真相，最終實體選擇停飲，走向敞開的黑暗之門，留下開放的未解謎題。",
+  "content": "<p><strong>第一章｜碎片的開端</strong></p>\n\n<p>我在一個無盡的白色走廊醒來，手裡握著一瓶透明的液體，標籤上寫著「能量水」。記憶像破碎的鏡片，只有零星的畫面：燈光、掌聲、一張陌生的臉在鏡頭前微笑。每一次啜飲，腦海便湧現一段不屬於我的片段：排練室的冷氣聲、劇本頁邊的手寫註記、導演低聲說「再來一次」。我無法分辨哪段是真實，哪段是被植入的知識，甚至連自己的名字都在液體的倒影中消失。</p>\n\n<p><strong>第二章｜調查時間線的裂縫</strong></p>\n\n<p>我開始在時間線上標記每一個飲用的節點，像偵探在案發現場貼標籤。第一個節點是三年前的深夜，某個無名小劇場的後臺；第二個節點是昨晚的頒獎典禮後臺，燈光刺眼，掌聲如潮。記錄本上的筆跡逐漸模糊，字跡像被水浸濕般擴散，邊緣滲出微弱的藍光。我發現每個節點都伴隨著一個共同符號——一個倒轉的三角形，刻在瓶底的微小凹痕裡，彷彿在指引某種更深層的規則。</p>\n\n<p><strong>第三章｜禁忌知識的滲透</strong></p>\n\n<p>當我試圖追溯符號的來源，腦海中浮現一段古老的低語：「知識若被切割，便會成為毒藥。」這不是人類語言，而是從液體本身傳來的共振，震動著我的神經纖維。每一口都讓我更接近某個不該被知道的真相：存在本身可以被重寫，記憶與身份同樣可被剪輯。我感覺到自己的邊界正在溶解，過去與未來在同一瞬間重疊，那些被稱為「演員」的軀殼，或許只是承載知識的容器，隨時可以被替換、重組。</p>\n\n<p><strong>第四章｜誤導與轉折</strong></p>\n\n<p>在一間廢棄的錄音室，我找到一卷磁帶，錄著一位聲音沙啞的研究員：「我們以為在給予能量，其實是在抽取記憶。」磁帶在播放到一半時突然靜音，只剩下微弱的電流聲，彷彿有人在遠端切斷了訊號。我以為找到了答案，卻發現磁帶的另一面刻著同樣的倒三角符號，原來連「研究員」也只是另一個被植入的記憶碎片，真實的操縱者從未現身，只留下符號在黑暗中持續閃爍。</p>\n\n<p><strong>第五章｜開放的盡頭</strong></p>\n\n<p>現在我站在無盡走廊的盡頭，手中仍握著那瓶未喝完的液體。光線忽明忽暗，腳下的地板若隱若現，每一步都伴隨著細微的回響。我選擇不再飲用，也選擇不再追尋，因為每一次追尋都會產生新的碎片，新的禁忌知識在血管中流竄。走廊盡頭的門微微敞開，裡面沒有光，只有低沉的嗡鳴，像是某種古老機器在等待啟動。我走進去，記憶在身後像灰燼般散落，前方的黑暗等待著下一個啜飲者，故事在這裡不再有終點，只剩下無盡的可能。</p>",
+  "horror_score": 23,
+  "horror_type": [
+    "forbidden_knowledge",
+    "ontological"
+  ],
+  "fantasy_level": "supernatural",
+  "narrative_style": "fragmented_memory",
+  "pacing": "disorienting",
+  "ending_type": "open",
+  "perspective": "entity",
+  "story_structure": "investigation_timeline",
+  "adaptation_mode": "inspired_by_method",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2020-26-18",
+  "case_date": "",
+  "source_hash": "bfb236bcca7a",
+  "event_hash": "006e83eea92d",
+  "source_url": "https://www.cna.com.tw/news/amov/202610200300.aspx",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 1293705385,
+  "director_analysis": {
+    "anomaly_core": "能量水實為載體，攜帶可重寫存在與記憶的禁忌知識，飲用者將被植入斷裂記憶並逐漸喪失自我邊界。",
+    "character_core": "以第一人稱實體視角呈現，主角並非人類而是被喚醒的知識碎片，透過碎片化記憶拼湧推進調查。",
+    "internal_rule": "每一次飲用即觸發一次記憶片段揭露，倒三角符號為知識切割的標記；知識不可銷毀，只能轉移至下一容器，導致開放式迴圈。"
+  },
+  "created_at": "2026-10-21T10:04:09.827565Z",
+  "cover_image": "https://ailoom.ccwu.cc/images/CH-999-0016_cover.webp",
+  "scene_images": "https://ailoom.ccwu.cc/images/CH-999-0016_scene.webp"
+}
