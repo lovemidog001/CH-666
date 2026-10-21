@@ -1,0 +1,41 @@
+{
+  "story_code": "CH-666-0017",
+  "category": "6",
+  "channel": "CH-666",
+  "title": "斷裂頻率",
+  "subtitle": "一名獨立記者在碎片化城市中追蹤不可見的訊號",
+  "slug": "duanlie-pinlv",
+  "summary": "自由職業記者阿緯在城市邊緣的廢棄電臺發現一組重複出現的無線電波段，隨著記錄深入，現實開始出現斷裂與重疊，最終他發現自己也成為了訊號的一部分，陷入無盡迴圈。",
+  "content": "<p><strong>第一章｜碎片紀錄</strong></p>\n\n<p>2026 年 10 月 19 日 23:12，我在舊市區的廢棄電臺架設了一臺舊式接收器。螢幕上只有一條微弱的靜態噪音，直到 23:14 出現一段重複的摩斯碼：<mark>··· — — — ···</mark>。我記下時間、頻率、天氣，甚至連手邊的咖啡溫度都寫進筆記本。這不是第一次，前三晚同樣在 23:13 到 23:15 之間出現，間隔精確到秒。</p>\n\n<p>我將錄音上傳到雲端備份，檔名用日期加流水號：<cite>FRQ-20261019-001</cite>。回放時，背景隱約傳來一陣像是遠處火車經過的低頻震動，但這裡沒有鐵軌。我開始懷疑這不是單純的電波幹擾，而是某種<em>被切割的現實</em>在嘗試發聲。</p>\n\n<p><strong>第二章｜異象頻率</strong></p>\n\n<p>2026 年 10 月 20 日 06:45，我走出電臺，街道上的廣告牌突然閃爍，顯示的不是商品資訊，而是同樣的摩斯碼。行人腳步未停，卻在瞬間出現短暫的<strong>重影</strong>，像是時間被剪輯過。我掏出手機拍下畫面，檔案名稱自動變成 <cite>FRQ-20261020-001</cite>，時間戳記卻顯示 23:13，與昨晚完全吻合。</p>\n\n<p>回到住處，我將所有錄音、照片、筆記整理成一條時間軸。每一筆資料都指向同一個規則：<mark>每日 23:13 至 23:15，城市會出現 120 秒的「斷裂視窗」</mark>。視窗內，聲音、影像、甚至思維都會被切成碎片，再以未知順序重組。我試圖在視窗期間說話，錄音卻只捕捉到靜電聲，事後回放卻能聽見自己說過的每一句話，只是順序被打亂。</p>\n\n<p><strong>第三章｜迴圈終點</strong></p>\n\n<p>2026 年 10 月 21 日 22:58，我決定在視窗前進入電臺內部，嘗試用舊式發射器回應那組摩斯碼。發射器啟動的瞬間，螢幕亮起一行字：<q>接收端已同步</q>。隨著發射聲響起，四周牆壁開始剝落，露出無數細小的螢幕，每一個都播放著我過去幾天的錄影、筆記、甚至我此刻的心跳聲。</p>\n\n<p>我聽見自己的聲音從四面八方傳來：<em>「這是第幾次了？」</em>。螢幕上的時間全部定格在 23:13，而我手中的記事本翻開，第一頁寫著：<strong>2026 年 10 月 19 日 23:12，我在舊市區的廢棄電臺架設了一臺舊式接收器。</strong> 我意識到，我不是記錄者，我是被記錄的碎片之一。視窗關閉，螢幕熄滅，黑暗中只剩下那組摩斯碼在耳邊迴圈：<mark>··· — — — ···</mark>。</p>\n\n<p><em>—— 記錄結束，亦是開始 ——</em></p>",
+  "horror_score": 54,
+  "horror_type": [
+    "suspense",
+    "supernatural",
+    "unknown_phenomenon"
+  ],
+  "fantasy_level": "slightly_unreal",
+  "narrative_style": "found_footage",
+  "pacing": "fast_paced",
+  "ending_type": "cyclic",
+  "perspective": "victim",
+  "story_structure": "investigation_timeline",
+  "adaptation_mode": "inspired_by_clue",
+  "reveal_density": "layered",
+  "source_kind": "recent_news",
+  "source_date": "2026-10-20",
+  "case_date": "",
+  "source_hash": "ac53d65f35a1",
+  "event_hash": "217740b36585",
+  "source_url": "https://www.storm.mg/article/11173231",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 215734844,
+  "director_analysis": {
+    "anomaly_core": "每日固定 120 秒的「斷裂視窗」導致現實、聲音、影像被切割重組，形成一個自我封閉的時間迴圈。",
+    "character_core": "以第一人稱受害者視角呈現，主角既是調查者也是被納入迴圈的碎片，動機從好奇轉為求生，最終發現自己即是迴圈的一環。",
+    "internal_rule": "視窗觸發條件為固定時間（23:13‑23:15），所有感知資料在視窗內會被打亂並以相同順序重播；任何試圖幹擾視窗的行為只會產生新的碎片並加入迴圈。"
+  },
+  "created_at": "2026-10-21T01:28:09.588623Z",
+  "cover_image": "https://ailoom.ccwu.cc/images/CH-666-0017_cover.webp",
+  "scene_images": "https://ailoom.ccwu.cc/images/CH-666-0017_scene.webp"
+}
