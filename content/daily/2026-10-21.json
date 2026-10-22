@@ -3,50 +3,49 @@
   "count": 1,
   "stories": [
     {
-      "story_code": "CH-999-0020",
-      "category": "9",
-      "channel": "CH-999",
-      "title": "高樓下的回聲",
-      "subtitle": "一名安全檢查員在廢棄廠房尋找失蹤同事的記錄",
-      "slug": "echoes-beneath-high-tower",
-      "summary": "安全檢查員陳志遠獨自進入廢棄的半導體廠房，追尋三年前失蹤同事的線索，卻發現廠房內藏著關於身分與終結的異常規則，隨著調查深入，現實與記憶交織崩塌，走向無法逆轉的悲劇。",
-      "content": "<p><strong>第一章｜初入廢棄廠房</strong></p>\n\n<p>我叫陳志遠，曾是半導體廠的工安檢查員，三年前那場高處墜落事故讓四名工人當場喪生，也讓我失去了最信任的搭檔林偉。</p>\n\n<p>事故後廠區封鎖，官方說是結構疲勞，但我總覺得現場殘留的鋼筋彎曲角度不合常理，彷彿有什麼力量從內部向外推擠。</p>\n\n<p>今天我拿著舊證件，獨自踏進已停機半年的廠房，空氣中瀰漫著鐵鏽與濕氣的味道，腳下的混凝土板發出細微的嘎吱聲。</p>\n\n<p><em>若只是單純的廢墟，為何每個轉角都彷彿有人在注視？</em></p>\n\n<p><strong>第二章｜記錄室的低語</strong></p>\n\n<p>沿著生產線走廊，我來到標示為<mark>記錄室</mark>的鐵門前，門鎖早已銹死，卻在推開的瞬間發出一聲悶響，像是有人從內側輕輕敲擊。</p>\n\n<p>屋內堆滿發黃的檢查表單、維修日誌與幾盒未拆封的安全帽，桌上放著一本未蓋章的《工安異常紀錄》，封面用紅筆寫著「不可對外揭露」。</p>\n\n<blockquote>\n<p>第 47 號紀錄：\n<em>「今日發現第 3 號晶圓製程區的承重樑出現非金屬性膨脹，檢測儀器皆顯示正常，唯有現場人員回報聽見低頻嗡鳴，疑似結構內部有未知共振源。」</em>\n</p>\n</blockquote>\n\n<p>字跡在燈光下微微顫動，我感覺到一股寒意從指尖爬上脊背，彷彿這些文字並非記錄，而是在警告。</p>\n\n<p><strong>第三章｜身分的裂縫</strong></p>\n\n<p>翻閱更多頁面，我發現每筆紀錄的簽名皆為「林偉」，但筆跡卻在最後幾頁驟變，變成我自己的字型，連帶的日期也跳躍至今日。</p>\n\n<p><em>這不可能，我從未簽過這些檔案，除非……我根本不是陳志遠。</em></p>\n\n<p>牆角的監視器螢幕突然亮起，畫面顯示的是我正站在記錄室中央，卻穿著三年前那套已報廢的防塵衣，手裡握著同一本紀錄本，眼神空洞。</p>\n\n<p>那一刻，<strong>現實與記憶的邊界崩解</strong>，我聽見遠處傳來金屬扭曲的巨響，像是整棟廠房在嘆息。</p>\n\n<p><strong>第四章｜倒塌的序曲</strong></p>\n\n<p>警報聲未響，地面卻開始有節奏地震顫，每一次震動都伴隨著牆壁剝落的灰塵，像是在倒數。</p>\n\n<p>我試圖衝向出口，腳下的樓板卻在腳步聲中斷裂，露出下方無盡的黑暗，黑暗中隱約浮現無數扭曲的身影，他們穿著相同的工裝，臉孔卻全是我。</p>\n\n<p><em>每一個倒下的身影，都是我曾經拒絕面對的選擇。</em></p>\n\n<p>手中的紀錄本頁面自動翻動，最後一頁只有一行字：\n<mark>「當觀測者成為被觀測者，結構將自我終結。」</mark>\n</p>\n\n<p><strong>第五章｜最後的回聲</strong></p>\n\n<p>廠房在轟鳴中崩塌，鋼樑如巨獸的肋骨折斷，將我與所有的倒影一同吞沒。</p>\n\n<p>最後的意識裡，我聽見林偉的聲音，輕輕說：「我們從未離開，只是換了個形狀繼續檢查。」</p>\n\n<p>塵埃落定，廢墟上只剩一本完好無損的《工安異常紀錄》，封面紅字依舊鮮明，等待下一位闖入者翻開第一頁。</p>",
-      "horror_score": 55,
+      "story_code": "CH-333-0018",
+      "category": "3",
+      "channel": "CH-333",
+      "title": "靈媒契約碎頁：我的簽名在深夜消失了",
+      "subtitle": "一份被遺忘的契約，將我推向無法回頭的深淵",
+      "slug": "lingmei-qiyue-suipian",
+      "summary": "我在一張舊手機螢幕上發現一份未簽署的靈媒契約，碎片化的記憶與低語交織，隨著夜深逐頁拼湊，卻發現簽名竟是我自己在夢中留下的。",
+      "content": "<p><strong>第一章｜契約的開端</strong></p>\n\n<p>半夜三點，手機螢幕亮起，彈出一則舊訊息：<mark>「契約已生效，請確認」</mark>。我揉揉眼睛，指尖觸碰冰冷玻璃，心跳像敲門一樣撞擊肋骨。</p>\n\n<p><em>這不可能，我從未簽過任何靈媒契約。</em></p>\n\n<p>訊息來源是一個名為「靈媒助手」的 APP，圖示是一支倒立的羽毛筆。安裝日期顯示兩年前，卻從未開啟過。我滑開聊天記錄，只見幾行斷裂的文字：</p>\n\n<blockquote class=\"handwritten\">\n<p>「甲方：<mark>林語</mark>，乙方：<mark>無名靈體</mark>」</p>\n\n<p>「條款一：提供記憶碎片換取庇佑」</p>\n\n<p>「條款二：每月滿月前須獻上一段真實情感」</p>\n</blockquote>\n\n<p>我看著自己的名字，指尖發抖。記憶裡沒有這個名字，卻在深處隱約響起一聲低語：「妳答應過我。」</p>\n\n<p><strong>第二章｜碎片化的記憶</strong></p>\n\n<p>隔天清晨，便利商店的咖啡香無法掩蓋腦海裡的碎片。我在捷運上翻閱手機相簿，發現幾張模糊照片：舊公寓走廊、發黃的紙條、一支斷裂的羽毛筆。</p>\n\n<p><em>那些照片是我拍的？</em> 我無法回憶拍攝的瞬間，只覺得指尖仍殘留墨水味。</p>\n\n<p>午休時，同事小陳遞來一杯珍奶，笑說：「妳最近氣色不太好，是不是熬夜追劇？」我勉強笑回，心裡卻在盤算：<strong>每月滿月前須獻上一段真實情感</strong>，下個滿月還有三天。</p>\n\n<p>夜晚，我躺在床上，手機自動彈出新訊息：<mark>「請上傳今日情感樣本」</mark>。我不假思索輸入：「我怕失去妳。」送出後，螢幕閃爍，彷彿有什麼在背後輕輕拍了拍我的肩。</p>\n\n<p><strong>第三章｜靈體的低語</strong></p>\n\n<p>滿月前夜，夢境變成一間無盡的圖書館，書架上全是空白頁。一道灰白身影從書頁間滑出，聲音像紙張摩擦：</p>\n\n<blockquote class=\"eerie\">\n<p>「妳的簽名已經在契約上，妳只是忘了。」</p>\n</blockquote>\n\n<p>我驚醒，冷汗浸濕枕頭。手機螢幕顯示契約頁面已經完整，簽名欄赫然寫著我的筆跡——那筆跡我認得，因為那是我高中時練習的花體字。</p>\n\n<p><em>可是我從未簽過名啊。</em></p>\n\n<p>我試圖刪除 APP，卻發現它像根植於系統核心，無法解除安裝。每一次嘗試，螢幕都會彈出一行紅字：<mark>「違約將啟動懲罰機制」</mark>。</p>\n\n<p>那晚，窗外傳來類似指甲刮擦玻璃的聲音，我捂住雙耳，卻聽見內心深處有另一個聲音低語：<strong>「妳就是那個靈體。」</strong></p>\n\n<p><strong>第四章｜翻轉的真相</strong></p>\n\n<p>隔日清晨，我在鏡前發現指尖沾著微弱的藍光，像螢火蟲停留在指尖。我拿起那支斷裂的羽毛筆，筆尖竟然自行流出墨水，在鏡面上寫下一行字：</p>\n\n<blockquote class=\"handwritten\">\n<p>「契約雙方皆為林語，妳與妳自己簽訂。」</p>\n</blockquote>\n\n<p>那一刻，所有碎片拼湊成完整畫面：我曾在絕望中向自己許願，願靈魂分裂，一半守護另一半。契約從未有外在靈體，只有我與我自己。</p>\n\n<p>手機螢幕再次亮起，訊息只剩一行：<mark>「契約完成，歡迎回家。」</mark></p>\n\n<p>我放下手機，聽見窗外鳥鳴，心裡卻只剩下一片空白——<em>我還是我嗎？</em></p>",
+      "horror_score": 43,
       "horror_type": [
-        "identity_horror",
-        "apocalyptic"
+        "spirit_contract"
       ],
-      "fantasy_level": "supernatural",
+      "fantasy_level": "slightly_unreal",
       "narrative_style": "first_person",
-      "pacing": "slow_burn",
-      "ending_type": "tragic",
-      "perspective": "investigator",
-      "story_structure": "unreliable_narrator",
+      "pacing": "fragmented",
+      "ending_type": "twist",
+      "perspective": "victim",
+      "story_structure": "found_document",
       "adaptation_mode": "inspired_by_core_mystery",
-      "reveal_density": "subtle",
+      "reveal_density": "balanced",
       "source_kind": "recent_news",
       "source_date": "2026-10-21",
       "case_date": "",
-      "source_hash": "81a6cae56e83",
-      "event_hash": "e91e6a081a3e",
-      "source_url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5qb1NNTS1kVEhTN0tDTE5reVJLZ001X3JqZkNONjJFR2RYOHlma3lfenFVU0tnam9qZlFBVW5rSHpGb0hrNFRaNUpRNTM3ZmM?oc=5",
+      "source_hash": "46bd379d8191",
+      "event_hash": "d4ff38f5a94e",
+      "source_url": "https://www.zaobao.com.sg/entertainment/story20261022-9868853",
       "provider_used": "nvidia",
       "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "dice_seed": 1553919559,
+      "dice_seed": 1098910707,
       "director_analysis": {
-        "anomaly_core": "廠房結構內部存在非物理共振源，能將觀測者的身分記憶具象化並投射為實體倒影，導致觀測者與被觀測者互換位置。",
-        "character_core": "陳志遠作為工安檢查員，因愧疚與好奇心驅動進入封鎖區，逐步發現自己即是異常紀錄的簽署者，身分與記憶在調查過程中被重寫。",
-        "internal_rule": "任何進入廠房並閱讀《工安異常紀錄》的人，將成為新的觀測者，必須在結構崩塌前完成「簽署」動作，否則會被結構吸收並化為倒影，迴圈永不止息。"
+        "anomaly_core": "一份自我簽訂的靈媒契約，透過碎片化記憶與 APP 介面將主角引向自我分裂的靈體交換。",
+        "character_core": "第一人稱受害者林語，因遺忘契約而陷入恐懼，最終發現契約雙方皆為自己。",
+        "internal_rule": "契約條款要求每月獻上真實情感，違約將觸發懲罰；契約內容以碎頁形式逐步揭露，簽名為主角潛意識留下。"
       },
-      "created_at": "2026-10-22T13:47:20.606887Z",
-      "cover_image": "https://oodh.eu.cc/images/CH-999-0020_cover.webp",
-      "scene_images": "https://oodh.eu.cc/images/CH-999-0020_scene.webp"
+      "created_at": "2026-10-22T15:51:17.084196Z",
+      "cover_image": "https://oodh.eu.cc/images/CH-333-0018_cover.webp",
+      "scene_images": "https://oodh.eu.cc/images/CH-333-0018_scene.webp"
     }
   ],
-  "generated_at": "2026-10-22T13:47:48.400955Z",
+  "generated_at": "2026-10-22T15:51:44.091746Z",
   "channel_counts": {
-    "3": 0,
+    "3": 1,
     "6": 0,
-    "9": 1
+    "9": 0
   }
 }
