@@ -1,0 +1,39 @@
+{
+  "story_code": "CH-999-0021",
+  "category": "9",
+  "channel": "CH-999",
+  "title": "松柏工業園區異常觀測日誌",
+  "subtitle": "以研究日誌形式記錄的身體異變迴圈",
+  "slug": "songbai-anomaly-log",
+  "summary": "研究人員在虛構的松柏工業園區進行長期環境觀測，發現作業員身體出現不可逆的組織重組現象，記錄過程以客觀視角呈現，最終日誌回到初始狀態，暗示迴圈無法打破。",
+  "content": "<p><strong>第一章｜研究日誌 001</strong></p>\n\n<p>觀測站位於松柏工業園區西側廢棄倉庫二樓，氣溫常年維持在攝氏二十八度，濕度九成以上。記錄員以固定間隔拍攝紅外影像，並每日採集空氣中懸浮微粒樣本。初期資料顯示無明顯異常，僅有微量金屬氧化物與有機溶劑殘留。</p>\n\n<p>作業員群體共十七人，均穿著標準防護衣，作業內容為精密零件組裝。觀測期間未發現違規操作，所有流程符合內部作業手冊。記錄員於日誌中標記<mark class='highlight'>基線資料</mark>，作為後續比對依據。</p>\n\n<p><strong>第二章｜研究日誌 002</strong></p>\n\n<p>第七日清晨，紅外影像捕捉到作業員左前臂皮膚下方出現微弱發光點，波長約 560 奈米。光點隨呼吸節奏微微擴縮，持續約三分鐘後消失。同日採集之空氣樣本檢測出未知有機聚合物，結構與已知工業溶劑不符。</p>\n\n<p>記錄員於日誌中以<em>客觀描述</em>方式記錄現象，未加入推測。作業員本人未報告不適，體溫、心率維持正常範圍。此為首次可量測之異常訊號，標記為<mark class='highlight'>事件 A</mark>。</p>\n\n<p><strong>第三章｜研究日誌 003</strong></p>\n\n<p>第十四日，作業員右手掌出現半透明薄膜，厚度約 0.2 公釐，表面呈現不規則網狀紋路。薄膜在外力施加時會產生彈性形變，卸力後恢復原狀。顯微鏡下觀察，薄膜由密集纖維狀結構組成，纖維直徑約 50 奈米，核心含有極微量鐵離子。</p>\n\n<p>同日，另一名作業員左腳踝處出現類似結構，但顏色較深，呈暗灰色。兩名作業員均未主動求醫，僅於例行體檢時被記錄員發現。日誌標記<mark class='highlight'>事件 B</mark>，並註記「組織重組模式一致，疑為環境誘發」。</p>\n\n<p><strong>第四章｜研究日誌 004</strong></p>\n\n<p>第二十一日，觀測站記錄到全區作業員同步出現呼吸節奏變化，呼吸頻率從每分鐘十六次降至十次，且每次吸氣伴隨微弱共振音，頻率約 42 赫茲。共振音經頻譜分析，含有與前期未知有機聚合物相同諧波特徵。</p>\n\n<p>記錄員於日誌中以<blockquote>「全體同步現象，疑為集體生理耦合」</blockquote>作為備註。此時作業員皮膚下發光點頻率增加，平均每小時出現四次，持續時間延長至五分鐘。無任何作業員表達疼痛或恐懼，行為模式維持常態。</p>\n\n<p><strong>第五章｜研究日誌 005</strong></p>\n\n<p>第二十八日清晨，觀測站發現所有紅外影像、空氣樣本、生理資料均回至第七日基線狀態。作業員皮膚下發光點、薄膜結構、呼吸共振音全部消失，身體檢查數值與初始記錄完全一致。日誌最後一行記錄：<strong>「迴圈完成，待下一週期啟動」</strong>。</p>\n\n<p>記錄員合上日誌，關閉觀測站燈光，走出倉庫時聽見遠處機器低沉運轉聲，彷彿從未停止。環境依舊濕熱，微粒懸浮於光束中，等待下一次觀測的開始。</p>",
+  "horror_score": 27,
+  "horror_type": [
+    "body_horror_extreme"
+  ],
+  "fantasy_level": "supernatural",
+  "narrative_style": "research_log",
+  "pacing": "steady",
+  "ending_type": "cyclic",
+  "perspective": "object",
+  "story_structure": "found_document",
+  "adaptation_mode": "inspired_by_method",
+  "reveal_density": "subtle",
+  "source_kind": "recent_news",
+  "source_date": "2026-10-21",
+  "case_date": "",
+  "source_hash": "81a6cae56e83",
+  "event_hash": "e91e6a081a3e",
+  "source_url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5qb1NNTS1kVEhTN0tDTE5reVJLZ001X3JqZkNONjJFR2RYOHlma3lfenFVU0tnam9qZlFBVW5rSHpGb0hrNFRaNUpRNTM3ZmM?oc=5",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 2011102454,
+  "director_analysis": {
+    "anomaly_core": "環境誘發的集體身體重組迴圈，表現為皮下發光、半透明薄膜與同步呼吸共振，並以固定週期重置。",
+    "character_core": "以客觀記錄員為視角，無主觀情緒介入，僅透過資料與觀察呈現異常演進。",
+    "internal_rule": "異常於第七日啟動，經三階段演變後於第二十八日自動重置，週期固定且不可幹預，所有生理變化皆為可量測之物理現象。"
+  },
+  "created_at": "2026-10-22T20:31:59.789967Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-999-0021_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-999-0021_scene.webp"
+}
