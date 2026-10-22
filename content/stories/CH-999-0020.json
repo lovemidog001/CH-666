@@ -1,0 +1,40 @@
+{
+  "story_code": "CH-999-0020",
+  "category": "9",
+  "channel": "CH-999",
+  "title": "高樓下的回聲",
+  "subtitle": "一名安全檢查員在廢棄廠房尋找失蹤同事的記錄",
+  "slug": "echoes-beneath-high-tower",
+  "summary": "安全檢查員陳志遠獨自進入廢棄的半導體廠房，追尋三年前失蹤同事的線索，卻發現廠房內藏著關於身分與終結的異常規則，隨著調查深入，現實與記憶交織崩塌，走向無法逆轉的悲劇。",
+  "content": "<p><strong>第一章｜初入廢棄廠房</strong></p>\n\n<p>我叫陳志遠，曾是半導體廠的工安檢查員，三年前那場高處墜落事故讓四名工人當場喪生，也讓我失去了最信任的搭檔林偉。</p>\n\n<p>事故後廠區封鎖，官方說是結構疲勞，但我總覺得現場殘留的鋼筋彎曲角度不合常理，彷彿有什麼力量從內部向外推擠。</p>\n\n<p>今天我拿著舊證件，獨自踏進已停機半年的廠房，空氣中瀰漫著鐵鏽與濕氣的味道，腳下的混凝土板發出細微的嘎吱聲。</p>\n\n<p><em>若只是單純的廢墟，為何每個轉角都彷彿有人在注視？</em></p>\n\n<p><strong>第二章｜記錄室的低語</strong></p>\n\n<p>沿著生產線走廊，我來到標示為<mark>記錄室</mark>的鐵門前，門鎖早已銹死，卻在推開的瞬間發出一聲悶響，像是有人從內側輕輕敲擊。</p>\n\n<p>屋內堆滿發黃的檢查表單、維修日誌與幾盒未拆封的安全帽，桌上放著一本未蓋章的《工安異常紀錄》，封面用紅筆寫著「不可對外揭露」。</p>\n\n<blockquote>\n<p>第 47 號紀錄：\n<em>「今日發現第 3 號晶圓製程區的承重樑出現非金屬性膨脹，檢測儀器皆顯示正常，唯有現場人員回報聽見低頻嗡鳴，疑似結構內部有未知共振源。」</em>\n</p>\n</blockquote>\n\n<p>字跡在燈光下微微顫動，我感覺到一股寒意從指尖爬上脊背，彷彿這些文字並非記錄，而是在警告。</p>\n\n<p><strong>第三章｜身分的裂縫</strong></p>\n\n<p>翻閱更多頁面，我發現每筆紀錄的簽名皆為「林偉」，但筆跡卻在最後幾頁驟變，變成我自己的字型，連帶的日期也跳躍至今日。</p>\n\n<p><em>這不可能，我從未簽過這些檔案，除非……我根本不是陳志遠。</em></p>\n\n<p>牆角的監視器螢幕突然亮起，畫面顯示的是我正站在記錄室中央，卻穿著三年前那套已報廢的防塵衣，手裡握著同一本紀錄本，眼神空洞。</p>\n\n<p>那一刻，<strong>現實與記憶的邊界崩解</strong>，我聽見遠處傳來金屬扭曲的巨響，像是整棟廠房在嘆息。</p>\n\n<p><strong>第四章｜倒塌的序曲</strong></p>\n\n<p>警報聲未響，地面卻開始有節奏地震顫，每一次震動都伴隨著牆壁剝落的灰塵，像是在倒數。</p>\n\n<p>我試圖衝向出口，腳下的樓板卻在腳步聲中斷裂，露出下方無盡的黑暗，黑暗中隱約浮現無數扭曲的身影，他們穿著相同的工裝，臉孔卻全是我。</p>\n\n<p><em>每一個倒下的身影，都是我曾經拒絕面對的選擇。</em></p>\n\n<p>手中的紀錄本頁面自動翻動，最後一頁只有一行字：\n<mark>「當觀測者成為被觀測者，結構將自我終結。」</mark>\n</p>\n\n<p><strong>第五章｜最後的回聲</strong></p>\n\n<p>廠房在轟鳴中崩塌，鋼樑如巨獸的肋骨折斷，將我與所有的倒影一同吞沒。</p>\n\n<p>最後的意識裡，我聽見林偉的聲音，輕輕說：「我們從未離開，只是換了個形狀繼續檢查。」</p>\n\n<p>塵埃落定，廢墟上只剩一本完好無損的《工安異常紀錄》，封面紅字依舊鮮明，等待下一位闖入者翻開第一頁。</p>",
+  "horror_score": 55,
+  "horror_type": [
+    "identity_horror",
+    "apocalyptic"
+  ],
+  "fantasy_level": "supernatural",
+  "narrative_style": "first_person",
+  "pacing": "slow_burn",
+  "ending_type": "tragic",
+  "perspective": "investigator",
+  "story_structure": "unreliable_narrator",
+  "adaptation_mode": "inspired_by_core_mystery",
+  "reveal_density": "subtle",
+  "source_kind": "recent_news",
+  "source_date": "2026-10-21",
+  "case_date": "",
+  "source_hash": "81a6cae56e83",
+  "event_hash": "e91e6a081a3e",
+  "source_url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5qb1NNTS1kVEhTN0tDTE5reVJLZ001X3JqZkNONjJFR2RYOHlma3lfenFVU0tnam9qZlFBVW5rSHpGb0hrNFRaNUpRNTM3ZmM?oc=5",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 1553919559,
+  "director_analysis": {
+    "anomaly_core": "廠房結構內部存在非物理共振源，能將觀測者的身分記憶具象化並投射為實體倒影，導致觀測者與被觀測者互換位置。",
+    "character_core": "陳志遠作為工安檢查員，因愧疚與好奇心驅動進入封鎖區，逐步發現自己即是異常紀錄的簽署者，身分與記憶在調查過程中被重寫。",
+    "internal_rule": "任何進入廠房並閱讀《工安異常紀錄》的人，將成為新的觀測者，必須在結構崩塌前完成「簽署」動作，否則會被結構吸收並化為倒影，迴圈永不止息。"
+  },
+  "created_at": "2026-10-22T13:47:20.606887Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-999-0020_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-999-0020_scene.webp"
+}
