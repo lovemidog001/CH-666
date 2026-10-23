@@ -1,0 +1,40 @@
+{
+  "story_code": "CH-999-0026",
+  "category": "9",
+  "channel": "CH-999",
+  "title": "湖畔旅館的拼房記憶",
+  "subtitle": "碎片記憶拼湊的身體恐懼",
+  "slug": "lake-hotel-room-share-mystery",
+  "summary": "調查員在湖畔旅館追查一名女子離奇死亡，發現拼房制度隱藏著身體重組的古老儀式，記憶斷裂與身份錯位交織成無解的恐懼。",
+  "content": "<p><strong>第一章｜抵達湖畔</strong></p>\n\n<p>夜色籠罩著湖面，霧氣像濕冷的手指滑過旅館走廊的木地板。我——林志遠，自由調查員，手握著一張皺巴巴的委託單，上面只寫著「查明陳姓女子死因，地點：湖畔旅館 302 號房」。旅館老闆娘用閃爍的燈光指著走廊盡頭，低聲說：「拼房制度從不公開，住客自己也不敢多問。」</p>\n\n<p class=\"dialogue\"><em>「拼房？」</em>我重複著，指尖觸到冰涼的門把，<em>「這裡的規矩是什麼？」</em></p>\n\n<p>老闆娘瞇起眼，嘴角抽動：「每晚隨機配對，住客不得拒絕。若有人不見了，旅館不負責。」她將一把鑰匙塞進我掌心，指甲嵌入掌心的疼痛像是某種<mark>暗號</mark>。</p>\n\n<p><strong>第二章｜碎片記憶</strong></p>\n\n<p>房間裡彌漫著陳舊的檜木香與一絲銹鐵味。床單上殘留著暗紅斑點，像是被什麼生物啃咬過的痕跡。我開啟手機，試圖拍下現場，卻發現相機畫面只顯示一片靜態雪花。耳邊傳來細微的<em>滴答</em>聲，像心跳，又像某種儀式的計時器。</p>\n\n<p>我翻開床頭櫃，發現一本手寫日記，封面用硃砂寫著「身體的拼圖」。翻開第一頁，字跡歪斜：<blockquote>「第一夜，左手換給了那個女孩；第二夜，右腳換給了那個男人。每一次交換，記憶就少一塊。」</blockquote></p>\n\n<p>日記後頁貼著一張泛黃的照片，照片上是一群面容模糊的旅客，背景是同一間旅館的大廳。其中一名女子的臉被<mark>剪去</mark>，只留下空白的輪廓。我感覺指尖發麻，彷彿那些缺失的部位正在我身上悄悄生長。</p>\n\n<p><strong>第三章｜身體的拼湊</strong></p>\n\n<p>半夜，走廊傳來沉重的拖曳聲。我屏住呼吸，透過門縫看見一名穿著旅館制服的男子，手中提著一個黑色塑膠袋，袋子鼓脹得像裝著濕重的內臟。他停在 302 號門前，輕輕敲了三下，門內傳來一聲低沉的<em>咕嚕</em>，隨即門鎖轉動，門縫洩出一股腥甜氣味。</p>\n\n<p class=\"dialogue\"><em>「這就是拼房的代價。」</em>男子的聲音沙啞，彷彿從喉嚨深處爬出來，<em>「每個住客都是拼圖的一塊，拼湊完成，旅館就能獲得永生。」</em></p>\n\n<p>我後退，腳下一滑，撞上牆角。視線模糊中，我看見自己的左手指甲竟然變得異常修長，指尖泛著幽藍光澤。心臟猛烈撞擊肋骨，彷彿有另一個靈魂在體內嘗試<strong>接管</strong>。</p>\n\n<p><strong>第四章｜無解的開放</strong></p>\n\n<p>晨光穿透薄霧，旅館大廳空無一人。老闆娘消失了，只留下一張空白的入住登記表，上面只寫著「待補」。我握著那把鑰匙，指尖仍殘留著銹鐵味。日記的最後一頁寫著：<blockquote>「當最後一塊拼圖就位，湖水將倒流，旅館將成為永恆的容器。」</blockquote></p>\n\n<p>我走出旅館，湖面平靜如鏡，倒映著我的臉——卻發現倒影的左眼瞳孔顏色與右眼不同。腳步聲在身後迴盪，或許是另一個「我」正跟著走出湖畔，或許只是霧氣在低語。調查未結束，真相仍在湖底，等待下一位拼房者將自己獻上。</p>",
+  "horror_score": 79,
+  "horror_type": [
+    "body_horror_extreme",
+    "identity_horror"
+  ],
+  "fantasy_level": "mythic",
+  "narrative_style": "fragmented_memory",
+  "pacing": "disorienting",
+  "ending_type": "open",
+  "perspective": "investigator",
+  "story_structure": "investigation_timeline",
+  "adaptation_mode": "inspired_by_clue",
+  "reveal_density": "layered",
+  "source_kind": "recent_news",
+  "source_date": "2026-10-22",
+  "case_date": "",
+  "source_hash": "97b78a89398a",
+  "event_hash": "25802b708175",
+  "source_url": "https://www.ettvamerica.com/News/Article?i=409769",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 1202717635,
+  "director_analysis": {
+    "anomaly_core": "旅館透過拼房制度強制住客進行身體部位與記憶的交換，形成一種古老的身體重組儀式，完成後可獲得虛構的永生。",
+    "character_core": "林志遠，自由調查員，因好奇與職責介入，逐漸發現自身身體已被儀式侵蝕，記憶碎片化、身份模糊。",
+    "internal_rule": "每晚隨機配對住客，強制進行身體部位交換；交換次數越多，記憶流失越嚴重；當所有住客完成拼圖，旅館獲得永恆存在，湖水倒流象徵儀式完成。"
+  },
+  "created_at": "2026-10-23T20:17:13.700813Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-999-0026_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-999-0026_scene.webp"
+}
