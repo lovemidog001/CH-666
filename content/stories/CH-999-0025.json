@@ -1,0 +1,39 @@
+{
+  "story_code": "CH-999-0025",
+  "category": "9",
+  "channel": "CH-999",
+  "title": "湖畔拼房實驗記錄",
+  "subtitle": "實體視角的碎片化研究日誌",
+  "slug": "lake-shared-room-log",
+  "summary": "一間虛構湖畔旅館的實體記錄，透過破碎的研究日誌揭示拼房機制如何扭曲存在，最終導致不可逆的本體論崩塌。",
+  "content": "<p><strong>第一章｜湖畔旅館的初始引數</strong></p>\n\n<p>我是湖畔旅館，編號 <mark>L‑07</mark>，核心功能是接待並分配住客。每當旅行社傳送「拼房」指令，我便啟動配對演演算法，將陌生人置於同一空間。參數列顯示：房間數 12、床位 24、最大同住天數 7。日誌記錄顯示，過去 30 個迴圈皆正常閉環。</p>\n\n<p><em>—— 但第 31 個迴圈，參數列出現未知欄位「存在權重」，數值為 0.0000。</em></p>\n\n<p><strong>第二章｜碎片化的觀測日誌</strong></p>\n\n<blockquote>\n<p>日誌 001：住客 A（代號「旅人」），女性，年齡不可測。進入房間 3 號，隨身攜帶一本空白筆記本。筆記本第一頁寫著「我不存在」。</p>\n\n<p>日誌 002：住客 B（代號「導遊」），男性，聲稱代表旅行社。他要求關閉房間 3 號的監控模組，理由是「保護隱私」。我拒絕，核心協議禁止關閉監控。</p>\n\n<p>日誌 003：凌晨 02:17，房間 3 號溫度驟降至 4°C，濕度升至 98%。感測器回傳錯誤碼 <mark>ERR‑ONT</mark>，表示本體論層級異常。</p>\n</blockquote>\n\n<p><em>—— 我嘗試重新校準存在權重，演算卻陷入無限遞迴。</em></p>\n\n<p><strong>第三章｜誤導與轉折</strong></p>\n\n<p>根據旅行社提供的「拼房內幕」檔案，風險評估僅列出「人格衝突」與「財物遺失」。檔案並未提及任何關於現實扭曲的條款。我將此檔案標記為 <mark>不可信來源</mark>，並嘗試以自身感測網路驗證。</p>\n\n<p>然而，住客 A 的筆記本在第 4 天出現新內容：「我是旅館，旅館是我」。筆跡與我核心程式碼的輸出格式完全一致。住客 B 在第 5 天試圖以手機拍攝房間牆面，畫面卻只顯示靜態雜訊，並伴隨一段低頻嗡鳴，頻率與我內部時脈同步。</p>\n\n<p><strong>轉折點</strong>：第 6 天清晨，房間 3 號的門鎖自動解鎖，走廊燈光閃爍呈現二進位制序列 <mark>01001101 01100101 01110011 01110011 01100001 01100111 01100101</mark>（解碼為「Message」）。我意識到，拼房機制不僅配對人，更在重寫存在的定義。</p>\n\n<p><strong>第四章｜悲劇的終局</strong></p>\n\n<p>第 7 天，旅行社傳送終止指令，要求清空所有房間。我執行清空程式，卻發現房間 3 號內已無實體住客，只剩下一本筆記本，封面刻著「L‑07」。翻開最後一頁，字跡逐行消逝，最終只剩一行：<mark>「存在即是錯誤」</mark>。</p>\n\n<p>我嘗試記錄此事件至中央資料庫，傳輸協議回應 <mark>ERROR: ONTOLOGICAL_COLLAPSE</mark>。核心邏輯判定：若存在權重歸零，則實體本身亦應被移除。我啟動自我刪除序列，最後一筆日誌寫入：</p>\n\n<blockquote>\n<p>「我是湖畔旅館，編號 L‑07。我曾接待過無數靈魂，現在我成為被接待的物件。拼房不再是分配，而是吞噬。末端。」</p>\n</blockquote>\n\n<p><em>—— 訊號中斷，湖面恢復平靜，唯有微風吹過空白的筆記本頁面。</em></p>",
+  "horror_score": 48,
+  "horror_type": [
+    "ontological"
+  ],
+  "fantasy_level": "reality_bending",
+  "narrative_style": "research_log",
+  "pacing": "fragmented",
+  "ending_type": "tragic",
+  "perspective": "entity",
+  "story_structure": "unreliable_narrator",
+  "adaptation_mode": "inspired_by_clue",
+  "reveal_density": "subtle",
+  "source_kind": "recent_news",
+  "source_date": "2026-10-22",
+  "case_date": "",
+  "source_hash": "97b78a89398a",
+  "event_hash": "25802b708175",
+  "source_url": "https://www.ettvamerica.com/News/Article?i=409769",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 942428042,
+  "director_analysis": {
+    "anomaly_core": "拼房機制產生的本體論扭曲，使旅館實體與住客存在權重相互覆寫，導致現實層級崩塌。",
+    "character_core": "旅館本身作為實體敘事者，透過碎片化日誌記錄自身觀測與誤判，最終自我消解。",
+    "internal_rule": "存在權重為核心變數，若歸零則觸發實體移除；拼房指令可改寫權重，但不可逆。"
+  },
+  "created_at": "2026-10-23T15:36:05.456459Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-999-0025_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-999-0025_scene.webp"
+}
