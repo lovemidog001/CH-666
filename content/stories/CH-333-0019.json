@@ -1,0 +1,41 @@
+{
+  "story_code": "CH-333-0019",
+  "category": "3",
+  "channel": "CH-333",
+  "title": "紅燈籠下的低語",
+  "subtitle": "一場跨越世代的驅魔紀實",
+  "slug": "hong-deng-long-xia-de-di-yu",
+  "summary": "記者整理多方口述，揭開偏遠村落中紅燈籠儀式背後的詛咒真相，最後發現驅魔者正是詛咒的源頭。",
+  "content": "<p><strong>第一章｜調查啟動</strong></p>\n\n<p>我們在一份舊報紙的剪報中發現，某山區村落每年農曆七月會舉行「紅燈籠驅魔」儀式，參與者聲稱能驅除厲鬼。資料顯示儀式流程極為固定，且每年皆有村民失蹤，警方卻未曾立案。這項<mark>異常現象</mark>成為本次調查的核心線索。</p>\n\n<p>為了避免打草驚蛇，採訪小組以學術研究名義進入村落，並以錄音筆記錄所有受訪者的原話。採訪過程採<em>客觀紀錄</em>方式，不加入主觀判斷，確保後續分析的純度。</p>\n\n<p><strong>第二章｜民俗學者的證言</strong></p>\n\n<p class=\"dialogue\">「這儀式源自清末一位自稱『靈官』的道士，他傳授村民以紅燈籠引導陰氣，再以符咒封印。」，民俗學者陳志明在錄音中平靜地敘述，「但他從未留下完整符咒，僅口傳心授，導致後世多有變異。」</p>\n\n<p class=\"dialogue\">「關鍵在於<mark>紅燈籠的燃料</mark>，據說必須用村中古井的油，否則儀式無效。」陳志明補充，「這項條件在近三十年來從未被質疑，卻也從未被驗證。」</p>\n\n<p>陳志明提到，他在村廟後殿發現一本<mark>手抄筆記</mark>，記載每年儀式的日期、參與者姓名與失蹤人數，筆跡前後一致，顯示有人長期持續記錄。</p>\n\n<p><strong>第三章｜廟宇主持的回應</strong></p>\n\n<p class=\"dialogue\">「我們只是遵循祖先規矩，不敢隨意更動。」廟宇主持林福生語氣低沉，「每年儀式前，村長會挑選七名『淨身』青年，負責點燈、誦經、撒符。」</p>\n\n<p class=\"dialogue\">「但近十年來，<mark>淨身青年</mark>多在儀式結束後失蹤，廟方從未主動通報。」林福生停頓片刻，「我們曾請道長驅邪，卻總被告知『陰氣已封，無需再動』。」</p>\n\n<p>林福生指著廟後牆壁上一排<mark>紅燈籠</mark>，說：「這些燈籠從未熄滅，甚至在白天也能看到微弱光芒，村民視為護身符。」</p>\n\n<p><strong>第四章｜村民的低語</strong></p>\n\n<p class=\"dialogue\">「我兒子去年被選為淨身青年，儀式結束那天就沒回家。」村婦王淑芬聲音顫抖，「村長說他『已回神界侍奉』，不准我們尋找。」</p>\n\n<p class=\"dialogue\">「村裡傳說，若有人在儀式當晚聽到<mark>低語聲</mark>，便是厲鬼在索命。」王淑芬指著自家門口的舊井，「那口井水常年不枯，但聞起來有一股焦糊味。」</p>\n\n<p>她拿出一張舊照片，照片上幾名青年圍坐井邊，手持紅燈籠，臉上皆帶著詭異的微笑，背景中隱約可見一道<mark>黑色人影</mark>。</p>\n\n<p><strong>第五章｜記者的現場筆錄</strong></p>\n\n<p class=\"dialogue\">「我在儀式現場藏身觀察，發現主持人林福生在誦經時，手中握著一把<mark>舊銅鑰匙</mark>，並未誦讀任何經文。」記者李志宏低聲說，「鑰匙插入井口機關，井水瞬間倒轉，紅燈籠光芒大盛。」</p>\n\n<p class=\"dialogue\">「那一刻，所有淨身青年同時跪地，口中發出統一的吟唱，聲音不像人語，更像<mark>古老咒語</mark>。」李志宏繼續，「隨後井口冒出濃霧，青年們一個個被霧氣吞沒，現場無人呼救。」</p>\n\n<p>李志宏在筆記中寫道：「<strong>這不是驅魔，而是獻祭。</strong>」他並標記該段為<mark>關鍵轉折</mark>，準備在報導中揭露。</p>\n\n<p><strong>第六章｜真相的倒影</strong></p>\n\n<p>整理完所有錄音與筆記後，我們發現每位受訪者口中的「驅魔師」皆指向同一人——林福生。他在儀式中扮演主持、記錄者、甚至決定淨身青年名單的人選。</p>\n\n<p><em>當最後一段錄音播放結束，錄音機自行倒帶，重複播放林福生的聲音：「陰氣已封，無需再動。」</em> 那句話在空蕩蕩的錄音室迴盪，彷彿紅燈籠的光芒正透過麥克風，照亮我們未曾察覺的黑暗。</p>",
+  "horror_score": 43,
+  "horror_type": [
+    "ritual",
+    "folk_belief",
+    "exorcism"
+  ],
+  "fantasy_level": "mythic",
+  "narrative_style": "interview_transcript",
+  "pacing": "slow_burn",
+  "ending_type": "twist",
+  "perspective": "object",
+  "story_structure": "multiple_testimonies",
+  "adaptation_mode": "inspired_by_method",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2026-10-23",
+  "case_date": "",
+  "source_hash": "7506bb815a6f",
+  "event_hash": "39d463842692",
+  "source_url": "https://www.cnd.org/20261020-1/2026%E5%B9%B410%E6%9C%88/%E6%88%90%E6%9C%B4%E6%B3%95%E8%A5%BF%E6%96%AF%E6%98%AF%E6%9E%81%E5%8F%B3%E5%90%97",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 390605697,
+  "director_analysis": {
+    "anomaly_core": "紅燈籠儀式實為以古井油為燃料、銅鑰匙啟動機關的獻祭系統，透過世代口傳符咒將淨身青年引入井中，形成迴圈詛咒。",
+    "character_core": "林福生為儀式核心執行者，兼具主持、記錄、選人三重角色，表面遵循傳統，實則操控詛咒迴圈。",
+    "internal_rule": "儀式需滿足三條件：古井油燃料、銅鑰匙啟動、七名淨身青年同步吟唱；缺一不可，否則詛咒反噬執行者。"
+  },
+  "created_at": "2026-10-24T07:15:10.698404Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-333-0019_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-333-0019_scene.webp"
+}
