@@ -1,0 +1,40 @@
+{
+  "story_code": "CH-333-0020",
+  "category": "3",
+  "channel": "CH-333",
+  "title": "廢鋼廠的殘魂",
+  "subtitle": "一場工安意外後，亡者靈魂在機器間遊走，窺見生死邊緣的碎片",
+  "slug": "lingyi-gongchang-yinghun",
+  "summary": "虛構的高雄廢鋼廠發生嚴重工安事故，工人阿明離世留下妻小。以亡者視角倒敘，碎片化呈現靈體在生產線、控制室、宿舍之間穿梭，目睹生者悲痛、機器異響與未解的靈異規則，最終留下開放式的不安尾聲。",
+  "content": "<p><strong>第零章｜餘燼</strong></p>\n\n<p>夜色如墨，廢鋼廠的高煙囪仍吐出微弱的紅光。靈體懸浮在熔爐上方，感受不到溫度，只能聽見金屬冷卻時的細微脆響。<em>這裡曾是我的領域</em>，如今只剩下殘留的磁場與未盡的執念。</p>\n\n<p><mark>記得嗎？那聲巨響從傳送帶傳來</mark>，像是一聲無聲的哭喊，將我的意識從肉體剝離。現在，我只能看著妻子在宿舍門口跪地哭泣，手中緊握著那張未簽署的保單。</p>\n\n<p><strong>第一章｜斷裂的聲音</strong></p>\n\n<p>三小時前，控制室的螢幕閃爍著紅色警示。工程師小陳按下緊急停機鈕，指尖觸碰到冰冷的金屬，心跳聲在耳邊轟鳴。<em>為什麼系統沒有反應？</em> 他看見傳送帶上的鋼板像失控的野獸，猛然撞向防護網，隨後是一連串金屬扭曲的尖叫。</p>\n\n<p>靈體隨著衝擊波向四周擴散，穿過牆壁、穿過管線，來到宿舍樓的走廊。妻子阿芬正對著手機螢幕發抖，螢幕上顯示著「緊急聯絡人：阿明」的字樣。<strong>那一刻，時間彷彿凝結</strong>，靈體感受到一股陌生的拉扯，將自己拉向某個未知的深淵。</p>\n\n<p><blockquote>事故報告摘錄：\n經初步調查，傳送帶驅動馬達因潤滑不足導致過熱，引發鏈條斷裂，造成四名工人當場身亡。\n—— 廠方內部備忘錄</blockquote></p>\n\n<p><strong>第二章｜機器的低語</strong></p>\n\n<p>更早的清晨，維修工老吳在機器旁檢查潤滑油位，手電筒光束掃過齒輪縫隙，發現一道細微的裂紋。<em>這裡有問題</em>，他低聲自語，卻被生產線的轟鳴聲吞沒。靈體在旁觀察，感受到老吳指尖傳來的微弱震動，那是機器對即將到來的災禍的預警。</p>\n\n<p>靈體試圖觸碰老吳的肩膀，卻只能穿過他的身體，留下一陣寒意。老吳打了個寒顫，抬頭望向天花板，彷彿看見了什麼不可見的影子。<mark>那道裂紋最終被忽略</mark>，成為日後悲劇的伏筆。</p>\n\n<p><strong>第三章｜未完成的告別</strong></p>\n\n<p>事故前一天晚上，阿明在宿舍對著鏡子整理領帶，口中唸著兒子們的名字。<em>明天要早點回家</em>，他對著空氣許下承諾。靈體站在鏡後，看著自己的倒影逐漸模糊，心中湧起一股從未有過的恐懼——不是對死亡，而是對無法兌現的諾言。</p>\n\n<p>當晚，廠區的監控錄影捕捉到一道模糊的身影在傳送帶旁徘徊，隨後畫面出現靜電幹擾，隨即中斷。靈體感覺到一股力量將自己推向那段缺失的影像，彷彿有什麼在等待著被發現。</p>\n\n<p><p><em>—— 凌晨三點，熔爐熄火 ——</em></p>\n\n<p>現在，靈體懸浮在廢棄的控制檯前，螢幕上只剩下靜止的紅色警示。妻子的哭聲已遠去，只剩下機器間歇性的低鳴，像是某種未被聽見的低語。<strong>我仍在這裡</strong>，等待著下一個被拉扯的靈魂，或是某個能聽見我聲音的活人。</p></p>",
+  "horror_score": 48,
+  "horror_type": [
+    "afterlife_glimpse",
+    "possession"
+  ],
+  "fantasy_level": "mythic",
+  "narrative_style": "third_person_limited",
+  "pacing": "fragmented",
+  "ending_type": "open",
+  "perspective": "entity",
+  "story_structure": "reverse_chronology",
+  "adaptation_mode": "inspired_by_consequence",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2026-10-23",
+  "case_date": "",
+  "source_hash": "f58f7014f124",
+  "event_hash": "d2e33d4b55ad",
+  "source_url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1zRnZISnJOQklrSnBzV0pfRmlGS0t5V05YMWstbXpZai11aU1CZUVHV0RZRlhJT09FUm5BWWJkeEpQZTlwd1VobjE4VGV1V24xeUluV253?oc=5",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 1058609287,
+  "director_analysis": {
+    "anomaly_core": "亡者靈體在工業環境中保留感知，能穿越物質並影響電子裝置，形成後世窺見與附身的雙重現象。",
+    "character_core": "阿明（靈體）以第三人稱限定視角，透過碎片化記憶拼湊生前承諾與死因，妻子阿芬與同事老吳、小陳為關鍵觀測者。",
+    "internal_rule": "靈體只能在強烈情緒或高能量機械運作時顯現，無法主動幹預物理世界，僅能透過電磁幹擾傳遞訊息；時間呈現倒敘，每個場景皆為靈體記憶的斷層。"
+  },
+  "created_at": "2026-10-24T09:27:26.938129Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-333-0020_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-333-0020_scene.webp"
+}
