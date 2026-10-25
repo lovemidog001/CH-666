@@ -1,0 +1,40 @@
+{
+  "story_code": "CH-333-0022",
+  "category": "3",
+  "channel": "CH-333",
+  "title": "帳本裡的低語",
+  "subtitle": "一本被遺忘的會計紀錄，藏著不該存在的靈魂",
+  "slug": "whispers-in-the-ledger",
+  "summary": "廢棄倉庫裡發現的舊帳本，筆跡在夜間自行改寫，揭露一段被刻意掩蓋的詛咒與亡者的帳目對賬。",
+  "content": "<p><strong>第一章｜舊倉庫的帳本</strong></p>\n\n<p>我飄在塵埃堆積的鋼架上，聽見鑰匙轉動的聲音，那是活人推開鐵門的儀式。手電筒光束掃過一疊發黃的記帳冊，封面印著已倒閉車廠的舊標誌，頁邊殘留著機油與鏽味。</p>\n\n<p><em>—— 這不是我的帳，卻又像我在寫。</em> 我試圖伸出指尖觸碼頁碼，卻只能看著墨跡在光線下微微顫動，彷彿有看不見的手在修改數字。</p>\n\n<blockquote><p class=\"handwritten\">十月十五，雨。張工程師說：「這筆錢不能入帳，先放在備用金。」我聽見他咳嗽，聲音像生鏽的齒輪。</p></blockquote>\n\n<p><strong>第二章｜夜半的筆跡</strong></p>\n\n<p>午夜十二點，倉庫的舊鐘敲響，聲音在空蕩蕩的空間裡迴盪。我感覺到一股寒意從帳本滲出，順著我的意識爬上脊椎。</p>\n\n<p>頁面上的紅筆突然自行滑動，寫下一行新字：「<mark>欠款未清，靈魂不得安息</mark>」。字跡與白天的記帳員截然不同，筆鋒銳利，帶著一種不屬於人類的急促。</p>\n\n<p><em>我記得我曾是那個記帳員，卻記不起自己怎麼死的。</em> 記憶像撕裂的收據，只剩下碎片在風中飄散。</p>\n\n<p><strong>第三章｜紅筆的詛咒</strong></p>\n\n<p>每當有人試圖翻閱這本帳，紅筆便會在紙面上留下新的條目，數字不斷增長，彷彿債務永無止境。</p>\n\n<p>曾有年輕的實習生拿著平板電腦想拍照存證，螢幕卻瞬間黑屏，隨即顯示出一行舊式繁體字：「<strong>帳目未結，生者勿入</strong>」。他嚇得跌坐在地，手機滑落，螢幕碎裂的聲音像極了當年機器故障的警示音。</p>\n\n<p>我聽見他在心底低語：「<em>這不科學，這不科學……</em>」卻無法阻止紅筆繼續書寫，筆尖劃過紙張的聲音，彷彿在為每一筆未清的帳目敲響喪鐘。</p>\n\n<p><strong>第四章｜帳目與靈魂的對賬</strong></p>\n\n<p>某個雨夜，舊倉庫的天花板滴水，水珠落在帳本上，墨跡暈開成模糊的圖案。我順著水痕滑入紙頁深處，看見一排排名字：供應商、工程師、甚至那位曾說「先放備用金」的張工程師。</p>\n\n<p>每個名字旁都標註著一筆金額，旁邊用極小的字寫著：「<mark>已償還</mark>」或「<mark>未償還</mark>」。那些標註「未償還」的名字，旁邊總伴隨著一縷黑氣，像是未了的怨念纏繞在數字上。</p>\n\n<p><em>我試圖替他們劃掉紅字，卻發現每一次嘗試都會讓筆跡更深、更紅，彷彿帳本在懲罰我的僭越。</em></p>\n\n<p><strong>第五章｜未結的餘額</strong></p>\n\n<p>現在，帳本仍躺在倉庫最深處的鐵櫃裡，封面積著灰塵，紅筆靜靜地夾在頁間。偶爾有風吹過，翻開的頁面會發出細微的沙沙聲，像是在低聲唸誦那些未清的數字。</p>\n\n<p>我依然在這裡，守著那本永遠算不清的帳，等待著某個願意替我結帳的生者——或許那永遠不會到來。</p>",
+  "horror_score": 36,
+  "horror_type": [
+    "curse",
+    "afterlife_glimpse"
+  ],
+  "fantasy_level": "supernatural",
+  "narrative_style": "epistolary",
+  "pacing": "disorienting",
+  "ending_type": "unsettling_resolution",
+  "perspective": "entity",
+  "story_structure": "unreliable_narrator",
+  "adaptation_mode": "inspired_by_method",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2026-10-24",
+  "case_date": "",
+  "source_hash": "ce6098c93c4c",
+  "event_hash": "ac701dbca26b",
+  "source_url": "https://www.vava8.com/index.php?app=index&act=view&id=174621",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 551258048,
+  "director_analysis": {
+    "anomaly_core": "一本被詛咒的會計帳本，紅筆自動記錄亡者未清債務，形成靈體與帳目之間的永恆對賬迴圈。",
+    "character_core": "已故記帳員的靈體，視角為第一人稱實體，記憶碎片化、不可靠，透過帳本片段拼湊生前與死後的真相。",
+    "internal_rule": "帳本只在午夜至凌晨三點間自動書寫；任何試圖修改或銷毀帳本的行為會導致紅筆加深，且會將操作者捲入帳目迴圈；只有真正清償所有標註「未償還」的債務才能打破詛咒，但債務物件多為已故或失蹤者，幾乎無法完成。"
+  },
+  "created_at": "2026-10-25T01:04:05.359773Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-333-0022_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-333-0022_scene.webp"
+}
