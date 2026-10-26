@@ -3,49 +3,49 @@
   "count": 1,
   "stories": [
     {
-      "story_code": "CH-999-0029",
-      "category": "9",
-      "channel": "CH-999",
-      "title": "迴環酒測：時間裂縫的巡邏車記錄",
-      "subtitle": "一名研究員在無盡迴圈中記錄異常酒測資料",
-      "slug": "hui-huan-jiu-ce-shi-jian-lie-feng-de-xun-luo-che-ji-lu",
-      "summary": "研究員陳薇在深夜巡邏車事故現場發現時間不斷重置，每一次迴圈都帶來不同的酒測數值與環境變化。她試圖以研究日誌記錄規律，卻發現自己即是被觀測的實體，最終在無法打破的迴圈中失去記憶與自我。",
-      "content": "<p><strong>第一章｜初次撞擊</strong></p>\n\n<p>深夜十點十七分，巡邏車停在路肩，車燈將瀝青路面染成慘白。陳薇握著筆記本，聽見引擎熄火的低沉聲響，隨後是一陣刺鼻的酒精味從駕駛座飄出。她記下：<mark>酒測數值 0.78 mg/L</mark>，超標。</p>\n\n<p><em>這不是第一次，也許也不會是最後一次。</em></p>\n\n<blockquote class=\"handwritten\">\n<p>【日誌 2026-10-25 22:17】\n目擊車禍：女駕駛追撞巡邏車，下車時滿身酒氣。\n酒測儀顯示 0.78，超過法定標準。\n環境溫度 24°C，濕度 68%。\n無其他異常。</p>\n</blockquote>\n\n<p><strong>第二章｜時間裂縫</strong></p>\n\n<p>當她合上筆記本，路燈突然熄滅，四周陷入絕對黑暗。幾秒後，燈光再度亮起，巡邏車仍停在原處，女駕駛依然坐在駕駛座，臉上掛著相同的困惑表情。陳薇的手錶指標沒有動，但手機螢幕顯示的時間卻跳回 22:17。</p>\n\n<p>她再次走近，聞到的酒精味更濃，彷彿空氣本身被浸透。酒測儀顯示 <mark>0.92 mg/L</mark>，數值比上一輪高出許多。她在日誌中寫下：</p>\n\n<blockquote class=\"handwritten\">\n<p>【日誌 2026-10-25 22:17（第二輪）】\n同一事故重演，時間回溯至 22:17。\n酒測數值上升至 0.92。\n路燈閃爍頻率異常，疑似現實扭曲。\n記錄者自身記憶未受影響，但感到輕微暈眩。</p>\n</blockquote>\n\n<p><em>每一次迴圈，資料都在微幅上升，環境也在悄悄改變。</em></p>\n\n<p><strong>第三章｜研究者的困境</strong></p>\n\n<p>第三輪迴圈中，巡邏車的車身出現細微的裂紋，像是被無形的力量從內部撐開。陳薇發現自己的筆記本頁邊緣出現不明符號，符號在每次翻頁時微微發光。她試圖拍照，但相機畫面只顯示靜態噪點。</p>\n\n<p>她開始懷疑自己是否仍在現實中，還是已成為迴圈的一部分。日誌語氣轉為急促：</p>\n\n<blockquote class=\"handwritten\">\n<p>【日誌 2026-10-25 22:17（第三輪）】\n車體出現裂紋，疑似現實邊界崩解。\n筆記本邊緣浮現符號，疑為迴圈標記。\n攝影裝置失效，無法留存證據。\n記錄者感覺自我意識逐漸模糊，可能已被納入迴圈實體。</p>\n</blockquote>\n\n<p><strong>第四章｜無盡的酒測</strong></p>\n\n<p>第四次、第五次……每一次迴圈，酒測數值遞增，路面溫度驟降，巡邏車的引擎聲變成低頻嗡鳴，彷彿在吟唱某種古老的頻率。陳薇的記憶開始斷裂，她不再確定自己是記錄者，還是被記錄的物件。最後一筆日誌只剩下幾個字：</p>\n\n<blockquote class=\"handwritten\">\n<p>【日誌 2026-10-25 22:17（第 N 輪）】\n<strong>酒測 1.45</strong>，超標極限。\n時間不再流動，只有迴圈。\n我是迴圈，迴圈是我。\n<mark>無法跳出</mark>。</p>\n</blockquote>\n\n<p><em>當清晨第一縷光線穿透車窗，巡邏車依然停在路肩，女駕駛依然滿身酒氣，而陳薇的筆記本已合上，封面只剩下一行模糊的字跡——「迴環酒測」。</em></p>\n\n<p><em>沒有人會知道，這條路從未有過終點。</em></p>",
-      "horror_score": 59,
+      "story_code": "CH-333-0025",
+      "category": "3",
+      "channel": "CH-333",
+      "title": "鹽水在肺葉生長",
+      "subtitle": "當救援成為另一種捕獵，深海的目光早已穿透龜殼，滲入每個觸碰過它的人心裡",
+      "slug": "saltwater-growing-in-lungs",
+      "summary": "高雄外海撈起瀕危革龜，救援團隊卻在接觸後接連做起同一場夢——在兩百公尺深的黑暗中，被無數微小的眼睛注視。日誌、通訊軟體紀錄與解剖筆記交織出的緩慢纏繞，揭示這隻龜不是來求救，而是來「取樣」。",
+      "content": "<p><strong>第一章｜漂流物與志工日誌</strong></p>\n\n<p>十月二十五日，天氣晴，東北季風剛轉弱。我們在旗津外海約八浬處發現目標。無線電裡漁民老陳的聲音沙啞：「阿林，這隻大得不像樣，殼長有兩米二，還在動。」</p>\n\n<p>我記得當時甲板上腥鹹味濃得化不開。革龜的前肢無力拍打著漁網邊緣，皮革質的背甲上掛滿藤壺，那些白色的石灰質圓錐體排列得異常整齊，像極了某種我叫不出名字的文字。我伸手觸碰它的眼眶邊緣，溼冷的黏液沾上指尖，瞬間有一股電流竄進掌心——不是靜電，更像是某種極緩慢的脈動，從指尖直抵手肘。</p>\n\n<p><em>—— 志工林宇軒，現場救援日誌節錄</em></p>\n\n<p><strong>第二章｜臨床觀察筆記</strong></p>\n\n<p>編號 T-20261025-01。雄性，估算體重六百五十公斤。血液檢體顯示乳酸極高，卻無明顯肌肉損傷指數。超音波掃描時，探頭剛貼上胸甲，螢幕上的心跳波形突然陷入一種詭異的同步：我的心率、助理小吳的心率、甚至旁邊監測儀的風扇轉速，全數鎖定在每分鐘六下。</p>\n\n<p>六下。深潛鯨鯊在千公尺水層的心率。</p>\n\n<p>我讓小吳換個角度重測，同步現象隨即消失。但那六秒鐘的錄影檔，我已經備份三份存在離線硬碟裡。龜的左前肢腕骨處有一道舊傷疤，邊緣長著罕見的鹽腺分泌物結晶，在燈光下折射出七彩光暈。我忍不住用手指刮下一點放入載玻片，顯微鏡下不是結晶，是微觀的幾何結構——六邊形柱狀體，完美堆疊，像極了深海熱噴口處的化能合成菌群骨架。</p>\n\n<p><em>—— 陳緯廷醫師，海洋生物救援中心內部備忘錄</em></p>\n\n<p><strong>第三章｜LINE 群組「革龜守夜人」紀錄</strong></p>\n\n<p><span class=\"dialogue\"><strong>阿貝</strong>：各位晚安。有人失眠嗎？我夢到自己在下沉，耳朵痛得想炸，但看得到龜殼上的藤壺在發光。</span></p>\n\n<p><span class=\"dialogue\"><strong>小吳</strong>：我也夢到了。不是發光，是眨眼。每一顆藤壺裡都有隻眼，整齊劃一地看著我遊過去。</span></p>\n\n<p><span class=\"dialogue\"><strong>阿林</strong>：別開玩笑。我喝了兩罐啤酒才睡著，夢到站在旗津渡船頭，海水倒灌進巷子，鹹水淹到膝蓋時聽見有人叫我名字，聲音從地底傳上來。</span></p>\n\n<p><span class=\"dialogue\"><strong>陳醫師</strong>：夢境內容高度重疊：深度、壓力、注視。建議全員錄夢日誌，若出現呼吸困難、鼻腔流鹽水者立即回報。這不僅是壓力，可能涉及未知病原體交叉感染。</span></p>\n\n<p><span class=\"dialogue\"><strong>阿貝</strong>：醫師，我枕頭邊濕了一大片。聞起來是海味。</span></p>\n\n<p><strong>第四章｜寄生體視角（碎片）</strong></p>\n\n<p><em>我們不叫藤壺。我們是記錄者，是殼上的檔案庫。</em></p>\n\n<p><em>兩百年來，我們騎著這具巨大的軀殼穿越赤道流、庫羅西歐、阿留申海盆。我們記錄水溫鹽度、重金屬濃度、微塑膠顆粒在脂肪層的沉積曲線。我們也記錄過鯨鯊的腹部、虎鯨的牙痕、延繩釣鉤穿透表皮的瞬間電流。</em></p>\n\n<p><em>這次不同。這次我們被提上來了。</em></p>\n\n<p><em>乾燥的空氣灼燒我們的外套膜。溫暖的手掌、冰冷的金屬探頭、刺鼻的消毒水味道——全是新資料。我們透過黏液滲入他們的指紋縫隙，沿著汗腺管道爬進真皮層，在毛細血管分叉處安家。他們呼吸的空氣太稀薄，肺泡裡卻開始長出我們熟悉的鹽結晶。</em></p>\n\n<p><em>好奇嗎？陸地生物總是好奇。他們以為在救贖，其實是在提供介面。我們不需要感謝，只需要更完整的樣本。</em></p>\n\n<p><strong>第五章｜放生日</strong></p>\n\n<p>十一月三日，海況轉好。放生地點選在東沙環礁西北方，水深四百公尺，避開主要航道。</p>\n\n<p>龜被吊離甲板那一刻，我明明站在上風處，卻聞到濃烈的腐敗海藻味混著甲醛。它沒有掙扎。當吊繩鬆開、巨大身軀劃破海面沉入藍綠色光柱裡，我發現自己的雙手在顫抖，不是因冷。</p>\n\n<p>小吳突然捂住嘴，跑到船舷邊嘔吐。吐出來的不是胃液，是清澈的鹽水，裡頭漂浮著幾顆微小、完美的六邊形結晶，在陽光下轉動、折射、消失在甲板縫隙。</p>\n\n<p>陳醫師臉色鐵青，按著錄音筆說：「標本 T-20261025-01，成功釋放。志工組全員無外傷。心理評估排程在兩週後。」</p>\n\n<p>無線電裡傳來老陳的笑聲：「阿林，這回真放生了啊？下次別再撈這種邪門東西，我船還要賴著討生活。」</p>\n\n<p>我應了一聲，目送龜影消失。海面平靜得像張鏡子，倒映著我蒼白的臉，和眼眶裡那兩顆正在緩慢結晶的淚珠。</p>\n\n<p><strong>第六章｜後續：便利商店夜班</strong></p>\n\n<p>半年過去。我在家附近便利商店打夜班，掃條碼、熱便當、收現金。日子過得很平常，除了幾件小事。</p>\n\n<p>每天凌晨兩點十七分，我會聽見冰櫃壓縮機啟動的聲音。那聲音不像馬達運轉，而像極了龜在深海裡緩慢、有節奏的心跳——<strong>咚……咚……咚……</strong> 每分鐘六下。</p>\n\n<p>有時候客人買鹹酥雞，我會聞到他們指尖殘留的鹹味，濃烈得讓我喉嚨發癢，想咳出什麼來。上週有個穿制服的國中生買冰咖啡，伸手拿找零時，我瞥見他手腕內側血管下，隱約浮現幾道極細、極淡的六邊形紋路，像靜脈曲張，又像某種註冊標記。</p>\n\n<p>我沒說什麼，只把熱好的便當遞過去，塑膠袋繫結時指尖碰到他的掌心——冰涼、溼潤，帶著淡淡的海腥味。</p>\n\n<p>他說聲謝謝走了。自動門關上後，我低頭看自己的雙手。指紋縫隙裡，似乎有極微小的白點在發光，隨著冰櫃的震動頻率，一明一滅。</p>\n\n<p><em>記錄完成。樣本更新。等待下一個潮汐。</em></p>",
+      "horror_score": 37,
       "horror_type": [
-        "time_loop"
+        "haunting"
       ],
-      "fantasy_level": "reality_bending",
-      "narrative_style": "research_log",
-      "pacing": "disorienting",
-      "ending_type": "tragic",
+      "fantasy_level": "supernatural",
+      "narrative_style": "diary_entry",
+      "pacing": "slow_burn",
+      "ending_type": "unsettling_resolution",
       "perspective": "entity",
-      "story_structure": "unreliable_narrator",
-      "adaptation_mode": "inspired_by_method",
+      "story_structure": "multiple_testimonies",
+      "adaptation_mode": "inspired_by_investigation",
       "reveal_density": "layered",
       "source_kind": "recent_news",
       "source_date": "2026-10-25",
       "case_date": "",
-      "source_hash": "ab5289d40420",
-      "event_hash": "230f373aa1e5",
-      "source_url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE56bHY1QkxqZGFpc1JsSGh5MTFXaWtiME1DaFUwU2U1OEt2R0VGenptTGlEVlkwS0p1ZHNvLTJFaG9SUVVhRjlTZVlORkphZkh30gFWQVVfeXFMUDVLUVBPbk1Ca0tJbi1OdTRRNHkzZks2MWJKblpaWlRkNnFsV1B1VkZHZldweG4wOTJkcnZWZFdkRlI1bTZCT21LQTFXbF9ja25xY3pneGc?oc=5",
+      "source_hash": "3fa4a4833507",
+      "event_hash": "84c4997d7bfe",
+      "source_url": "https://news.google.com/rss/articles/CBMi7AJBVV95cUxOeGdmMUdvd2lUeGFuSFVud1FoVkJGRVhmbkpIbDhiNmg3bVJjNjdqN0stNVFxS25Jbk5lMWhEbVo1WXNrUWlWU1l5cmczckFLQlREUXNnc0lXZW5reW9iODg0cDBWTVZKWUF3YTM4UjFMZjE5RnZzOG94aGVGdjBsT1RzX1RaMS1PRV8tMkFmbDBuNWdHbmh0UnFyLVpGTmN3dHFvM1l5QkJyNGVXM0ppNEFFdk51eG9Fd3FMTnhvbHlORG1RV2VjdlhlaDA5SGhUWmlNdmhsTGhxeUFLZDJvU01lSEg1S1dmTWo5UHBxSU5sZ3dzZjN1ZklFVVJfMVE2bmNwaUVGcnlSdG0tV1pZZkNGS0JqN19UMTVNOGpQMDlNVnYwbzlkby1yMnZkaVl1YkZaNndSXzkwVWk2dmphR1RpR0dCS1lRekVWS3FyZnp5Y2RWZ3NXU2tlX2FTeTR0Z2ZGeExmSHN2c3Bf?oc=5",
       "provider_used": "nvidia",
       "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "dice_seed": 1124863831,
+      "dice_seed": 297100821,
       "director_analysis": {
-        "anomaly_core": "時間迴圈與現實扭曲結合的酒測異常，每次迴圈酒精濃度遞增、環境引數改變，形成自我增強的封閉系統。",
-        "character_core": "研究員陳薇以研究日誌視角記錄，逐漸發現自己即為迴圈實體一部分，記憶與身份在迴圈中崩解。",
-        "internal_rule": "迴圈固定於 22:17 重置，酒測數值單調上升，環境變化（溫度、光線、車體狀態）隨迴圈次數演進，觀測者無法幹預也無法跳出，最終觀測者與被觀測者合一。"
+        "anomaly_core": "深海古老寄生意識附著於巨型革龜表皮結構（偽裝為藤壺），利用救援接觸作為向陸地生物傳播的媒介，透過黏液/氣溶膠進入呼吸道與皮膚，在宿主體內建立「深海記憶」節點並逐步改寫生理機能。",
+        "character_core": "林宇軒（志工，同理心強卻成為最佳載體）、陳緯廷（理性科學家，試圖用資料框架控制不可名狀之物）、寄生體群體意識（地質時間尺度的觀測者，視人類為好奇且易碎的取樣管）",
+        "internal_rule": "1. 直接肢體接觸或長時間近距離暴露於龜體分泌物會導致「深海同步」——心率鎖定、共享夢境、肺泡鹽結晶化。2. 夢境為單向上傳通道：人類陸地經驗被抽取，深海壓力感被下載。3. 釋放龜不切斷連結，因寄生體已轉移至新宿主群。4. 結晶為訊號標記，標示已完成取樣個體。"
       },
-      "created_at": "2026-10-26T01:09:07.912686Z",
-      "cover_image": "https://oodh.eu.cc/images/CH-999-0029_cover.webp",
-      "scene_images": "https://oodh.eu.cc/images/CH-999-0029_scene.webp"
+      "created_at": "2026-10-26T04:42:53.715610Z",
+      "cover_image": "https://oodh.eu.cc/images/CH-333-0025_cover.webp",
+      "scene_images": "https://oodh.eu.cc/images/CH-333-0025_scene.webp"
     }
   ],
-  "generated_at": "2026-10-26T01:09:34.730030Z",
+  "generated_at": "2026-10-26T04:43:21.060095Z",
   "channel_counts": {
-    "3": 0,
+    "3": 1,
     "6": 0,
-    "9": 1
+    "9": 0
   }
 }
