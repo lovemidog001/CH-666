@@ -1,0 +1,41 @@
+{
+  "story_code": "CH-999-0030",
+  "category": "9",
+  "channel": "CH-999",
+  "title": "紅燈不停的迴圈",
+  "subtitle": "一名偵查員在同一個路口追尋永不結束的車禍真相",
+  "slug": "red-light-loop-investigation",
+  "summary": "偵查員陳志宏在虛構的「鳳山市」發現同一路口每晚都發生相同的追撞事故，駕駛皆稱聽到廣播裡的「紅燈不停」聲音。隨著調查深入，他發現這是一種記憶傳染的時間迴圈，現實本身在每晚零點重置，只有聽過特定頻率的人會被困住。故事以警方紀錄式敘事呈現，逐步揭露異常規則，並在不安的結局留下未解的迴圈。",
+  "content": "<p><strong>第一章｜初次接觸</strong></p>\n\n<p>凌晨兩點，鳳山市中正路與建國路口的紅燈依舊閃爍。陳志宏坐在巡邏車裡，手中的記事本已經翻到第七頁，記錄著同樣的車禍：白色轎車從後方撞上警車，駕駛下車時滿身酒氣，口中喃喃自語「紅燈不停」。</p>\n\n<p class=\"dialogue\"><strong>陳志宏</strong>：「這已經是第三起了，同一個路口、同一句話。」</p>\n\n<p class=\"dialogue\"><strong>夥伴阿德</strong>：「也許只是巧合，酒駕嘛。」</p>\n\n<p>但陳志宏注意到，三位駕駛的酒精濃度都在 0.55mg/L 以上，且都在事發前十分鐘聽過同一個電臺節目——「深夜駕駛指南」。節目主持人反覆播放一段無意義的音訊，彷彿在強調紅燈永遠不會熄滅。</p>\n\n<p><strong>第二章｜頻率的線索</strong></p>\n\n<p>隔日清晨，陳志宏前往電臺所在的舊大樓，門口貼著「停業整修」的封條。他在地下室找到一臺舊式發射器，頻率鎖定在 101.3 MHz，旁邊放著一本手寫筆記，頁面上密密麻麻寫著「紅燈不停，時間不動」。</p>\n\n<p><mark>筆記最後一行</mark>：「只要聽見，就會在零點回到這裡。」</p>\n\n<p>陳志宏將發射器帶回分局，請技術組分析。技術員小林報告說，訊號內含一種極低頻的調變，能影響人腦的海馬體，造成短期記憶重組。這不是普通廣播，而是一種<em>記憶病毒</em>。</p>\n\n<p><strong>第三章｜時間的縫隙</strong></p>\n\n<p>當晚零點，陳志宏坐在辦公室，螢幕上的時鐘走到 00:00:00，瞬間畫面凍結，隨即重新啟動。他發現自己又回到前一天傍晚，手邊的記事本頁數倒退，連同案件編號都重置。唯有他記得昨晚的一切。</p>\n\n<p class=\"dialogue\"><strong>陳志宏</strong>：「這不是夢，這是迴圈。」</p>\n\n<p>他試圖改變行動：提前攔截那臺白色轎車，卻發現駕駛依然在同一時間、同一地點出現，口中依舊念著那句咒語。每一次嘗試，迴圈都會在零點重置，只有他的記憶保留下來。</p>\n\n<p><strong>第四章｜記憶的傳染</strong></p>\n\n<p>陳志宏開始在分局內低聲詢問同事，發現凡是曾在過去一週內聽過「深夜駕駛指南」的人，皆在零點後出現短暫的記憶錯位。甚至連未直接聽廣播、僅透過同事轉述的人，也開始在夢中聽見那段音訊。</p>\n\n<p><blockquote>「這是一種模因傳播，不需要直接接觸訊號，只要概念被說出，腦部就會自我複製。」技術員小林在報告中寫道。</blockquote></p>\n\n<p>他決定切斷源頭：拆除發射器、銷毀筆記、封鎖頻率。然而，當他走出地下室，手機收到一條簡訊，內容只有四個字——「紅燈不停」。螢幕亮起的瞬間，時間再次歸零。</p>\n\n<p><strong>第五章｜不安的終點</strong></p>\n\n<p>現在的陳志宏站在同一個路口，紅燈依舊閃爍，白色轎車從後方逼近。他握緊方向盤，心中只剩一個念頭：<strong>只要還有人聽見，迴圈就不會結束</strong>。</p>\n\n<p>他按下喇叭，聲音在空曠的街道上迴盪，卻聽見遠處傳來相同的喇叭聲，彷彿無數個自己在同一瞬間做著同樣的事。時間在零點前一秒凝固，然後——<em>又是新的開始</em>。</p>",
+  "horror_score": 42,
+  "horror_type": [
+    "ontological",
+    "memetic",
+    "time_loop"
+  ],
+  "fantasy_level": "reality_bending",
+  "narrative_style": "police_report",
+  "pacing": "steady",
+  "ending_type": "unsettling_resolution",
+  "perspective": "investigator",
+  "story_structure": "investigation_timeline",
+  "adaptation_mode": "inspired_by_method",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2026-10-25",
+  "case_date": "",
+  "source_hash": "ab5289d40420",
+  "event_hash": "230f373aa1e5",
+  "source_url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE56bHY1QkxqZGFpc1JsSGh5MTFXaWtiME1DaFUwU2U1OEt2R0VGenptTGlEVlkwS0p1ZHNvLTJFaG9SUVVhRjlTZVlORkphZkh30gFWQVVfeXFMUDVLUVBPbk1Ca0tJbi1OdTRRNHkzZks2MWJKblpaWlRkNnFsV1B1VkZHZldweG4wOTJkcnZWZFdkRlI1bTZCT21LQTFXbF9ja25xY3pneGc?oc=5",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 1511077336,
+  "director_analysis": {
+    "anomaly_core": "一種以特定廣播頻率為載體的記憶模因，能在聽者腦中植入「紅燈不停」的指令，並在每日午夜零點強制現實重置，形成封閉的時間迴圈。",
+    "character_core": "偵查員陳志宏因過去一次未能阻止的酒駕事故而背負愧疚，成為唯一保留跨迴圈記憶的觀測者，其動機從職責轉為尋求自我救贖。",
+    "internal_rule": "1. 只有聽過 101.3 MHz 特定調變訊號（或經由語言傳播該概念）的人會被納入迴圈。2. 每日 00:00:00 現實全域重置，物理狀態回溯，唯記憶保留者除外。3. 切斷發射源無法終結迴圈，因模因已在人際傳播中自我複製。"
+  },
+  "created_at": "2026-10-26T21:30:55.952681Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-999-0030_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-999-0030_scene.webp"
+}
