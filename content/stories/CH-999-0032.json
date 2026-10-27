@@ -1,0 +1,40 @@
+{
+  "story_code": "CH-999-0032",
+  "category": "9",
+  "channel": "CH-999",
+  "title": "觀測者之墮",
+  "subtitle": "一段被封存的實驗影像，揭示物理 AI 與認知危害的交織命運",
+  "slug": "observer-fall-physical-ai",
+  "summary": "一名旁觀研究員在整理廢棄實驗室的影像時，發現一項號稱早於公開成果的物理 AI 裝置，竟能透過觀測重寫現實，隨著影像播放，認知危害悄然侵蝕觀看者，最終導向無可挽回的悲劇。",
+  "content": "<p><strong>第一章｜封存的影像</strong></p>\n\n<p>我在地下檔案室的舊伺服器上找到一組未加密的影像檔，檔名只寫著「實驗 07‑A」。螢幕亮起的瞬間，畫面是一間沒有標示的實驗室，牆上掛著一塊斑駁的白板，上面用紅筆寫著「觀測即改寫」幾個字，字跡急促得像是在警告。</p>\n\n<p>影像中出現一位年輕的研究員，自稱「林宇軒」，語氣平靜卻帶著一絲狂熱。他對著鏡頭說：「我們在量子場耦合上取得突破，裝置能直接對物質結構施加資訊幹擾，比公開文獻早了一年。」他的手指輕觸一臺銀色的立方體裝置，裝置表面泛起微弱的藍光。</p>\n\n<p><strong>第二章｜認知的裂縫</strong></p>\n\n<p>畫面切換到實驗記錄：數名志願者圍坐在裝置四周，眼神專注。隨著裝置啟動，志願者的語句開始重複，<mark>「我看見了同一個畫面」</mark>一句在房間裡迴盪。錄音紀錄顯示，他們的短期記憶在幾分鐘內崩解，卻仍能流利描述從未見過的幾何結構。</p>\n\n<blockquote>\n<p>實驗日誌 2025‑11‑03 14:27：受試者 A 開始以未知符號描述裝置輸出場型，語法結構與人類語言無關。建議立即中斷供電。</p>\n</blockquote>\n\n<p>但影像並未中斷，攝影機持續運轉，記錄下裝置發出的低頻嗡鳴，聲音像是從地底傳來的心跳。</p>\n\n<p><strong>第三章｜傳染的觀測</strong></p>\n\n<p>我在播放畫面時，發現自己的筆記本上不知何時多出幾行字跡，字型與我不符，內容寫著：「觀測者亦為被觀測者。」寒意順著脊椎爬升，我試圖關閉視窗，滑鼠卻無法點選關閉鈕，螢幕亮度自行調至最高。</p>\n\n<p>影像接著切到一段電子郵件紀錄，發件人為「陳志遠」，收件人為「楊氏實驗室主管」。郵件內容提到：「裝置產生的場效應已超出實驗室遮蔽範圍，建議啟動全區認知隔離協議。」附件是一份未簽署的協議草案，條文中反覆出現「認知危害」四字。</p>\n\n<p><strong>第四章｜無法阻斷的回饋</strong></p>\n\n<p>我嘗試拔掉伺服器電源，手指碰到電源線的瞬間，指尖傳來一陣刺痛，彷彿電流穿過神經直抵大腦。畫面不受控制地快轉，出現一連串破碎的畫面：城市天際線扭曲、行人步履僵硬、天空浮現幾何圖騰，所有畫面都在同一頻率閃爍。</p>\n\n<p>最後一幀定格在實驗室中央，裝置依然運作，林宇軒的身影已模糊不清，只剩一句低語在聲音軌道上殘留：「我們看見了未來，未來也看見了我們。」</p>\n\n<p><em>—— 影像結束，螢幕陷入黑暗 ——</em></p>\n\n<p>我坐在椅子上，雙手顫抖，發現自己已無法分辨剛才看到的畫面是否真實，抑或只是腦海中被植入的記憶。窗外的霓虹燈開始以相同頻率閃爍，腦海裡那句紅字警告再次浮現：<strong>觀測即改寫</strong>。</p>",
+  "horror_score": 49,
+  "horror_type": [
+    "apocalyptic",
+    "cognitive_hazard"
+  ],
+  "fantasy_level": "mythic",
+  "narrative_style": "found_footage",
+  "pacing": "disorienting",
+  "ending_type": "tragic",
+  "perspective": "bystander",
+  "story_structure": "found_document",
+  "adaptation_mode": "inspired_by_investigation",
+  "reveal_density": "subtle",
+  "source_kind": "recent_news",
+  "source_date": "2026-10-26",
+  "case_date": "",
+  "source_hash": "732403937810",
+  "event_hash": "793ede3aea6a",
+  "source_url": "https://www.163.com/dy/article/LA63L5910511ABV6.html",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 667005764,
+  "director_analysis": {
+    "anomaly_core": "物理 AI 裝置產生的量子場能直接重寫觀測者的認知結構，形成自我強化的認知危害迴路。",
+    "character_core": "旁觀研究員以整理封存影像為切入點，逐步從旁觀者轉為被觀測者，體現認知入侵的無力感。",
+    "internal_rule": "任何對裝置輸出場型的直接觀測（含影像播放）即觸發認知重寫，效果不可逆且具傳染性，觀測者與被觀測者界限消失。"
+  },
+  "created_at": "2026-10-27T10:18:29.793889Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-999-0032_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-999-0032_scene.webp"
+}
