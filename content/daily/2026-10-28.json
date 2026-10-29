@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-28",
+  "count": 1,
+  "stories": [
+    {
+      "story_code": "CH-333-0028",
+      "category": "3",
+      "channel": "CH-333",
+      "title": "最後一班高鐵的日記",
+      "subtitle": "目擊者筆錄與詛咒的倒敘",
+      "slug": "last-train-diary",
+      "summary": "一名高鐵乘客以日記形式記錄從事故前夕倒敘至登車當下，逐層揭露車廂內的靈體顯現、詛咒符咒與通靈儀式，現實在筆觸中扭曲，最終在最後一頁走向悲劇收尾。",
+      "content": "<p><strong>第一章｜最後一頁</strong></p>\n\n<p class=\"eerie\"><em>2026‑10‑30 23:57</em> 燈光閃爍，車廂像被無形大手揉碎。我聽見鋼軸摩擦聲裡夾雜著嬰兒啼哭，<mark>那不是機械音</mark>。窗外月亮被拉長成一條白線，時間在車廂裡倒流。手中的筆尖顫抖，墨跡滲開成黑色淚痕。<strong>我看到他們</strong>——那些在三年前出軌身亡的乘客，站在過道微笑，手裡握著同一張黃紙符咒。他們不說話，只用眼神逼我把日記合上。我感覺胸口有冰冷的手指穿透肋骨，<em>這就是詛咒的收割時刻</em>。</p>\n\n<p><strong>第二章｜倒數第三天</strong></p>\n\n<p class=\"handwritten\"><em>2026‑10‑27 04:12</em> 昨晚在車站月臺遇見一位自稱「通靈師」的老婦，她塞給我一張泛黃的紙條，上頭寫著<mark>「勿回頭，勿聽聲」</mark>。上車後，車廂盡頭的緊急出口門自動開合，彷彿有無形風在吹。我試圖用手機錄下異響，錄音卻只剩下一段低語：「<q>你們已經屬於我們了</q>」。心跳快得像高鐵透過隧道時的氣壓波，<strong>我開始懷疑自己是不是那個被詛咒的媒介</strong>。</p>\n\n<p><strong>第三章｜初見靈體</strong></p>\n\n<p class=\"dialogue\"><em>2026‑10‑24 18:03</em> 今天午後，車廂燈光忽明忽暗，我在第七排座位旁看見一個穿著紅色校服的小女孩，腳下沒有影子。她轉頭看我，嘴唇動了動，沒發出聲音，卻直接在腦海裡植入一句話：<mark>「列車不會停，除非你替我們完成契約」</mark>。我嚇得站起身，周圍乘客卻像沒看見一樣繼續看手機、喝咖啡。那一刻我明白，<em>只有我能看見他們</em>，也只有我能聽見那聲音。</p>\n\n<p><strong>第四章｜詛咒的起源</strong></p>\n\n<blockquote>\n<p><em>2026‑10‑20 10:45</em> 在車站資料室翻閱舊報紙，發現三十年前同一條線曾發生離奇脫軌，官方結論為「原因不明」。報導附帶一張模糊照片，車頭掛著一面紅布，中央繡著同樣的符咒——<mark>一個倒轉的八卦</mark>。旁邊手寫註記：<cite>「為了鎮壓亡魂，必須以活人血祭」</cite>。我手顫抖著拍下照片，心裡湧起一股寒意，<strong>這不只是傳說，是真實的儀式</strong>。</p>\n</blockquote>\n\n<p><strong>第五章｜最初的列車</strong></p>\n\n<p class=\"eerie\"><em>2026‑10‑15 06:30</em> 登上這班高鐵時，月臺廣播重複著「請乘客注意腳下」。我握著車票，指尖觸到票根邊緣的微凸符號——正是那個倒轉八卦。車門關上瞬間，車廂內彷彿被一層透明膜包裹，空氣凝結成冰。我聽見耳邊傳來細碎的唸經聲，聲音從車頂、車底、甚至我自己的心臟裡滲出。<mark>那一刻我已經是詛咒的一部分</mark>。日記的第一頁，寫下的不是旅程期待，而是<strong>「我將在這趟列車上見證自己的終結」</strong>。</p>",
+      "horror_score": 98,
+      "horror_type": [
+        "afterlife_glimpse",
+        "curse",
+        "mediumship"
+      ],
+      "fantasy_level": "reality_bending",
+      "narrative_style": "diary_entry",
+      "pacing": "fast_paced",
+      "ending_type": "tragic",
+      "perspective": "witness",
+      "story_structure": "reverse_chronology",
+      "adaptation_mode": "inspired_by_consequence",
+      "reveal_density": "layered",
+      "source_kind": "recent_news",
+      "source_date": "2026-10-28",
+      "case_date": "",
+      "source_hash": "ab11783e48c4",
+      "event_hash": "5ad4e6363fa4",
+      "source_url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE5hZGtacnFWZjl2ZXRDMmlCQVlsM083MzRtdVdfUUtac05ET0c0WGZEaHJRSXdoQmRsa0x3d3RSbl9JUFdEeWVUZtIBTEFVX3lxTE5kcVFwMEdvVnlVQWdjY1FSMmt5Q3pLTkJMb3JqUWt2dUd5aHdkeHVBUWthSGFpZ2VBVGpWd0xQVGtSTHVpTVVxY2FaWFo?oc=5",
+      "provider_used": "nvidia",
+      "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "dice_seed": 1173075409,
+      "director_analysis": {
+        "anomaly_core": "高鐵車廂成為現實扭曲的容器，詛咒符咒與亡魂顯現交織，乘客若以通靈者身分進入將被強制納入迴圈。",
+        "character_core": "主角為唯一能看見靈體、聽見低語的目擊者，同時也是詛咒儀式的關鍵媒介，日記記錄其心理崩解與命運倒敘。",
+        "internal_rule": "1. 符咒一旦接觸活人即啟動詛咒，2. 亡魂只能在車廂內顯現並透過通靈者傳遞訊息，3. 現實隨日記倒敘逐層崩解，最終在最後一頁將主角吞噬。"
+      },
+      "created_at": "2026-10-29T02:19:16.440861Z",
+      "cover_image": "https://oodh.eu.cc/images/CH-333-0028_cover.webp",
+      "scene_images": "https://oodh.eu.cc/images/CH-333-0028_scene.webp"
+    }
+  ],
+  "generated_at": "2026-10-29T02:19:45.080562Z",
+  "channel_counts": {
+    "3": 1,
+    "6": 0,
+    "9": 0
+  }
+}
