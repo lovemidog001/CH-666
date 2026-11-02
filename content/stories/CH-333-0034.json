@@ -1,0 +1,41 @@
+{
+  "story_code": "CH-333-0034",
+  "category": "3",
+  "channel": "CH-333",
+  "title": "剪髮師的回聲：被詛咒的剪刀與祖靈",
+  "subtitle": "一場跨越海峽的詛咒訪談",
+  "slug": "jianfashi-huiyin",
+  "summary": "失蹤的年輕剪髮師在異鄉接受神秘訪談，敘述被詛咒的剪刀如何牽引祖靈索命，敘事在斷裂的記憶中迴圈，揭示詛咒與家族罪孽交織的恐懼。",
+  "content": "<p><strong>第一章｜初次訪談</strong></p>\n\n<p>錄音機在昏暗的旅館房間裡持續轉動，聲音沙啞卻清晰。受訪者自稱「阿緯」，雙手仍緊握著那把生鏽的剪刀，指節因長期握持而發白。他說自己原本在臺北的沙龍工作，因一場突如其來的委託而獨自前往九州的小鎮，從未想過會成為這場詛咒的核心。</p>\n\n<blockquote><p class=\"dialogue\">「我只想幫那位老婆婆修剪髮型，沒想到剪刀一碰到她的髮絲，就聽見低語聲從刀刃傳來。」</p></blockquote>\n\n<p>阿緯的語氣忽快忽慢，彷彿在拼湊破碎的記憶。他提到老婆婆自稱是「守髮人」，世代守護著一把被詛咒的剪刀，必須每七年獻上一頭未曾剪過的黑髮，才能壓制祖靈的怨氣。</p>\n\n<p><strong>第二章｜剪刀的低語</strong></p>\n\n<p>剪刀的刀身刻著幾行古老的符文，阿緯用指尖輕觸，感覺到微微的震動，像心跳同步。每當夜深人靜，剪刀便在枕邊發出細微的「嗒、嗒」聲，彷彿在數算著某種期限。阿緯曾試圖將其丟棄，卻發現剪刀總會在隔天清晨出現在床頭，乾淨如新。</p>\n\n<p>他在訪談中斷斷續續地說：「<mark>那聲音不是幻覺，是祖靈在提醒我</mark>，家族曾因貪圖利益而斷送了祭祀的誓約，現在輪到我償還。」這句話讓記錄者不禁屏息，因為阿緯的家族並無公開的祭祀傳說，唯有幾本舊日記零星記載著「髮祭」的儀式。</p>\n\n<p><strong>第三章｜祖靈的條件</strong></p>\n\n<p>根據阿緯的回憶，老婆婆在臨別前將一縷白髮塞入他掌心，低聲說：「只要你在滿月之夜，用這把剪刀剪斷自己的髮絲，並將髮束焚燒，詛咒便會解除。」阿緯照做，火光映照出剪刀刀鋒上浮現的紅色符文，煙氣中彷彿有無數細小的手指伸向他。</p>\n\n<blockquote><p class=\"dialogue\">「那一夜我聽見無數聲音在耳邊輕喚我的名字，彷彿整個家族的亡魂都聚集在煙裡。」</p></blockquote>\n\n<p>然而，火熄後剪刀依舊完好無損，阿緯的髮量未減，反而更加濃密，髮根隱隱泛著暗紅。他開始懷疑，儀式只是另一場誘餌，真正的代價或許是「將剪刀傳給下一個受害者」。</p>\n\n<p><strong>第四章｜迴圈的剪髮</strong></p>\n\n<p>訪談接近尾聲時，錄音機突然發出刺耳的電流聲，阿緯的聲音變得空洞：「我現在坐在同一間旅館，手裡仍握著那把剪刀，聽著自己的聲音從錄音帶裡流出。」他笑了笑，眼神卻空洞無光，彷彿已看穿一切。</p>\n\n<p>記錄者發現，阿緯的敘述與早先的筆記完全重疊，連語氣、停頓、甚至措詞都一模一樣。剪刀在桌上輕輕顫動，發出熟悉的「嗒、嗒」聲，彷彿在倒數著下一個七年。阿緯低聲說：「<em>下一位剪髮師，妳準備好了嗎？</em>」錄音在此戛然而止，留下無盡的迴響。</p>",
+  "horror_score": 36,
+  "horror_type": [
+    "curse",
+    "folk_belief",
+    "ancestral_sin"
+  ],
+  "fantasy_level": "slightly_unreal",
+  "narrative_style": "interview_transcript",
+  "pacing": "disorienting",
+  "ending_type": "cyclic",
+  "perspective": "victim",
+  "story_structure": "unreliable_narrator",
+  "adaptation_mode": "inspired_by_investigation",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2026-11-01",
+  "case_date": "",
+  "source_hash": "1cbbb9d0019d",
+  "event_hash": "64c51034ecd2",
+  "source_url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBuS3dueDc1dVF3ejMxNUtSOXlWVjhXSi1KYndDd245SkY0NFZ0SjFtVUNZWnhTLUNsMmpTMVdVMndPT1ZBd3lfWkh5b1RrUmlV0gFWQVVfeXFMUFFHaU90RkpLeG1tSkNkOUROM0k3Rkl0TWRybVFUajViN0RwcGJvVnczTHc2d1MyVjRFTHZCR296SkFZNDRqWDVUanQ0YkhVdExMd2RDYnc?oc=5",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 1129256485,
+  "director_analysis": {
+    "anomaly_core": "被詛咒的剪刀與祖靈索命的迴圈儀式",
+    "character_core": "失蹤剪髮師阿緯，身兼受害者與敘述者，記憶斷裂且不可靠",
+    "internal_rule": "每七年需獻上未剪黑髮壓制祖靈；剪刀不可丟棄，儀式若未完成將轉嫁予下一位持有者，形成永恆迴圈"
+  },
+  "created_at": "2026-11-02T23:49:53.064833Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-333-0034_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-333-0034_scene.webp"
+}
