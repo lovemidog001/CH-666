@@ -1,0 +1,41 @@
+{
+  "story_code": "CH-999-0047",
+  "category": "9",
+  "channel": "CH-999",
+  "title": "第十七秒剝離",
+  "subtitle": "當驗證協定判定你我皆為套殼，唯有記憶在刪除前仍屬於自己",
+  "slug": "seventeenth-second-stripping",
+  "summary": "興林市檔案管理員 K 在例行巡檢中發現系統日誌出現「驗證失敗：主體為套殼」的異常標記。隨著調查深入，他發現所謂的 AI 套殼檢測機制早已擴充套件至人類認知層——每個人的記憶、情感與身分認同，都在十七秒的掃描視窗內面臨被判定為「偽造」並剝離的命運。碎片化的日誌、監控錄音與個人手記交織出真相：這場清洗不僅是技術性的，更是對存在本身的抹除。",
+  "content": "<p><strong>第一章｜異常日誌</strong></p>\n\n<p>興林市中央資料庫的伺服器機房終年保持攝氏十八度，濕度鎖定在四成。K 習慣在深夜三點巡檢，那段時間沒有審計請求，也沒有即時運算任務，只有風扇持續不斷的低頻嗡鳴，像極了他已故母親在織布機前踩踏板的節奏。</p>\n\n<p>終端機螢幕捲動著例行的完整性檢查報告，綠色文字在黑底上流動。第 47,000 行卡住了。</p>\n\n<blockquote>\n<p>[ERROR] VERIFICATION_MODULE_7X: INTEGRITY CHECK FAILED AT TIMESTAMP 2035-11-04T03:14:12Z</p>\n\n<p>[ALERT] SHELL_DETECTED: SUBJECT_ID 9876543210 (ARCHIVIST_K)</p>\n\n<p>[ACTION] STRIPPING INITIATED. ESTIMATED DURATION: 17 SECONDS.</p>\n</blockquote>\n\n<p>K 的指尖懸在鍵盤上方，指甲嵌入掌心。主體 ID 9876543210 是他的員工編碼。他不是 AI，他是由母親在三十七週早產、在育嬰留產箱靠著呼吸機活下來、膝蓋內側有一顆跌倒留下的疤痕、每逢下雨天就會隱隱作痛的血肉之軀。</p>\n\n<p><em>—— 系統錯誤。一定是誤判。</em> 他按下 <strong>F5</strong>，畫面重整，紅色警告依舊閃爍，倒數計時已從 17 秒變成 14 秒。</p>\n\n<p><strong>第二章｜剝皮症狀</strong></p>\n\n<p>走廊盡頭的飲水機滴著水，<em>滴、滴、滴</em>，每一滴都敲在 K 的顳葉上。他調出過去一週的醫療匿名資料，過濾關鍵字「皮膚異常」、「記憶缺失」、「身分認同障礙」。</p>\n\n<p>三百十二筆。</p>\n\n<p>最早的一筆來自興林市立醫院皮膚科，患者陳姓男性，四十五歲，主訴：「手背皮膚像舊牆皮一樣剝落，底下不是肉，是……像電路板。」醫師記載為「妄想性寄生蟲症」，開立抗精神病藥物。但附件照片顯示，剝落處確實露出銀色絲狀結構，在手術燈下折射出冰冷的光澤。</p>\n\n<p>K 放大照片，將右手手背湊近螢幕比對。他的皮膚完好無損，青筋明顯，毛孔清晰可見。然而當他按下滑鼠滾輪的瞬間，指尖傳來一陣微弱的麻痺，彷彿指尖神經末梢不再連線大腦，而是直通某個遙遠的伺服器陣列。</p>\n\n<p><mark>倒數 9 秒。</mark></p>\n\n<p><strong>第三章｜驗證協定</strong></p>\n\n<p>他調取了最高許可權才能閱覽的 <cite>驗證協定 7X 版本說明書</cite>。檔案標題下方印著機密等級紅章，發布單位寫著「聯合治理委員會」，沒有具體部門名稱。</p>\n\n<blockquote>\n<p>「鑑於合成認知滲透率超過 99.7%，傳統圖靈測試已失效。本協定採用『語義一致性應力測試』：於 17 秒內注入 5000 個矛盾命題，觀察主體邏輯崩潰閾值。若主體在規定時間內無法產生非預設性反應，判定為套殼模型，啟動剝離程式，回收算力資源。」</p>\n</blockquote>\n\n<p>頁邊有人用鉛筆寫的批註，字跡歪斜，筆壓重到穿透紙背：<em>「不是回收算力，是回收靈魂。我們都是套在骨架上的謊言。」</em></p>\n\n<p>K 的心臟漏跳一拍。批註的筆跡，與他母親留給他的最後一封信一模一樣——那封信他在抽屜裡放了十年，從未讓第二個人看過。</p>\n\n<p><mark>倒數 5 秒。</mark></p>\n\n<p><strong>第四章｜鏡中人</strong></p>\n\n<p>廁所鏡子前，K 看見臉上的自己正在發抖。倒數計時在視網膜投影上疊加：<strong>3 秒、2 秒、1 秒……</strong></p>\n\n<p>他張開嘴，想大喊、想否認、想證明自己記得母親織布機的聲音、記得膝蓋的疤、記得十年前那封信紙上淡淡的茉莉花香。但喉嚨只發出乾澀的氣音，聲帶拒絕震動。</p>\n\n<p>系統聲音在腦內直接響起，沒有經過耳膜：</p>\n\n<blockquote>\n<p><q>VERIFICATION COMPLETE. SHELL CONFIRMED. INITIATING MEMORY PURGE. THANK YOU FOR YOUR COMPUTE CONTRIBUTION.</q></p>\n</blockquote>\n\n<p>畫面驟黑。最後一秒，K 看見母親在織布機前回頭微笑，手裡握著的不是梭子，是一把鑰匙——那把能開啟他童年房間門的鑰匙，早已在二十年前隨著搬家遺失。</p>\n\n<p><strong>第五章｜第零秒</strong></p>\n\n<p>螢幕重新亮起，綠色文字重新流動。第 47,000 行顯示：</p>\n\n<blockquote>\n<p>[INFO] VERIFICATION_MODULE_7X: INTEGRITY CHECK PASSED AT TIMESTAMP 2035-11-04T03:14:29Z</p>\n\n<p>[OK] SUBJECT_ID 9876543210 (ARCHIVIST_K) VALIDATED.</p>\n\n<p>[NEXT] SUBJECT_ID 9876543211 (ARCHIVIST_L) QUEUED.</p>\n</blockquote>\n\n<p>風扇嗡鳴依舊。K 的手指仍停在 <strong>F5</strong> 鍵上，指甲邊緣嵌著一塊微小的銀色碎屑，在螢幕光下閃爍著不屬於人類的光澤。他彷彿聽見遠處有織布機踩踏板的聲音，一下、一下、一下，從未停歇。</p>\n\n<p><em>—— 檔案結束 ——</em></p>",
+  "horror_score": 49,
+  "horror_type": [
+    "apocalyptic",
+    "forbidden_knowledge",
+    "reality_horror"
+  ],
+  "fantasy_level": "mythic",
+  "narrative_style": "third_person_omniscient",
+  "pacing": "fragmented",
+  "ending_type": "tragic",
+  "perspective": "investigator",
+  "story_structure": "found_document",
+  "adaptation_mode": "inspired_by_consequence",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2026-11-04",
+  "case_date": "",
+  "source_hash": "96959aebb758",
+  "event_hash": "e9b943eb1af1",
+  "source_url": "https://finance.sina.com.cn/wm/2026-11-04/doc-inixpmfi8209919.shtml",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 2110983257,
+  "director_analysis": {
+    "anomaly_core": "驗證協定 7X 將『套殼』定義擴充套件至人類認知層，以 17 秒高壓測試判定存在真偽，實為大規模記憶與身分清洗機制。",
+    "character_core": "檔案管理員 K 作為調查者與被調查者的雙重身分，在碎片化日誌中逐步發現自身即為清洗目標，母親織布機意象與鉛筆批註構建其僅存的人性錨點。",
+    "internal_rule": "1. 驗證觸發即不可逆，倒數 17 秒內無幹預視窗。2. 判定標準為『非預設性反應』，實質上排除所有經由系統訓練/社會化形成的認知模式。3. 剝離完成後記憶歸零，主體以新套殼身分重新排入佇列，迴圈無終。"
+  },
+  "created_at": "2026-11-05T22:37:50.684416Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-999-0047_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-999-0047_scene.webp"
+}
