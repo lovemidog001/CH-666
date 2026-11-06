@@ -1,0 +1,39 @@
+{
+  "story_code": "CH-333-0039",
+  "category": "3",
+  "channel": "CH-333",
+  "title": "極寒實驗的最後一幀",
+  "subtitle": "當絕對零度喚醒山間的冰魂",
+  "slug": "extreme-cold-last-frame",
+  "summary": "一組深山實驗室試圖製備絕對零度物質，卻在錄影紀錄中捕捉到民間傳說中的冰魂現形，旁觀者透過多組影像見證恐怖轉折。",
+  "content": "<p><strong>第一章｜冰封實驗室</strong></p>\n\n<p>我是負責維護攝影裝置的外包技術員，平常只在螢幕後看著資料流動。這次專案代號「極寒」，目標是把鈷原子冷卻到絕對零度附近，據說能觀測到量子凝聚態的新相態。實驗室藏在阿里山腳下一座廢棄氣象站，四周終年雲霧繚繞，當地老人常說「山頂有冰魂，專吸人陽氣」。</p>\n\n<p class=\"dialogue\"><mark>攝影機一號</mark> 記錄到：晚上十點整，主控臺顯示溫度降至 0.0000001 開爾文，瞬間畫面出現淡藍光暈，隨著一陣細微的啁啾聲，畫面凍結三秒。</p>\n\n<blockquote><p class=\"handwritten\">技術日誌 2026-11-04 22:00：溫度計讀數異常，疑似感測器故障，已重啟。</p></blockquote>\n\n<p><strong>第二章｜絕對零度的呼喚</strong></p>\n\n<p>第二組影像來自紅外線熱成像儀，畫面原本一片漆黑，卻在極低溫瞬間浮現人形輪廓，輪廓邊緣泛著微光，彷彿有什麼在吸取四周熱量。旁觀者的我只能透過螢幕聽見主機風扇轉速驟降，像是被什麼無形的手按住。</p>\n\n<p class=\"dialogue\"><em>「這不可能……溫度計根本沒有這麼低。」</em> 主管的聲音在錄音裡顫抖，背景傳來金屬收縮的脆響。</p>\n\n<p>第三組錄影是手機直播，實驗助理試圖用手電筒照向光暈，光束卻在半空中被「吞噬」，只剩一道灰白痕跡。畫面邊緣出現一行細小的字跡，像是用冰刀刻在玻璃上：<mark>「寒氣入骨，魂歸冰封」</mark>。</p>\n\n<blockquote><p class=\"eerie\">助理口述：我感覺指尖發麻，彷彿有冰針刺入經脈，腦海裡浮現媽媽講的山神傳說。</p></blockquote>\n\n<p><strong>第三章｜冰魂現形</strong></p>\n\n<p>隨著溫度繼續下降，實驗室內的空氣凝結成薄霜，牆面上浮現出一張模糊的臉龐，五官若隱若現，眼神空洞卻直視鏡頭。所有錄影裝置同步出現靜電幹擾，隨後畫面全部轉為黑白，只剩一聲低沉的嘆息在音訊軌上迴盪。</p>\n\n<p class=\"dialogue\"><strong>「誰……誰在呼喚我？」</strong> 這句話不是任何人說的，它從環繞音響的低頻震動中滲出，像是從地底傳來的古老吟唱。</p>\n\n<p>我坐在監控室，手心冒汗，螢幕上出現一行紅字：<mark>「實驗終止，封存資料」</mark>。但系統並未執行任何指令，反而自動備份了所有影像到離線硬碟。</p>\n\n<p><strong>第四章｜最後一幀</strong></p>\n\n<p>隔天清晨，警方與學校聯絡人員抵達現場，發現實驗室門鎖完好，內部儀器完好無損，只有中央冷卻室中央懸浮著一塊透明晶體，表面泛著微弱藍光。晶體旁放著一張手寫紙條，字跡工整：<mark>「溫度歸零，靈魂不滅」</mark>。</p>\n\n<p>我將所有影像上傳至雲端，準備交給學術單位審查。就在上傳完成的那一刻，螢幕閃爍一次，最後一幀定格在晶體中心——一雙冰冷的眼睛睜開，直視著鏡頭，嘴角微微上揚，彷彿在說：<em>「下一個，該換你了。」</em></p>\n\n<p><em>—— 記錄結束，檔案封存 ——</em></p>",
+  "horror_score": 23,
+  "horror_type": [
+    "folk_belief"
+  ],
+  "fantasy_level": "supernatural",
+  "narrative_style": "found_footage",
+  "pacing": "fast_paced",
+  "ending_type": "twist",
+  "perspective": "bystander",
+  "story_structure": "multiple_testimonies",
+  "adaptation_mode": "inspired_by_method",
+  "reveal_density": "layered",
+  "source_kind": "recent_news",
+  "source_date": "2026-11-05",
+  "case_date": "",
+  "source_hash": "2f6912d3ad5f",
+  "event_hash": "32b32e39ea5b",
+  "source_url": "http://finance.people.com.cn/n1/2026/1106/c1004-40828546.html",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 939160955,
+  "director_analysis": {
+    "anomaly_core": "絕對零度實驗意外喚醒民間傳說中的冰魂，超自然實體以極低溫為媒介顯現並吸取熱能。",
+    "character_core": "旁觀者視角的維護技術員，透過多組錄影裝置拼湊真相，既不直接參與實驗也無法幹預，僅能見證恐怖轉折。",
+    "internal_rule": "當環境溫度接近絕對零度，民間信仰中的「冰魂」會被喚醒，並以錄影影像為載體顯現，實體能影響電子訊號並留下實體晶體。"
+  },
+  "created_at": "2026-11-06T09:20:26.583206Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-333-0039_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-333-0039_scene.webp"
+}
