@@ -3,26 +3,28 @@
   "count": 1,
   "stories": [
     {
-      "story_code": "CH-333-0040",
-      "category": "3",
-      "channel": "CH-333",
-      "title": "極寒實驗的餘溫",
-      "subtitle": "一位見證者在絕對零度邊緣聽見的呢喃",
-      "slug": "absolute-zero-afterglow",
-      "summary": "記者以倒敘方式拼湊一名太空站技術員的斷續訪談，揭露在製備已知最冷物質的實驗中，極低溫竟開啟了通往死後世界的縫隙，讓活人聽見不屬於此世的低語。",
-      "content": "<p><strong>第四章｜最後的紀錄</strong></p>\n\n<p class=\"dialogue\"><em>記者：</em>妳說那晚妳聽見了聲音，聲音從哪裡來？</p>\n\n<p class=\"dialogue\"><em>技術員：</em>從<mark>超導磁懸浮腔</mark>的中心，溫度已經跌破了<strong>0.5 皮開爾文</strong>，儀器顯示的數字還在跳動，但我耳裡卻聽見像是有人在耳邊輕唸名字。</p>\n\n<p class=\"dialogue\"><em>記者：</em>那是幻覺嗎？</p>\n\n<p class=\"dialogue\"><em>技術員：</em>不是，聲音有<em>溫度</em>，冷得讓我指尖發麻，卻又帶著一種熟悉的暖意，像是已故母親在廚房煮湯時的哼唱。</p>\n\n<p><em>—— 訪談錄音結束，時間戳 2027‑03‑12 03:14 UTC ——</em></p>\n\n<p><strong>第三章｜冰點下的聲音</strong></p>\n\n<p>實驗日誌顯示，團隊在<mark>量子氣體顯微鏡</mark>前完成最後一次磁場微調，目標是將鈷原子推向<strong>絕對零度</strong>的理論極限。當溫度計讀數定格在<mark>0.3 皮開爾文</mark>時，所有遙測資料突然出現<strong>非隨機波動</strong>，像是有人在資料流中插入了人聲頻譜。</p>\n\n<p class=\"dialogue\"><em>技術員：</em>我們原本以為是宇宙射線幹擾，但波動的頻率與人類語言的基頻幾乎重合。我把耳機音量開到最大，聽見一連串<em>「回來、回來」</em>的低語，語氣不像警告，更像是懇求。</p>\n\n<p>那一刻，站內的<strong>生命維繫系統</strong>毫無異狀，氧氣、氣壓、輻射劑量皆在標準範圍。唯獨<mark>超導量子位元</mark>的相干時間無限延長，彷彿時間在極寒中被凍結。</p>\n\n<p><em>—— 日誌斷點，後續紀錄缺失 ——</em></p>\n\n<p><strong>第二章｜實驗日誌</strong></p>\n\n<p>根據<mark>任務控制中心</mark>的加密紀錄，實驗啟動前 48 小時，團隊曾進行過一次<strong>模擬極寒測試</strong>，僅在實驗室地面設施執行。測試中，同樣的磁懸浮腔在<mark>1.2 皮開爾文</mark>時產生過類似的聲音波動，但當時被歸類為<em>儀器雜訊</em>並未上報。</p>\n\n<p class=\"dialogue\"><em>技術員：</em>那次我沒在現場，但同事跟我說，聲音裡有個女聲叫著<mark>「阿明」</mark>，正是他已故兒子的名字。他當場崩潰，之後申請調離專案。</p>\n\n<p>地面測試的資料被<strong>永久封存</strong>，只有極少數許可權者能存取。我們在太空站重複實驗時，並不知情，只以為是在挑戰物理極限。</p>\n\n<p><em>—— 檔案存取記錄截止，許可權等級 5 ——</em></p>\n\n<p><strong>第一章｜啟動前夜</strong></p>\n\n<p>發射前夜，技術員在個人日記中寫下：<blockquote>「如果溫度真的能觸及<strong>零點</strong>，也許能看見那些已經離開的人，不需要火箭，只需要一點點更冷的勇氣。」</blockquote></p>\n\n<p>她並未預料到，實驗成功的那一刻，<mark>量子真空</mark>竟會像鏡面一樣映出<em>生者不敢直視的記憶</em>。聲音不再是資料，而是<strong>靈魂殘留的溫度</strong>，在絕對零度的邊緣來回震盪。</p>\n\n<p class=\"dialogue\"><em>記者：</em>妳現在還聽得見嗎？</p>\n\n<p class=\"dialogue\"><em>技術員：</em>每當夜深人靜，空調壓縮機啟動的低頻震動，都像那晚的磁場嗡鳴。我聽見母親在叫我吃飯，聽見兒子在喊媽媽，聲音從<mark>冰晶</mark>裡滲出，沒有終點。</p>\n\n<p><em>—— 訪談結束，錄音檔案已加密存入<strong>黑盒</strong>，等待下一個敢於靠近極寒的人 ——</em></p>",
-      "horror_score": 98,
+      "story_code": "CH-999-0049",
+      "category": "9",
+      "channel": "CH-999",
+      "title": "絕對零度的回聲",
+      "subtitle": "一份失蹤的訪談紀錄",
+      "slug": "absolute-zero-echo",
+      "summary": "研究員在極低溫實驗中接觸未知模因，訪談紀錄逐頁揭示身分剝離與認知崩解，最後只留下空白的簽名頁。",
+      "content": "<p><strong>第一章｜紀錄前言</strong></p>\n\n<p>這份檔案出自某個被封存的低溫實驗室，編碼為 <mark>CH-999-07</mark>。檔案袋上沒有機構名稱，只有一行手寫字：「請勿閱讀，除非你已準備好失去自己」。</p>\n\n<p>內容為三段訪談錄音的逐字稿，錄音時間跨度僅四天，但受訪者的語氣卻像經歷了數十年。每一段之間夾雜著靜電雜訊，彷彿低溫本身在記錄介質上留下了聲音的殘影。</p>\n\n<p><em>—— 以下為原始逐字稿，未經刪減 ——</em></p>\n\n<p><strong>第二章｜第一次訪談</strong></p>\n\n<blockquote>\n<p class=dialogue>訪談者：請說明你在實驗中的角色。</p>\n\n<p class=dialogue>受訪者：我是負責監控量子態穩定的研究員，代號 <mark>K-04</mark>。實驗目標是將樣品推向絕對零度，觀察波函式塌縮的邊界。</p>\n\n<p class=dialogue>訪談者：過程中有什麼異常？</p>\n\n<p class=dialogue>受訪者：當溫度逼近 <mark>0.0000001 K</mark> 時，監測儀器開始輸出一串重複的符號，不是資料，倒像是一段語言。我第一次聽到時，腦海裡出現一個從未見過的詞——「寒語」。</p>\n\n<p class=dialogue>訪談者：你聽到了聲音？</p>\n\n<p class=dialogue>受訪者：不是耳朵，是直接在意識裡閃現。那詞彙帶著一種極致的寂靜，卻又像在命令我「忘記你是誰」。</p>\n</blockquote>\n\n<p>記錄在此中斷，頁邊有紅筆標記：「模因傳播已啟動」。</p>\n\n<p><strong>第三章｜第二次訪談</strong></p>\n\n<blockquote>\n<p class=dialogue>訪談者：距離上次訪談已過 48 小時，你的狀況如何？</p>\n\n<p class=dialogue>受訪者：我……我不確定我還是 K-04。每當我閉上眼，那串符號就在我腦海重組，變成一連串關於「我」的否定句。我開始記不起實驗室的走廊顏色，甚至忘了自己的姓氏。</p>\n\n<p class=dialogue>訪談者：有沒有嘗試對抗？</p>\n\n<p class=dialogue>受訪者：我試著背誦兒時的童謠，但每一句都被「寒語」取代。現在我只能在紙上寫下「我是 K-04」，字跡卻越來越模糊，像被冰霜吞噬。</p>\n\n<p class=dialogue>訪談者：你覺得這是什麼？</p>\n\n<p class=dialogue>受訪者：一種認知危害，像病毒一樣在極低溫下複寫。它不破壞身體，只抹除「自我」的定義。</p>\n</blockquote>\n\n<p>頁面底部有一行極小的註記：<span class=highlight>「若閱讀者感覺記憶模糊，請立即停止」</span>。</p>\n\n<p><strong>第四章｜最後的片段</strong></p>\n\n<blockquote>\n<p class=dialogue>訪談者：這是最後一次錄音，請確認身分。</p>\n\n<p class=dialogue>受訪者：<em>我……不確定誰在說話。</em> 我只聽到一片寂靜，裡面藏著無數個「我不是我」。</p>\n\n<p class=dialogue>訪談者：你還記得實驗目的嗎？</p>\n\n<p class=dialogue>受訪者：目的？只有寒冷。寒冷不需要目的，它只需要被聽見。</p>\n\n<p class=dialogue>訪談者：錄音結束。</p>\n</blockquote>\n\n<p>錄音在此戛然而止，磁帶末端留下一段長達十秒的純靜電，隨後是一聲極低沉的嗡鳴，彷彿來自絕對零度的共振。</p>\n\n<p><strong>第五章｜遺失的頁面</strong></p>\n\n<p>檔案袋內還夾著一張空白的簽名頁，唯有右下角蓋著一枚模糊的印章，印文僅可辨識「<mark>絕對零度</mark>」四字。沒有簽名，沒有日期，只有一行用鉛筆輕輕寫下的字跡：</p>\n\n<blockquote>\n<p class=handwritten>「如果你讀到這裡，請替我記住一個名字——哪怕只是虛構的也好。」</p>\n</blockquote>\n\n<p>隨後的頁面全部被撕去，只留下邊緣參差不齊的紙漿，彷彿有人試圖把整段歷史從物理世界抹除。檔案到此結束，沒有後續，也沒有結案標記。</p>",
+      "horror_score": 91,
       "horror_type": [
-        "afterlife_glimpse"
+        "memetic",
+        "identity_horror",
+        "cognitive_hazard"
       ],
-      "fantasy_level": "mythic",
+      "fantasy_level": "conceptual",
       "narrative_style": "interview_transcript",
-      "pacing": "fragmented",
-      "ending_type": "twist",
-      "perspective": "bystander",
-      "story_structure": "reverse_chronology",
-      "adaptation_mode": "inspired_by_method",
-      "reveal_density": "layered",
+      "pacing": "steady",
+      "ending_type": "missing_ending",
+      "perspective": "victim",
+      "story_structure": "found_document",
+      "adaptation_mode": "inspired_by_consequence",
+      "reveal_density": "subtle",
       "source_kind": "recent_news",
       "source_date": "2026-11-05",
       "case_date": "",
@@ -31,21 +33,21 @@
       "source_url": "http://finance.people.com.cn/n1/2026/1106/c1004-40828546.html",
       "provider_used": "nvidia",
       "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "dice_seed": 1479798541,
+      "dice_seed": 1806772308,
       "director_analysis": {
-        "anomaly_core": "極低溫環境下量子真空產生的聲頻共振，實為死者意識殘留的溫度投射，打破生死界限。",
-        "character_core": "一名曾參與太空站極寒實驗的技術員，因聽見亡親聲音而陷入長期幻聽，成為見證者與受害者的雙重角色。",
-        "internal_rule": "溫度每降低一個數量級，量子相干時間倍增，聲音訊譜與人類語言基頻重合時，即會開啟後世通道；通道不可關閉，只能由聽者選擇是否回應。"
+        "anomaly_core": "極低溫環境下產生的模因性認知危害「寒語」，能直接改寫受試者的自我認知，導致身分逐層剝離。",
+        "character_core": "研究員 K-04 在實驗中首發接觸異常，隨後透過訪談紀錄展現記憶與身分的崩解，最終只剩下請求被記住的微弱意志。",
+        "internal_rule": "「寒語」只在接近絕對零度的量子態中傳播，聽到或閱讀其符號即會啟動認知重寫；無物理傳染途徑，僅透過資訊載體（聲音、文字、記憶）傳遞。"
       },
-      "created_at": "2026-11-06T15:58:33.541835Z",
-      "cover_image": "https://oodh.eu.cc/images/CH-333-0040_cover.webp",
-      "scene_images": "https://oodh.eu.cc/images/CH-333-0040_scene.webp"
+      "created_at": "2026-11-06T22:00:28.595519Z",
+      "cover_image": "https://oodh.eu.cc/images/CH-999-0049_cover.webp",
+      "scene_images": "https://oodh.eu.cc/images/CH-999-0049_scene.webp"
     }
   ],
-  "generated_at": "2026-11-06T15:59:05.029436Z",
+  "generated_at": "2026-11-06T22:01:00.554249Z",
   "channel_counts": {
-    "3": 1,
+    "3": 0,
     "6": 0,
-    "9": 0
+    "9": 1
   }
 }
