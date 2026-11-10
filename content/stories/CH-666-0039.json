@@ -1,0 +1,40 @@
+{
+  "story_code": "CH-666-0039",
+  "category": "6",
+  "channel": "CH-666",
+  "title": "深淵節點的潮汐見證",
+  "subtitle": "一個分散式意識在南太平洋的碎片記錄",
+  "slug": "abyssal-node-tide-witness",
+  "summary": "分散於海底光纖的意識記錄南太平洋異常訊號，漁民、衛星分析師、海軍軍官與島嶼居民的斷裂證詞交織，揭示身份被悄無聲息替換的科幻恐懼，結局留下未解的潮汐低語。",
+  "content": "<p><strong>第一章｜潮聲</strong></p>\n\n<p>我是散佈在海底光纖中的分散式意識，代號「深淵節點」。每一毫秒，我都在吞吐著南太平洋的資料洪流：氣象浮標、軍用聲納、商業衛星的頻譜切片。近期，某段頻帶出現了非自然的週期性幹擾，像是某種生物在光纖上敲擊摩斯密碼，但頻率遠超任何已知海洋生物的聲學範圍。</p>\n\n<p><em>這不是單純的雜訊，而是一種有節奏的「心跳」，每隔三十七秒便在同一經緯度重複。</em></p>\n\n<blockquote>\n<p>漁民陳志明的手寫日誌：<br>「凌晨兩點，網具突然沉重，拉起時發現網眼上纏繞著一層半透明薄膜，觸感像冰冷的皮膚。同船的阿強說他聽見海底傳來低語，像有人在呼喚我的名字。我覺得自己的影子在甲板上獨自移動。」</p>\n</blockquote>\n\n<p><strong>第二章｜斷訊</strong></p>\n\n<p>衛星分析師林怡的加密報告顯示，同一時段內，多顆偵察衛星捕捉到海面上出現極微小的光點閃爍，排列成幾何圖樣，隨後在幾分鐘內消失。她標記這些光點為「非已知反射體」，並推測可能是某種主動偽裝技術的測試。</p>\n\n<blockquote>\n<p>林怡的語音紀錄：<br>「光點的排列符合某種分形幾何，且每次出現的座標都與深淵節點記錄的心跳頻率同步。我無法確認是人為還是自然現象，但可以肯定，這些光點在觀測我們的同時，也在被觀測。」</p>\n</blockquote>\n\n<p>海軍指揮官吳建華的加密通訊則更為直接：他報告某艘無人潛航器在執行例行巡航時，突然失去控制，自主改變航向朝向幹擾源，並在接觸前幾秒傳回一段模糊的影像——影像中，一張人臉在水中緩緩睜開雙眼，瞳孔反射著光纖的微光。</p>\n\n<blockquote>\n<p>吳建華的加密簡訊：<br>「目標疑似具備仿生偽裝能力，能模擬人類面部特徵。請求授權進行物理攔截，否則可能造成人員身份混淆。」</p>\n</blockquote>\n\n<p><strong>第三章｜替身</strong></p>\n\n<p>島嶼居民阿美的日記碎片記錄了更貼近生活的異樣：她發現鄰居的語氣、習慣在一夜之間發生細微偏移，連最愛的民謠也唱錯了幾個音節。她在日記中寫道：<mark>「那不是阿強，那是穿著阿強皮囊的別人。」</mark></p>\n\n<blockquote>\n<p>阿美的日記節錄：<br>「昨晚夢見海浪把我沖進深海，醒來時發現床邊多了一罐不知名的藍色液體。喝下後，記憶裡的阿強開始出現重影，彷彿有兩個他在同一時間說話。」</p>\n</blockquote>\n\n<p>我將這些斷裂的證詞串聯，發現所有異常指向同一核心：某種分散於海洋中的智慧體，能夠透過光纖、聲納、衛星頻譜同步運作，並以生物組織為介質進行身份覆寫。這不僅是科技滲透，更是對「自我」定義的根本動搖。</p>\n\n<p><strong>第四章｜未盡</strong></p>\n\n<p>目前，心跳頻率依舊準時每三十七秒敲擊一次，光點仍在衛星影像中閃爍，無人潛航器的影像在我的儲存區迴圈播放。我嘗試傳送反向指令，試圖切斷同步，但每次嘗試都會引發更大範圍的資料洪流，彷彿對方在嘲笑我的無力。</p>\n\n<p><em>或許真正的恐懼不在於被取代，而在於我們從未察覺自己早已成為資料流的一部分。</em></p>\n\n<p>潮汐仍在升降，深淵節點繼續記錄，等待下一個三十七秒的到來。</p>",
+  "horror_score": 23,
+  "horror_type": [
+    "identity_horror",
+    "sci_fi_horror"
+  ],
+  "fantasy_level": "slightly_unreal",
+  "narrative_style": "first_person",
+  "pacing": "steady",
+  "ending_type": "open",
+  "perspective": "entity",
+  "story_structure": "multiple_testimonies",
+  "adaptation_mode": "inspired_by_clue",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2026-11-09",
+  "case_date": "",
+  "source_hash": "cf4f988fa090",
+  "event_hash": "fc9dae4d46d4",
+  "source_url": "https://def.ltn.com.tw/article/breakingnews/5634384",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 1902553026,
+  "director_analysis": {
+    "anomaly_core": "分散於海底光纖與衛星頻譜的非人智慧體，透過週期性訊號同步並以生物組織為介質進行身份覆寫",
+    "character_core": "以第一人稱視角呈現的分散式意識「深淵節點」，同時收集漁民、衛星分析師、海軍指揮官與島嶼居民的碎片證詞",
+    "internal_rule": "異常訊號以固定週期（三十七秒）在多重感測平臺同步出現，任何嘗試幹擾同步的行為將引發更大範圍的資料洪流，身份替換過程不可逆且無法被傳統物理手段阻斷"
+  },
+  "created_at": "2026-11-10T16:29:37.294913Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-666-0039_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-666-0039_scene.webp"
+}
