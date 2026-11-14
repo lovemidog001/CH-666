@@ -1,0 +1,40 @@
+{
+  "story_code": "CH-333-0053",
+  "category": "3",
+  "channel": "CH-333",
+  "title": "祖傳咒祭的最後一碗飯",
+  "subtitle": "逆序記錄的受害者視角，揭開祖先罪孽與祭儀的悲劇迴圈",
+  "slug": "ancestral-ritual-tragedy",
+  "summary": "一名年輕廚師在家族餐館的地下室發現古老祭儀手稿，隨著逆序敘事揭露祖先以飲食為媒介的詛咒，最終他在最後一碗飯中成為祭品，悲劇收尾。",
+  "content": "<p><strong>終章｜最後的供品</strong></p>\n\n<p>地下室的燈光閃爍，我跪在冰冷的石板上，手裡握著那碗早已冷透的白飯。<mark>香氣</mark>早已消散，只剩下一股鐵鏽味從指縫滲出。<em>這是我此生最後一次為家族端上飯菜</em>，也是我第一次真正聽見祖先的低語。祭壇上的銅鐘無風自鳴，聲音像是從遠古傳來的審判，每一下都敲在我逐漸停止跳動的心臟上。</p>\n\n<p>我感覺到雙腿不再屬於自己，膝蓋磨損的疼痛被一種陌生的寧靜取代。手中的碗沈重得像是整個家族的業力，我不得不將它輕輕放在祭壇中央的凹槽裡。那一刻，<strong>所有的記憶倒轉</strong>，像是被一條無形的線拉回最初的起點。</p>\n\n<p><strong>第三章｜祭壇的低語</strong></p>\n\n<p>三天前，我在廚房後方的舊櫃子底發現一本泛黃的手稿，封面刻著<cite>「祖傳祭祀錄」</cite>。字跡潦草卻工整，記載著每年農曆七月十五需以「初生米、長子血、祖母骨」為供品。我當時只當是惡作劇，將其塞進圍裙口袋，繼續切菜、炒飯，像往常一樣為顧客端上熱騰騰的咖哩飯。</p>\n\n<p>那晚，廚房的後門莫名開啟，一陣濕冷的風捲著陳年香灰撲面而來。我聽見耳邊輕輕呢喃：<q class=\"dialogue\">「飯熟了，該祭了。」</q>聲音不像人聲，更像是從地底傳來的回響。我顫抖著關上門，卻發現手中的手稿頁面自行翻開，停在最後一頁——那一頁寫著<mark>「供品者即為祭品」</mark>。</p>\n\n<p><strong>第二章｜祖傳的咒語</strong></p>\n\n<p>再往前推，父親在十年前因貿易糾紛失去餐館經營權，帶著全家搬進這棟老宅。他常對我說：<q class=\"dialogue\">「這碗飯是我們家傳的命，吃下去就能庇佑子孫。」</q>我年幼時不解，只覺得飯菜香甜。後來母親病逝，父親在深夜獨自跪拜祭壇，嘴裡念著不知名的咒語，手中握著一把生米，指尖滲出鮮血滴入米粒中。</p>\n\n<p>那一夜，我躲在樓梯轉角，看見父親的影子在牆上扭曲成怪異的形狀，彷彿有無數雙手從陰影中伸出，抓住他的喉嚨。他沒有呼救，只是輕輕說了一句：<em>「業債已還，輪到你了。」</em>隨後他倒地不起，醫生判定為心肌梗死，但我心知肚明，那是祭儀的代價。</p>\n\n<p><strong>第一章｜最初的飯菜</strong></p>\n\n<p>最早的記憶，是祖母在廚房裡教我洗米。她總說：<q class=\"dialogue\">「米粒裡藏著祖先的靈魂，洗淨才能不被纏繞。」</q>她手中的竹篩輕搖，水面映出蒼老的臉龐，眼神卻深不見底。那年我七歲，第一次獨自端著飯碗走進地下室，祭壇上供著一塊刻有家族姓氏的石碑。</p>\n\n<p>我將飯碗放下，石碑突然發出微光，彷彿有無數細小的聲音從石縫滲出，交織成一句古老的誓言：<blockquote>「血食相傳，代代不絕；違者身為祭，魂鎖此地。」</blockquote>那一刻，我感覺到一股冰冷的力量順著指尖鑽入骨髓，彷彿早已註定要成為這碗飯的最後一口。</p>\n\n<p><em>—— 記錄結束，祭儀完成 ——</em></p>",
+  "horror_score": 31,
+  "horror_type": [
+    "ancestral_sin",
+    "ritual"
+  ],
+  "fantasy_level": "mythic",
+  "narrative_style": "ritual_record",
+  "pacing": "steady",
+  "ending_type": "tragic",
+  "perspective": "victim",
+  "story_structure": "reverse_chronology",
+  "adaptation_mode": "inspired_by_investigation",
+  "reveal_density": "subtle",
+  "source_kind": "recent_news",
+  "source_date": "2026-11-13",
+  "case_date": "",
+  "source_hash": "84c9694dc2ae",
+  "event_hash": "3286c9d53a4b",
+  "source_url": "https://www.wenxuecity.com/blog/202611/71805/9876.html",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 71431329,
+  "director_analysis": {
+    "anomaly_core": "家族世代相傳的祭飯儀式，以飲食為媒介將祖先業力轉嫁給長子，形成不可打破的詛咒迴圈。",
+    "character_core": "年輕廚師兼長子，身負家族期望與詛咒，視角為受害者，親歷儀式逆轉至自我獻祭。",
+    "internal_rule": "每代長子必須在農曆七月十五以初生米、自身血與祖母骨為供品；供品者即成為祭品，違者家族滅亡。"
+  },
+  "created_at": "2026-11-14T15:00:31.757745Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-333-0053_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-333-0053_scene.webp"
+}
