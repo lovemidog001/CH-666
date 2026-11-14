@@ -1,0 +1,39 @@
+{
+  "story_code": "CH-666-0042",
+  "category": "6",
+  "channel": "CH-666",
+  "title": "深夜外送單消失的詭異紀錄與證詞",
+  "subtitle": "多重證詞拼湊出的現實恐怖，最後仍無定論",
+  "slug": "late-night-delivery-vanishing-records",
+  "summary": "一連串深夜外送單在某巷弄神秘消失，警方收集四位目擊者口供，發現時間、地點與訂單內容皆有不可解釋的重疊。隨著調查深入，異常規則逐漸浮現，卻在關鍵時刻中斷，留下無法解釋的空白。",
+  "content": "<p><strong>第一章｜第一份口供</strong></p>\n\n<p>警員陳志宏在凌晨兩點接獲報案，報案人是住在忠孝東路巷弄的外送員阿強。阿強聲稱他在<mark>凌晨一點三十分</mark>接到一單「印度咖哩飯」，送達地址卻是同一棟大樓的<strong>地下室</strong>，但他從未見過該樓層有住戶。</p>\n\n<p class=\"dialogue\"><strong>阿強：</strong>「我到門口按鈴，沒人應門，門卻自己開了，裡面只有冷氣聲。」</p>\n\n<blockquote>\n<p>警方紀錄：受訪者陳述時間與地點一致，但地下室無登記住戶，門鎖狀態正常，無強行闖入痕跡。</p>\n</blockquote>\n\n<p><em>—— 三小時後，警局會議室 ——</em></p>\n\n<p><strong>第二章｜第二份口供</strong></p>\n\n<p>第二位目擊者是便利店店員小琳，她在<mark>凌晨一點四十五分</mark>看見一名穿著深色外套的男子從同一巷口走出，手中提著一個<strong>未拆封的外送袋</strong>。小琳表示該男子臉部模糊，無法辨識。</p>\n\n<p class=\"dialogue\"><strong>小琳：</strong>「他走得很快，像是在趕時間，但手裡的袋子沒有任何商標。」</p>\n\n<p>警方比對監視器，發現該時段巷口畫面<strong>缺失三分鐘</strong>，且無其他路人經過。</p>\n\n<blockquote>\n<p>調查筆錄：監視器故障時間與外送單消失時間高度重疊，疑為人為幹擾或裝置異常。</p>\n</blockquote>\n\n<p><em>—— 隔日清晨，案發巷弄 ——</em></p>\n\n<p><strong>第三章｜第三份口供</strong></p>\n\n<p>住在巷弄盡頭的退休教師李伯伯在清晨六點發現自家門口多了一張<mark>手寫便條</mark>，內容僅有一行：「<strong>下一單在等你</strong>」。字跡潦草，筆跡與阿強的外送單簽名驚人相似。</p>\n\n<p class=\"dialogue\"><strong>李伯伯：</strong>「我從未訂過外送，也沒見過這筆字，但感覺像是在警告我。」</p>\n\n<p>警方採集筆跡送鑑定，初步判定<strong>非同一人所寫</strong>，但筆鋒壓力分佈極度接近，屬於極低機率巧合。</p>\n\n<blockquote>\n<p>鑑定報告：筆跡特徵高度相似，建議進一步比對筆跡資料庫，惟無對應紀錄。</p>\n</blockquote>\n\n<p><em>—— 同日下午，警局資料室 ——</em></p>\n\n<p><strong>第四章｜第四份口供與缺口</strong></p>\n\n<p>最後一位證人是負責外送平臺後臺的工程師小吳，他透露系統在<mark>凌晨一點三十分至一點五十分</mark>之間，出現<strong>大量重複訂單編號</strong>，且皆指向同一地址——那棟無住戶的地下室。</p>\n\n<p class=\"dialogue\"><strong>小吳：</strong>「系統邏輯不會產生這種重複，除非有人手動植入，但後臺日誌卻顯示<em>操作員帳號為空</em>。」</p>\n\n<p>警方嘗試追蹤 IP，發現請求來源來自<strong>同一巷弄的公共 Wi‑Fi 熱點</strong>，但熱點裝置早已報廢，無法追溯實體位置。</p>\n\n<blockquote>\n<p>技術組結論：異常訂單來源無法追溯，疑為未知裝置或協議漏洞，建議封鎖該熱點 MAC 位址。</p>\n</blockquote>\n\n<p>調查至此，四份口供交織出一幅<mark>時間、地點、訂單、人物</mark>皆重疊卻又各自斷裂的圖景。警方在案發巷弄設定臨時監控，卻在<strong>第三夜</strong>發現所有錄影檔案<em>自動刪除</em>，僅留下一段<strong>靜止畫面</strong>：一扇未上鎖的地下室門，門內黑暗中隱約閃爍著一抹<mark>微弱的紅光</mark>。</p>\n\n<p>陳志宏合上資料夾，筆尖停在<strong>「案件狀態：未結」</strong>的欄位上。他聽見走廊盡頭傳來一陣極輕的<em>外送機車引擎聲</em>，聲音在瞬間消失，彷彿從未存在。</p>\n\n<p><em>—— 記錄結束，無後續補充 ——</em></p>",
+  "horror_score": 37,
+  "horror_type": [
+    "reality_horror"
+  ],
+  "fantasy_level": "supernatural",
+  "narrative_style": "police_report",
+  "pacing": "fast_paced",
+  "ending_type": "missing_ending",
+  "perspective": "witness",
+  "story_structure": "multiple_testimonies",
+  "adaptation_mode": "inspired_by_investigation",
+  "reveal_density": "layered",
+  "source_kind": "recent_news",
+  "source_date": "2026-11-13",
+  "case_date": "",
+  "source_hash": "84c9694dc2ae",
+  "event_hash": "3286c9d53a4b",
+  "source_url": "https://www.wenxuecity.com/blog/202611/71805/9876.html",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 876590929,
+  "director_analysis": {
+    "anomaly_core": "外送平臺與實體空間產生無法解釋的重疊，訂單、時間、地點與人物皆在特定時段重複且缺失關鍵證據，形成現實扭曲的恐怖核心。",
+    "character_core": "四位不同身分的目擊者（外送員、店員、退休教師、工程師）各自持有區域性資訊，透過警方彙整拼湊出不完整真相，展現見證者視角的碎片化恐懼。",
+    "internal_rule": "異常僅在凌晨 01:30–01:50 之間於特定巷弄發現，且需同時滿足：外送單指向無住戶地下室、監視器缺失、筆跡高度相似但非同一人、後臺操作員帳號為空。若任一條件缺失，現象不會出現。"
+  },
+  "created_at": "2026-11-14T08:54:08.723817Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-666-0042_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-666-0042_scene.webp"
+}
