@@ -1,0 +1,39 @@
+{
+  "story_code": "CH-666-0045",
+  "category": "6",
+  "channel": "CH-666",
+  "title": "砂石螺旋下的隧道監視日記失控",
+  "subtitle": "一段來自匿名行車記錄儀的異常影像，牽引出被監視者的自我崩解",
+  "slug": "sand-spiral-tunnel-diary",
+  "summary": "自由攝影師林宇在匿名影片中發現砂石車事故隱藏的螺旋紋路，透過監視器與無線電頻率追查，卻發現自己成為被觀察的物件，記憶與現實在隧道深處交錯崩解。",
+  "content": "<p><strong>第一章｜深夜的行車記錄儀</strong></p>\n\n<p>林宇坐在出租屋的舊書桌前，螢幕上跳動著一段剛從匿名信箱下載的行車記錄儀影片。畫面是北環快速道路的翡翠隧道入口，砂石車在雨夜中失控，砂石如瀑布般傾瀉，卻在落地的瞬間凝結成一道道<mark>螺旋紋路</mark>。他記得那晚自己也在隧道口，聽見輪胎摩擦的尖銳聲音，卻沒看見駕駛下車。</p>\n\n<p><em>為什麼我會覺得那道紋路熟悉？</em>他對著空無一人的房間低語，手指不自覺地摩挲著筆記本的邊緣。</p>\n\n<p><strong>第二章｜監視器的雙重視線</strong></p>\n\n<p>為了追查，林宇在隧道兩側安裝了三組紅外線監視器，並將訊號串流到自己的伺服器。前兩晚錄到的只有車流與雨聲，第三晚卻出現了異常：畫面中的砂石車在同一個位置反覆出現、消失，車牌號碼每一次都不同，卻都指向同一組<mark>頻率 147.3 MHz</mark>的無線電幹擾。他試圖擷取畫面，卻發現自己的螢幕在同一時間閃爍，彷彿有人從另一端盯著他看。</p>\n\n<p class=\"dialogue\">「你在看什麼？」一道低沉的聲音從耳機傳來，林宇猛地轉頭，卻只見空蕩蕩的房間。</p>\n\n<p><strong>第三章｜日記的裂縫</strong></p>\n\n<blockquote>\n<p>11 月 15 日，雨。隧道內的砂石不再只是砂石，它們在燈光下排列成<mark>古老的符號</mark>，像是某種召喚。我聽見引擎聲在腦海中迴盪，即使關掉監視器也無法停止。</p>\n\n<p>11 月 16 日，晴。我在筆記本上寫下「砂石會記住每一個經過的人」，字跡卻在凌晨三點自行改變，變成「人會被砂石記住」。我是否已經成為了被觀察的物件？</p>\n</blockquote>\n\n<p>林宇翻閱舊日記，發現自己對同一件事的記述前後矛盾，連日期都出現重複與缺失。他開始懷疑自己的記憶是否被<strong>重寫</strong>，或是這條隧道本身就擁有改寫現實的能力。</p>\n\n<p><strong>第四章｜頻率的盡頭</strong></p>\n\n<p>他在無線電接收器上鎖定 147.3 MHz，聽見的不是雜訊，而是斷續的座標：<mark>北緯 25.0321，東經 121.5654</mark>。那正是隧道最深處的一處廢棄通風井。林宇決定親自前往，帶著手電筒與錄音筆，沿著生鏽的鐵梯向下。每一步腳下的砂石都發出細碎的聲響，彷彿在低語。</p>\n\n<p><em>如果這一切只是我腦海投射的幻覺，為何錄音筆還在運作？</em></p>\n\n<p><strong>第五章｜未完成的紀錄</strong></p>\n\n<p>通風井盡頭是一間佈滿監視器螢幕的空間，每一面牆都播放著同一段影片：砂石車撞擊、砂石形成螺旋、駕駛消失、然後畫面切到林宇自己正坐在書桌前看著螢幕。最後一幀定格在他的雙眼倒影中，螢幕上的時間停在 23:59:59，隨後訊號中斷。</p>\n\n<p>日記的最後一頁只留下一行字：<mark>「我看見了我自己被看見」</mark>。筆尖停在紙上，墨跡未乾，窗外的雨聲依舊，隧道的燈光在遠處一明一滅。</p>",
+  "horror_score": 57,
+  "horror_type": [
+    "surveillance_horror"
+  ],
+  "fantasy_level": "reality_bending",
+  "narrative_style": "diary_entry",
+  "pacing": "disorienting",
+  "ending_type": "open",
+  "perspective": "victim",
+  "story_structure": "unreliable_narrator",
+  "adaptation_mode": "inspired_by_investigation",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2026-11-14",
+  "case_date": "",
+  "source_hash": "d86f1d605e3c",
+  "event_hash": "71152ab67961",
+  "source_url": "https://news.google.com/rss/articles/CBMi-AJBVV95cUxNUVZ6VnpYZ0c0YkpVbUhMOWU4MW9tUHBtQTBIWjJoMG1QM3psT1duZG85dDBtcF93M2dmRGhHQ2I5alcwWlo1ZU0tcC12cTFJVUdueVNRNWEtZXZwSUpEcWp6UHRFSzNkQkxndGZWQ2dKUG1lLWNXR2VvSVYybzlRRFBHTF9NNFYzaTVBaHVlaTZuNGZzMG54SmFfcTI5bFl2VjE0azhEeTFmZzZSTmp2Yk53RjZid3dHT1l4NU5rQzJYSnlCemNTYXdQNzV6S3dKd1VCUDVVNDhnSTFhdXMxNHZDbDdWZ0dZSW1yM3FpOGJ0a3lPY29qQS1fUVZwLUlnekpFOG8yaXZBTHBFdFlKbWF6TmlLU3FoOXlhdEVhbnZzQTZBcnZaZlNzcTFzVkszUkhMRWlMTUdYMGtpMWd6c3VMaTdDMUp6cDFtMzRpWVBCUGpkRFJTTnBta0JxN0ppenVfZFZfOHh0QzhKYW5kM2l1QkV1QlMw?oc=5",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 1190728312,
+  "director_analysis": {
+    "anomaly_core": "隧道內的砂石能夠重組為符號並改寫觀察者的記憶與影像，構成一種以監視為媒介的現實扭曲現象。",
+    "character_core": "林宇，自由攝影師兼調查者，以日記形式記錄調查過程，逐漸陷入自我懷疑與被監視的雙重恐懼。",
+    "internal_rule": "凡經過隧道的影像與聲音皆會被砂石記錄並回饋給觀察者；觀察者一旦主動追查，自身即成為下一輪記錄的物件，時間與空間在隧道深處失去線性。"
+  },
+  "created_at": "2026-11-15T21:32:08.935413Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-666-0045_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-666-0045_scene.webp"
+}
