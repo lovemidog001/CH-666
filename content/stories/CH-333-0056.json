@@ -1,0 +1,40 @@
+{
+  "story_code": "CH-333-0056",
+  "category": "3",
+  "channel": "CH-333",
+  "title": "廢棄工廠的午夜收購儀式",
+  "subtitle": "一場逆向敘事的祖傳詛咒與收購儀式",
+  "slug": "midnight-acquisition-ritual",
+  "summary": "旁觀者以倒敘方式目睹一間荒廢工廠被神秘財團以古老儀式「收購」，祖傳詛咒與現代資本交織，最終迴圈回到最初的午夜。",
+  "content": "<p><strong>第一章｜午夜儀式的終點</strong></p>\n\n<p>煙霧籠罩著廢棄的「永興紡織廠」，鐵門在子夜十二點發出沉悶的金屬聲，隨後緩緩合上。旁觀者——一名在附近便利商店打工的年輕人，站在路燈下，看著幾輛黑色轎車依次駛入廠區，車窗未曾降下，只有車頂的紅燈在霧中閃爍。他聽見遠處傳來低沉的吟誦，像是古老經文與現代合約條款交織，聲音在鋼鐵骨架間迴盪，令他不由自主地縮緊肩膀。</p>\n\n<p><em>—— 這不是一般的收購，而是一場祭典。</em></p>\n\n<p>地面上散落著幾張泛黃的紙張，旁觀者撿起一張，上面以硃砂寫著「<mark>祖債必償，血脈相連</mark>」，字跡蒼勁卻帶著一絲顫抖。他心中升起一股寒意，卻無法移開目光，因為這一切似乎早已在某個更早的夜晚排演過。</p>\n\n<p><strong>第二章｜收購合約的前夜</strong></p>\n\n<p>時間倒回三天前，永興紡織廠的舊倉庫內，幾名穿著深色西裝的男子圍坐在一張長桌旁，桌面鋪滿合約、印章與一罐未開封的紅酒。旁觀者透過破窗縫隙，看見其中一名男子將一枚古銅錢放入合約夾層，隨即輕聲念道：「<mark>以此為媒，喚醒沉睡的靈魂</mark>」。酒罐被開啟，紅酒如血般流入銅錢的孔洞，隨即發出微弱的光芒，照亮了周圍蒼白的臉孔。</p>\n\n<p>其中一名男子低聲對另一人說：「這筆交易不只是資產轉移，更是對祖先承諾的兌現。」旁觀者聽不清全貌，但感覺到空氣中瀰漫著一種古老的契約感，彷彿每一筆簽名都在喚醒某種沉睡的力量。</p>\n\n<p><blockquote>「收購條款第七條：買方需於滿月之夜，以祖傳銅錢祭拜廠區地基，方得獲得完全所有權。」</blockquote></p>\n\n<p><strong>第三章｜祖債的起源</strong></p>\n\n<p>再往前追溯至半世紀前，永興紡織廠創辦人林老先生在廠房奠基時，將家族傳下的銅錢埋入地基，並立下誓言：「<mark>子孫若負此地，必受詛咒</mark>」。隨著工業沒落，工廠荒廢，林家後代早已散落各地，銅錢的存在逐漸被遺忘，直到近期某財團以極低價格「掃貨」該地段，引發了這場儀式的啟動。</p>\n\n<p>旁觀者在舊報紙剪報中發現一則模糊的記載：「<cite>永興紡織廠突發大火，無人傷亡，唯銅錢未損</cite>」。他意識到，火災並非意外，而是詛咒的第一次顯現。每一次資本的介入，都像是在為銅錢「充電」，讓詛咒得以延續。</p>\n\n<p><strong>第四章｜迴圈的午夜</strong></p>\n\n<p>子夜鐘聲再次敲響，旁觀者發現自己站在原本的便利商店前，手中仍握著那張泛黃的紙張。周圍的霧氣未散，黑色轎車再次駛入廠區，紅燈閃爍，吟誦聲再度升起。他明白了：這不是結束，而是另一個迴圈的開始。每一次收購、每一次儀式，都將詛咒推向下一個午夜，而他，將永遠作為旁觀者，見證這場祖債與資本的永恆舞蹈。</p>\n\n<p><em>—— 詛咒不會因為擁有權的轉移而消失，它只會換個形式，繼續在午夜等待下一位買家。</em></p>",
+  "horror_score": 82,
+  "horror_type": [
+    "ancestral_sin",
+    "ritual"
+  ],
+  "fantasy_level": "supernatural",
+  "narrative_style": "third_person_limited",
+  "pacing": "disorienting",
+  "ending_type": "cyclic",
+  "perspective": "bystander",
+  "story_structure": "reverse_chronology",
+  "adaptation_mode": "inspired_by_investigation",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2026-11-16",
+  "case_date": "",
+  "source_hash": "f55f230baf82",
+  "event_hash": "b53940ee4ef5",
+  "source_url": "https://finance.sina.com.cn/tech/roll/2026-11-16/doc-iniyxirf6002162.shtml",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 1697845017,
+  "director_analysis": {
+    "anomaly_core": "祖傳銅錢與廠區地基形成的詛咒契約，每當資本以儀式方式「收購」即喚醒詛咒，形成迴圈。",
+    "character_core": "旁觀者為便利商店夜班店員，視角固定於他所見所聞，無法介入也無法逃離。",
+    "internal_rule": "詛咒需於滿月子夜以銅錢祭拜地基，買方簽署含銅錢條款之合約即視為完成儀式；儀式完成後時間倒流至下一輪午夜，迴圈不止。"
+  },
+  "created_at": "2026-11-17T23:47:21.769788Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-333-0056_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-333-0056_scene.webp"
+}
