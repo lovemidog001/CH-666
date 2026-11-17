@@ -1,0 +1,40 @@
+{
+  "story_code": "CH-666-0047",
+  "category": "6",
+  "channel": "CH-666",
+  "title": "靜默板塊的買盤幽靈",
+  "subtitle": "當記憶成為可交易的商品",
+  "slug": "silent-sector-ghost",
+  "summary": "一位財經調查員追蹤一個沉寂四年的板塊突然被大量買入，發現買盤背後藏著吞噬記憶的超自然力量，最終在真相與幻覺中走向毀滅。",
+  "content": "<p><strong>第一章｜靜默的板塊</strong></p>\n\n<p>林逸坐在監控螢幕前，資料流如潮水般湧入，四年來幾乎零成交的「舊式錄影帶」板塊，突然在凌晨三點出現了龐大買單。買單沒有機構程式碼，只有無數散戶帳號同步下單，金額總和超過兩百億新臺幣。他皺眉，指尖輕敲鍵盤，試圖在訊息洪流中找出規律。</p>\n\n<p><em>這不像人為操作，更像某種集體催眠。</em></p>\n\n<p>他調出歷史紀錄，發現每次買單出現的前一晚，社群網站都會湧現大量關於「童年影片」的討論，關鍵字「記憶」、「重溫」的熱度飆升。林逸將這些標記為<mark>異常訊號</mark>，存入案卷。</p>\n\n<p><strong>第二章｜異常的買單</strong></p>\n\n<p>第二天清晨，林逸前往交易所資料室，翻閱紙本交易紀錄。檔案夾裡夾著一份未簽名的備忘錄，字跡潦草：<blockquote class=\"handwritten\">「當記憶被定價，靈魂便會買單。」</blockquote>他感到一陣寒意，筆尖在紙上顫抖。</p>\n\n<p>他約見資深經紀人陳韻，對方低聲說：<p class=\"dialogue\">「這幾天有客戶瘋狂買入舊錄影帶，說要『找回失去的自己』，錢不是問題。」</p>陳韻的眼神閃爍著恐懼與貪婪交織的光。</p>\n\n<p>林逸記下<mark>客戶自述</mark>，並要求查閱這些帳號的登入 IP，發現全指向同一個廢棄倉庫的無線網路熱點。</p>\n\n<p><strong>第三章｜記憶的價格</strong></p>\n\n<p><em>—— 三小時後，地下室 ——</em></p>\n\n<p>林逸推開生鏽的鐵門，空氣中彌漫著磁帶發黴的氣味。牆上掛滿舊式錄影機，螢幕迴圈播放著無數家庭錄影：生日、畢業、初生嬰兒啼哭。每臺機器前坐著一個人，眼神空洞，手中緊握著買單確認單。</p>\n\n<p>他走近一名中年男子，男子喃喃自語：<p class=\"dialogue\">「我買回了妹妹的笑聲，價格是三百萬。」</p>林逸心頭一震，發現男子的瞳孔中倒映著螢幕畫面，畫面卻不是他妹妹，而是一片漆黑。</p>\n\n<p>他在倉庫中央發現一臺巨大伺服器，螢幕顯示著實時交易資料，旁邊貼著一張手寫便條：<blockquote class=\"eerie\">「記憶交易所，歡迎投資。」</blockquote>伺服器風扇轟鳴，資料流如血管般跳動，每一筆買單都伴隨著一段被抽離的記憶碎片。</p>\n\n<p><strong>第四章｜最後的結算</strong></p>\n\n<p>林逸試圖切斷電源，手指觸碰開關的瞬間，螢幕閃爍，所有錄影機同時倒帶。他看見自己童年時在陽臺放風箏的畫面，風箏線斷裂，風箏飄向無盡灰暗。記憶被抽離，化作數位貨幣流入賬戶。</p>\n\n<p><em>我還沒來得及告訴母親，風箏其實還在手中。</em></p>\n\n<p>螢幕上跳出最後一行字：<mark>結算完成，投資報酬率無限大。</mark>林逸跪倒在地，雙手空空，只有冰冷的交易確認單滑落指尖。倉庫燈光熄滅，只有伺服器指示燈仍在微弱閃爍，像一顆不願熄滅的心臟。</p>\n\n<p>隔日新聞報導：<blockquote>「舊式錄影帶板塊暴漲後隨即歸零，調查員林逸失蹤，警方尚無線索。」</blockquote>沒人知道，那一夜他買下的不是股票，而是自己的過去。</p>",
+  "horror_score": 60,
+  "horror_type": [
+    "suspense",
+    "psychological"
+  ],
+  "fantasy_level": "supernatural",
+  "narrative_style": "third_person_limited",
+  "pacing": "disorienting",
+  "ending_type": "tragic",
+  "perspective": "investigator",
+  "story_structure": "slow_reveal",
+  "adaptation_mode": "inspired_by_investigation",
+  "reveal_density": "subtle",
+  "source_kind": "recent_news",
+  "source_date": "2026-11-16",
+  "case_date": "",
+  "source_hash": "f55f230baf82",
+  "event_hash": "b53940ee4ef5",
+  "source_url": "https://finance.sina.com.cn/tech/roll/2026-11-16/doc-iniyxirf6002162.shtml",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 1445402962,
+  "director_analysis": {
+    "anomaly_core": "一個超自然的記憶交易機制，將人類珍貴回憶轉化為可交易的金融資產，透過大量買單誘導集體遺忘並產生依賴。",
+    "character_core": "林逸，資深財經調查員，理性與好奇心驅使他深入異常市場，最終因無法割捨自身記憶而成為交易的犧牲品。",
+    "internal_rule": "每筆買單必須對應一段真實記憶，記憶一旦被交易即永久消失；交易系統只接受自願放棄記憶的參與者，但會以心理暗示誘導受害者主動下單。"
+  },
+  "created_at": "2026-11-17T05:01:46.436826Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-666-0047_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-666-0047_scene.webp"
+}
