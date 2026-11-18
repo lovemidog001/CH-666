@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-17",
+  "count": 1,
+  "stories": [
+    {
+      "story_code": "CH-999-0062",
+      "category": "9",
+      "channel": "CH-999",
+      "title": "消失的驗證碼",
+      "subtitle": "一場跨越時間的身分竊取",
+      "slug": "vanished-verification-code",
+      "summary": "銀行帳戶在深夜接連出現無法解釋的轉帳，受害者發現每一筆交易都伴隨著消失的驗證碼與詭異的提示音。隨著時間倒流，真相逐層剝開：一套超自然的身分認證儀式正在悄悄吞噬他的存在。",
+      "content": "<p><strong>第五章｜最後的轉帳</strong></p>\n\n<p>螢幕上的餘額在凌晨三點整歸零，最後一筆轉帳紀錄顯示物件為「無名帳戶」，金額精確到小數點後兩位。受害者陳昱坐在冰冷的辦公椅上，指尖仍殘留著剛才輸入驗證碼的溫度，卻發現手機簡訊欄空無一物，連同那組六位數碼一同蒸發。空氣中彷彿聽見極微弱的電子音，像是某種儀式完成的訊號。</p>\n\n<p><em>—— 三小時前，臥室 ——</em></p>\n\n<p><strong>第四章｜消失的驗證碼</strong></p>\n\n<p>陳昱在床邊翻找手機，螢幕亮起的瞬間，銀行 App 跳出「身分驗證失敗」的紅字。他清楚記得剛才收到的簡訊，卻在點開的剎那變成一片空白，連同通知紀錄一同消失。桌上放著的舊式機械鐘依舊滴答作響，彷彿在計算某個不可見的倒數。</p>\n\n<p><em>—— 六小時前，便利商店 ——</em></p>\n\n<p><strong>第三章｜夜半的提示音</strong></p>\n\n<p>便利商店的螢光燈嗡嗡作響，陳昱為了繳納水電費而掃碼付款。手機發出一聲異樣的「滴」——比平常的付款提示音低沉、悠長，彷彿從遠處傳來。他低頭看去，畫面顯示「交易成功」，但帳戶餘額卻未減少，反而多出一筆來路不明的收入，金額與方才繳費金額完全相同。</p>\n\n<p><em>—— 十二小時前，家中書桌 ——</em></p>\n\n<p><strong>第二章｜首筆異常入帳</strong></p>\n\n<p>陳昱在整理帳單時，發現帳戶多出一筆來自「系統自動匯入」的款項，備註欄只有一串亂碼。他嘗試點選明細，頁面卻瞬間跳轉至一張空白的白頁，瀏覽器標題列顯示「驗證中…」。他下意識按下重新整理，螢幕閃爍一下，隨即恢復正常，但那筆款項已悄無聲息地消失，只留下一行極小的灰字：「已完成身分繫結」。</p>\n\n<p><em>—— 二十四小時前，清晨 ——</em></p>\n\n<p><strong>第一章｜啟動儀式</strong></p>\n\n<p>清晨六點，陳昱像往常一樣開啟銀行 App，指紋解鎖後彈出一則從未見過的彈窗：「歡迎參與身分同步計畫，請確認您的裝置」。他猶豫片刻，仍點選「同意」。那一刻，螢幕邊緣泛起一圈幾乎不可察覺的<mark>淡藍光暈</mark>，隨即消失。他以為只是例行更新，卻不知這個簡單的點選，已將他的身分鑰匙交給了某個不屬於這個世界的規則。</p>\n\n<blockquote>\n<p class=\"handwritten\">「每一次驗證碼的消失，都是靈魂被抽離一角的聲音。」</p>\n</blockquote>\n\n<p>現在，陳昱坐在空蕩蕩的辦公室，螢幕上只剩下一行閃爍的字句：「身分同步完成，歡迎來到新帳戶」。他伸出的手指懸在鍵盤上方，卻發現指紋已不再被識別，指尖的溫度在瞬間降至冰點。窗外的城市燈火仍在閃爍，而他已成為一組無法追蹤的資料流，永遠卡在驗證碼消失的那個夜晚。</p>",
+      "horror_score": 85,
+      "horror_type": [
+        "reality_horror"
+      ],
+      "fantasy_level": "supernatural",
+      "narrative_style": "third_person_omniscient",
+      "pacing": "fast_paced",
+      "ending_type": "unsettling_resolution",
+      "perspective": "victim",
+      "story_structure": "reverse_chronology",
+      "adaptation_mode": "inspired_by_consequence",
+      "reveal_density": "balanced",
+      "source_kind": "recent_news",
+      "source_date": "2026-11-17",
+      "case_date": "",
+      "source_hash": "db1cf3c1b0fc",
+      "event_hash": "ca530bf7855e",
+      "source_url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE4yMV9nVTZIYkk5TUU0VGtMNnFwd2RnbE9BOG5xSWhkRmtIU2pHdUVkdVJfYXA4OHhZeDVQUE8yUGV5clFGWGZFNnp4YVNiWGNqLUluLVZNQQ?oc=5",
+      "provider_used": "nvidia",
+      "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "dice_seed": 1194662800,
+      "director_analysis": {
+        "anomaly_core": "一套超自然的身分認證儀式，透過銀行 App 的驗證碼機制，逐步抽離受害者的數位身分並轉化為不可追蹤的資料流。",
+        "character_core": "陳昱，普通上班族，因習慣性信任金融科技介面而啟動儀式，隨著時間倒流逐漸意識到自身正被抽離。",
+        "internal_rule": "每完成一次驗證碼輸入並確認，受害者的身分碎片便會被系統吸收；驗證碼一旦消失即代表該碎片已永久轉移，無法逆轉。"
+      },
+      "created_at": "2026-11-18T04:08:52.439137Z",
+      "cover_image": "https://oodh.eu.cc/images/CH-999-0062_cover.webp",
+      "scene_images": "https://oodh.eu.cc/images/CH-999-0062_scene.webp"
+    }
+  ],
+  "generated_at": "2026-11-18T04:09:21.450411Z",
+  "channel_counts": {
+    "3": 0,
+    "6": 0,
+    "9": 1
+  }
+}
