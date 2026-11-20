@@ -93,6 +93,10 @@ jobs:
         env:
           TARGET_DATE: ${{ steps.target.outputs.target_date }}
           ARTICLES_PER_DAY: '1'
+          # Manual runs also render a video, so create the opening/ending keyframes too (4 images instead of 2).
+          SCENE_IMAGE_COUNT: ${{ github.event_name == 'workflow_dispatch' && '3' || '1' }}
+          # Local copies of the images are handed to the video job, so it does not depend on downloading them from the site.
+          STORY_IMAGE_DIR: ${{ runner.temp }}/story-images
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
           AGNES_API_KEY: ${{ secrets.AGNES_API_KEY }}
           FTP_HOST: ${{ secrets.FTP_HOST }}
@@ -101,6 +105,15 @@ jobs:
           FTP_PATH: ${{ secrets.FTP_PATH }}
           SITE_URL: ${{ secrets.SITE_URL }}
         run: python scripts/main.py --date "$TARGET_DATE" --count "$ARTICLES_PER_DAY" --content-dir content
+
+      - name: Keep illustrations for the video job
+        if: ${{ github.event_name == 'workflow_dispatch' && !inputs.video_only_story_code }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: story-images
+          path: ${{ runner.temp }}/story-images
+          if-no-files-found: ignore
+          retention-days: 1
 
       - name: Resolve story codes for the video job
         id: route
@@ -205,6 +218,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ffmpeg
 
+      - name: Download illustrations from the generation job
+        # Not available for video-only retries of older stories; those download from the site instead.
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: story-images
+          path: ${{ runner.temp }}/story-images
+
       - name: Generate and upload videos for selected story codes
         env:
           STORY_CODES: ${{ needs.generate.outputs.story_codes }}
@@ -213,27 +234,40 @@ jobs:
           VFTP_USER: ${{ secrets.VFTP_USER }}
           VFTP_PASS: ${{ secrets.VFTP_PASS }}
         run: |
+          # Run every story, record each result in the summary, and fail the step at the end if any failed.
+          status=0
           IFS=',' read -r -a codes <<< "$STORY_CODES"
           for code in "${codes[@]}"; do
             if [[ ! "$code" =~ ^CH-(333|666|999)-[0-9]{4}$ ]]; then
               echo "Invalid generated story code: $code"
-              exit 1
+              echo "- ${code}: invalid story code" >> "$GITHUB_STEP_SUMMARY"
+              status=1
+              continue
             fi
-            python scripts/run_story_video_pipeline.py \
+            if python scripts/run_story_video_pipeline.py \
               "content/stories/${code}.json" \
               --output-dir "$RUNNER_TEMP/${code}-video" \
-              --generate --upload
+              --local-image-dir "$RUNNER_TEMP/story-images" \
+              --generate --upload; then
+              echo "- ${code}: video uploaded" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "- ${code}: FAILED, see the log of this step for the error line" >> "$GITHUB_STEP_SUMMARY"
+              status=1
+            fi
           done
+          exit $status
 
       - name: Video summary
         if: always()
         env:
           STORY_CODES: ${{ needs.generate.outputs.story_codes }}
+          VIDEO_JOB_STATUS: ${{ job.status }}
         run: |
           {
             echo "## CH-666 illustrated video summary"
             echo "- Story codes: ${STORY_CODES:-none}"
-            echo "- Result: see job steps above"
+            echo "- Job status: ${VIDEO_JOB_STATUS}"
+            echo "- This job is allowed to fail without stopping the story; a red mark here means the video failed."
           } >> "$GITHUB_STEP_SUMMARY"
 
   delete-old-runs:

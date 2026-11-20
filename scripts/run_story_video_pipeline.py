@@ -22,6 +22,7 @@ def main() -> int:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--generate", action="store_true", help="render WebM/WebP clips from existing story illustrations")
     parser.add_argument("--upload", action="store_true", help="upload media and manifest to VFTP")
+    parser.add_argument("--local-image-dir", type=Path, help="folder with story illustrations saved by the generation job")
     args = parser.parse_args()
 
     try:
@@ -48,6 +49,8 @@ def main() -> int:
             sys.executable, str(ROOT / "scripts/generate_story_videos.py"),
             str(manifest_path), "--story-json", str(args.story_json), "--output-dir", str(args.output_dir),
         ]
+        if args.local_image_dir:
+            generator += ["--local-image-dir", str(args.local_image_dir)]
         if args.generate:
             generator.append("--execute")
         result = run(generator)

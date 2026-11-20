@@ -8,6 +8,7 @@ import json
 import os
 import re
 import sys
+import time
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
@@ -122,25 +123,31 @@ def main() -> int:
     if not all((host, user, password)):
         print("error: VFTP_HOST, VFTP_USER and VFTP_PASS are required", file=sys.stderr)
         return 2
-    try:
-        with ftplib.FTP(host, timeout=30) as ftp:
-            ftp.login(user, password)
-            try:
-                ftp.mkd(args.story_code)
-            except ftplib.error_perm as exc:
-                if not str(exc).startswith("550"):
-                    raise
-            ftp.cwd(args.story_code)
-            for name in ASSETS:
-                with (args.input_dir / name).open("rb") as source:
-                    ftp.storbinary(f"STOR {name}", source)
-            with manifest_path.open("rb") as source:
-                ftp.storbinary("STOR manifest.json", source)
-        print("Upload complete.")
-        return 0
-    except (OSError, ftplib.Error) as exc:
-        print(f"error: FTP upload failed: {exc}", file=sys.stderr)
-        return 2
+    last_error = None
+    for attempt in range(1, 4):
+        try:
+            with ftplib.FTP(host, timeout=60) as ftp:
+                ftp.login(user, password)
+                try:
+                    ftp.mkd(args.story_code)
+                except ftplib.error_perm as exc:
+                    if not str(exc).startswith("550"):
+                        raise
+                ftp.cwd(args.story_code)
+                for name in ASSETS:
+                    with (args.input_dir / name).open("rb") as source:
+                        ftp.storbinary(f"STOR {name}", source)
+                with manifest_path.open("rb") as source:
+                    ftp.storbinary("STOR manifest.json", source)
+            print("Upload complete.")
+            return 0
+        except (OSError, ftplib.Error) as exc:
+            last_error = exc
+            print(f"FTP upload attempt {attempt}/3 failed: {type(exc).__name__}: {exc}", file=sys.stderr, flush=True)
+            if attempt < 3:
+                time.sleep(5 * attempt)
+    print(f"error: FTP upload failed after 3 attempts: {last_error}", file=sys.stderr)
+    return 2
 
 
 if __name__ == "__main__":

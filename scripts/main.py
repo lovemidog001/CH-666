@@ -452,20 +452,20 @@ def validate_story_output(story):
         issues.append(f"story text too short: {len(visible_text)} visible characters (min 900)")
     return issues
 
-def call_provider(name,prompt,system):
+def call_provider(name,prompt,system,max_tokens=6500,attempts=4,temperature=0.85):
     if name=="nvidia":
         key=os.getenv("NVIDIA_API_KEY",""); url="https://integrate.api.nvidia.com/v1/chat/completions"; model=os.getenv("NVIDIA_MODEL","nvidia/nemotron-3-ultra-550b-a55b")
     else:
         key=os.getenv("AGNES_API_KEY",""); url="https://apihub.agnes-ai.com/v1/chat/completions"; model=os.getenv("AGNES_MODEL","agnes-2.5-flash")
     if not key: raise RuntimeError(name+" API key missing")
-    body={"model":model,"messages":[{"role":"system","content":system},{"role":"user","content":prompt}],"temperature":0.85,"max_tokens":6500,"stream":False}
+    body={"model":model,"messages":[{"role":"system","content":system},{"role":"user","content":prompt}],"temperature":temperature,"max_tokens":max_tokens,"stream":False}
     last=None
-    for attempt in range(4):
+    for attempt in range(attempts):
         try:
             r=requests.post(url,headers={"Authorization":"Bearer "+key,"Content-Type":"application/json"},json=body,timeout=180)
-            if r.status_code in (429,500,502,503,504) and attempt<3:
+            if r.status_code in (429,500,502,503,504) and attempt<attempts-1:
                 delay=3*(2**attempt)
-                log(f"  {name} HTTP {r.status_code}; retry {attempt+1}/3 after {delay}s")
+                log(f"  {name} HTTP {r.status_code}; retry {attempt+1}/{attempts-1} after {delay}s")
                 time.sleep(delay)
                 continue
             r.raise_for_status(); obj=r.json()
@@ -474,7 +474,7 @@ def call_provider(name,prompt,system):
             return story,model
         except Exception as e:
             last=e
-            if attempt<3: time.sleep(min(12,2**(attempt+1)))
+            if attempt<attempts-1: time.sleep(min(12,2**(attempt+1)))
     raise RuntimeError(f"{name} failed: {last}")
 
 def make_story(article,cat,dice):
@@ -540,7 +540,7 @@ def generate_image_nvidia(prompt):
         # Retry with a neutral, well-lit prompt rather than resending a potentially filtered prompt.
         current_prompt=prompt if attempt==0 else (
             "Create a clearly visible, richly detailed cinematic mystery illustration. "
-            "A fictional scene for an atmospheric mystery archive, vivid teal and amber light, "
+            "A fictional scene for an atmospheric mystery archive, "
             "balanced exposure, detailed midtones, clearly visible objects and background, "
             "subtle suspense, elegant composition, high-quality film still. "
             "The image must not be blank, monochrome black, or underexposed. "
@@ -642,26 +642,58 @@ def upload_image(filename,data):
     required=["FTP_HOST","FTP_USER","FTP_PASS","FTP_PATH","SITE_URL"]
     missing=[k for k in required if not os.getenv(k)]
     if missing: raise RuntimeError("missing FTP settings: "+", ".join(missing))
-    ftp=FTP(os.environ["FTP_HOST"],timeout=45)
-    try:
-        ftp.login(os.environ["FTP_USER"],os.environ["FTP_PASS"])
-        remote=os.environ["FTP_PATH"].strip("/")
-        if remote: ftp.cwd(remote)
-        ftp.storbinary("STOR "+filename,BytesIO(data))
-    finally:
-        try: ftp.quit()
-        except Exception: pass
+    last=None
+    for attempt in range(3):
+        ftp=None
+        try:
+            ftp=FTP(os.environ["FTP_HOST"],timeout=45)
+            ftp.login(os.environ["FTP_USER"],os.environ["FTP_PASS"])
+            remote=os.environ["FTP_PATH"].strip("/")
+            if remote: ftp.cwd(remote)
+            ftp.storbinary("STOR "+filename,BytesIO(data))
+            last=None
+            break
+        except Exception as e:
+            last=e
+            log(f"  FTP upload attempt {attempt+1}/3 failed: {e}")
+            if attempt<2: time.sleep(3*(attempt+1))
+        finally:
+            if ftp is not None:
+                try: ftp.quit()
+                except Exception: pass
+    if last is not None: raise last
     site_url=re.sub(r"\s+","",os.environ["SITE_URL"].strip()).rstrip("/")
     return site_url+"/images/"+filename
 
-def make_images(story,cat,dice):
-    palette={"3":"warm candlelight, amber highlights, textured old paper","6":"phosphor green CRT glow, teal and amber lighting, analog surveillance monitors","9":"deep indigo atmosphere, restrained warning red accents, surreal geometric architecture"}[cat]
-    prompts={"cover":f"Cinematic mystery archive cover, no text, no letters, no watermark. {palette}. Symbolic fictional scene inspired by {story['title']}. Clearly visible subject, balanced exposure, rich midtones, detailed shadows with visible texture, luminous highlights, not an all-black image. High-quality film still, square composition.",
-             "scene":f"Cinematic mystery film still, no text, no letters, no watermark. {palette}. A key fictional scene inspired by {story['title']}. Fantasy level {dice['fantasy_level']}. Clearly visible characters and environment, balanced exposure, rich midtones, detailed shadows with visible texture, luminous highlights, not an all-black image. Square composition."}
-    urls={"cover":"","scene":""}
-    for kind,prompt in prompts.items():
+def request_visual_brief(system,prompt):
+    """Ask the text providers for English scene descriptions; None means use the rule-based fallback."""
+    for provider in ("nvidia","agnes"):
         try:
-            filename=f"{story['story_code']}_{kind}.webp"; urls[kind]=upload_image(filename,generate_image(prompt)); log("  Uploaded "+kind+" image")
+            brief,_=call_provider(provider,prompt,system,max_tokens=1500,attempts=2,temperature=0.8)
+            return brief
+        except Exception as e: log(f"  Visual brief via {provider} failed: {e}")
+    return None
+
+def make_images(story,cat,dice):
+    """Generate story-specific illustrations.
+
+    SCENE_IMAGE_COUNT=3 (manual runs that also render a video) additionally creates an opening and an ending
+    still, uploaded as <code>_scene_open.webp / <code>_scene_end.webp. They are used only as video keyframes and are
+    not added to the story JSON, so the website's cover_image / scene_images contract is unchanged.
+    """
+    import image_prompts
+    plan=image_prompts.plan_images(story,cat,dice,ask=request_visual_brief,extra_scenes=os.getenv("SCENE_IMAGE_COUNT","1").strip()=="3")
+    local_dir=os.getenv("STORY_IMAGE_DIR","").strip()
+    urls={"cover":"","scene":""}
+    for shot in plan:
+        kind=shot["kind"]
+        log(f"  Image prompt [{kind}, {shot['source']}]: {shot['prompt'][:400]}")
+        try:
+            data=generate_image(shot["prompt"])
+            filename=f"{story['story_code']}_{kind}.webp"
+            if local_dir:
+                Path(local_dir).mkdir(parents=True,exist_ok=True); (Path(local_dir)/filename).write_bytes(data)
+            urls[kind]=upload_image(filename,data); log("  Uploaded "+kind+" image")
         except Exception as e: log(f"  WARNING: {kind} image failed, story retained: {e}")
     return urls
 
@@ -706,7 +738,7 @@ def main():
             ai,provider,model=make_story(article,cat,dice); maxima[cat]+=1; code=f"CH-{cat*3}-{maxima[cat]:04d}"
             story={"story_code":code,"category":cat,"channel":c["channel"],"title":ai["title"],"subtitle":ai["subtitle"],"slug":ai["slug"],"summary":ai["summary"],"content":ai["content"],"horror_score":dice["horror_score"],"horror_type":dice["horror_type"],"fantasy_level":dice["fantasy_level"],"narrative_style":dice["narrative_style"],"pacing":dice["pacing"],"ending_type":dice["ending_type"],"perspective":dice["perspective"],"story_structure":dice["structure"],"adaptation_mode":dice["adaptation_mode"],"reveal_density":dice["reveal_density"],"source_kind":article.get("source_kind","recent_news"),"source_date":article["source_date"],"case_date":article.get("case_date",""),"source_hash":article["source_hash"],"event_hash":article["event_hash"],"source_url":article["source_url"],"provider_used":provider,"provider_model":model,"dice_seed":dice["dice_seed"],"director_analysis":ai["director_analysis"],"created_at":now_iso(),"cover_image":"","scene_images":""}
             if not a.skip_images:
-                imgs=make_images(story,cat,dice); story["cover_image"]=imgs["cover"]; story["scene_images"]=imgs["scene"]
+                imgs=make_images(story,cat,dice); story["cover_image"]=imgs.get("cover",""); story["scene_images"]=imgs.get("scene","")
             story=clean_image_urls(story)
             (sd/f"{code}.json").write_text(json.dumps(story,ensure_ascii=False,indent=2),encoding="utf-8"); generated.append(story)
             log(f"  Saved {code}; content chars={len(story['content'])}")

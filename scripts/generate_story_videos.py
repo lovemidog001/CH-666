@@ -12,7 +12,7 @@ import sys
 import tempfile
 import time
 from pathlib import Path
-from urllib.parse import quote, unquote, urlsplit
+from urllib.parse import quote, unquote, urljoin, urlsplit, urlunsplit
 
 import requests
 from PIL import Image
@@ -72,25 +72,89 @@ def image_url(value: object, story_code: str, kind: str) -> str:
     return value
 
 
+BROWSER_HEADERS = {
+    # Free hosts and CDNs often answer 403 to the default "python-requests" agent from datacenter IPs.
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+    "Accept": "image/webp,image/*;q=0.8,*/*;q=0.5",
+}
+
+
+def describe_error(exc: BaseException) -> str:
+    """One-line reason for a failure; includes the HTTP status and a body snippet when there is one."""
+    response = getattr(exc, "response", None)
+    if response is not None:
+        body = " ".join((response.text or "").split())[:300]
+        return f"{type(exc).__name__}: HTTP {response.status_code} {body}".strip()
+    stderr = getattr(exc, "stderr", None)  # subprocess.CalledProcessError from ffmpeg
+    if isinstance(stderr, str) and stderr.strip():
+        return f"{type(exc).__name__}: {' '.join(stderr.split())[-500:]}"
+    return f"{type(exc).__name__}: {str(exc)[:300]}"
+
+
 def download_image(session: requests.Session, url: str, target: Path) -> None:
-    with session.get(url, stream=True, timeout=60, allow_redirects=False) as response:
-        response.raise_for_status()
-        declared = response.headers.get("Content-Length")
-        if declared and int(declared) > MAX_IMAGE_BYTES:
-            raise ValueError("story illustration exceeds the 20 MB download limit")
-        total = 0
-        with target.open("wb") as output:
-            for chunk in response.iter_content(chunk_size=256 * 1024):
-                if not chunk:
-                    continue
-                total += len(chunk)
-                if total > MAX_IMAGE_BYTES:
-                    raise ValueError("story illustration exceeds the 20 MB download limit")
-                output.write(chunk)
+    origin = urlsplit(url)
+    current = url
+    for _ in range(4):
+        with session.get(current, stream=True, timeout=60, allow_redirects=False, headers=BROWSER_HEADERS) as response:
+            if response.status_code in (301, 302, 303, 307, 308):
+                nxt = urljoin(current, response.headers.get("Location", ""))
+                parts = urlsplit(nxt)
+                # Follow only same-host HTTPS redirects (e.g. a trailing-slash or case fix).
+                if parts.scheme.lower() != "https" or (parts.hostname or "").lower() != (origin.hostname or "").lower():
+                    raise ValueError(f"illustration URL redirects to another host or protocol: {nxt}")
+                current = nxt
+                continue
+            if response.status_code >= 400:
+                raise ValueError(
+                    f"illustration download failed: HTTP {response.status_code} from {origin.hostname} "
+                    f"(content-type {response.headers.get('Content-Type', '?')}) for {origin.path}"
+                )
+            content_type = response.headers.get("Content-Type", "?")
+            declared = response.headers.get("Content-Length")
+            if declared and int(declared) > MAX_IMAGE_BYTES:
+                raise ValueError("story illustration exceeds the 20 MB download limit")
+            total = 0
+            with target.open("wb") as output:
+                for chunk in response.iter_content(chunk_size=256 * 1024):
+                    if not chunk:
+                        continue
+                    total += len(chunk)
+                    if total > MAX_IMAGE_BYTES:
+                        raise ValueError("story illustration exceeds the 20 MB download limit")
+                    output.write(chunk)
+            break
+    else:
+        raise ValueError(f"too many redirects while downloading {origin.path}")
     if total == 0:
         raise ValueError(f"empty illustration downloaded from {url}")
-    with Image.open(target) as image:
-        image.verify()
+    try:
+        with Image.open(target) as image:
+            image.verify()
+    except Exception as exc:
+        head = target.read_bytes()[:60]
+        raise ValueError(
+            f"{origin.path} from {origin.hostname} is not a valid image "
+            f"(content-type {content_type}, first bytes {head!r}); the site may be answering the runner with a block page"
+        ) from exc
+
+
+def fetch_source(session: requests.Session, local_dir: Path | None, story_code: str, kind: str, url: str, target: Path) -> None:
+    """Use the image saved by the generation job when available; otherwise download it from the site."""
+    if local_dir is not None:
+        local = local_dir / f"{story_code}_{kind}.webp"
+        if local.is_file() and local.stat().st_size > 0:
+            shutil.copyfile(local, target)
+            with Image.open(target) as image:
+                image.verify()
+            print(f"Using image from the generation job: {local.name}", flush=True)
+            return
+    download_image(session, url, target)
+
+
+def sibling_url(url: str, story_code: str, kind: str) -> str:
+    """URL of another illustration of the same story on the same host."""
+    parts = urlsplit(url)
+    return urlunsplit(parts._replace(path=f"/images/{story_code}_{kind}.webp"))
 
 
 def find_video_url(value: object) -> str | None:
@@ -278,6 +342,7 @@ def main() -> int:
     parser.add_argument("--execute", action="store_true", help="generate video clips; otherwise print the plan only")
     parser.add_argument("--timeout", type=int, default=60)
     parser.add_argument("--public-video-root", default="/video", help="public URL path where the VFTP video/ directory is served")
+    parser.add_argument("--local-image-dir", type=Path, help="folder with <story_code>_<kind>.webp saved by the generation job; used before downloading from the site")
     args = parser.parse_args()
 
     try:
@@ -316,24 +381,52 @@ def main() -> int:
         if not api_key:
             print("AGNES_API_KEY is not configured; using FFmpeg illustration animation for all scenes.", flush=True)
 
+        local_dir = args.local_image_dir if args.local_image_dir and args.local_image_dir.is_dir() else None
+        code = manifest["story_code"]
+        agnes_budget = int(os.getenv("AGNES_VIDEO_BUDGET_SECONDS", "1800") or 1800)
+
         with tempfile.TemporaryDirectory(prefix="story-video-source-") as temp_name:
             temp_dir = Path(temp_name)
-            sources: list[tuple[Path, str]] = []
+            sources: dict[str, tuple[Path, str]] = {}
             with requests.Session() as session:
-                for index, (kind, url) in enumerate(urls, start=1):
-                    image_path = temp_dir / f"source-{kind}-{index}.webp"
-                    download_image(session, url, image_path)
-                    sources.append((image_path, url))
+                for kind, url in urls:
+                    image_path = temp_dir / f"source-{kind}.webp"
+                    fetch_source(session, local_dir, code, kind, url, image_path)
+                    sources[kind] = (image_path, url)
 
+                # Manual runs also create an opening and an ending still; use them when present so the three
+                # clips show three different moments instead of repeating the cover.
+                for kind in ("scene_open", "scene_end"):
+                    extra_url = sibling_url(urls[0][1], code, kind)
+                    try:
+                        image_path = temp_dir / f"source-{kind}.webp"
+                        fetch_source(session, local_dir, code, kind, extra_url, image_path)
+                        sources[kind] = (image_path, extra_url)
+                    except (requests.RequestException, ValueError, OSError) as exc:
+                        print(f"Optional {kind} still not available ({describe_error(exc)}); reusing the main illustrations.", flush=True)
+
+                if "scene_open" in sources and "scene_end" in sources:
+                    keyframes = [sources["scene_open"], sources.get("scene") or sources["cover"], sources["scene_end"]]
+                    print("Using three distinct stills (opening, escalation, ending) as video keyframes.", flush=True)
+                else:
+                    base = [sources[kind] for kind in ("cover", "scene") if kind in sources]
+                    keyframes = [base[(n - 1) % len(base)] for n in (1, 2, 3)]
+
+                agnes_on = bool(api_key)
+                agnes_started = time.monotonic()
                 for scene in manifest["scenes"]:
                     number = scene["scene"]
                     duration = scene.get("duration_seconds", 6)
-                    source, source_url = sources[(number - 1) % len(sources)]
+                    source, source_url = keyframes[number - 1]
                     webm_path = args.output_dir / f"scene-{number:02d}.webm"
                     poster_path = args.output_dir / f"scene-{number:02d}.webp"
                     generated = False
 
-                    if api_key:
+                    if agnes_on and time.monotonic() - agnes_started > agnes_budget:
+                        print(f"Agnes time budget ({agnes_budget // 60} min) used up; using FFmpeg for the remaining scenes.", flush=True)
+                        agnes_on = False
+
+                    if agnes_on:
                         for model in VIDEO_MODELS:
                             try:
                                 print(f"Generating scene {number}/3 ({duration}s) with {model}...", flush=True)
@@ -348,7 +441,11 @@ def main() -> int:
                                 break
                             except (requests.RequestException, ValueError, RuntimeError, TimeoutError,
                                     subprocess.CalledProcessError) as exc:
-                                print(f"{model} unavailable for scene {number}: {type(exc).__name__}; trying next option.", flush=True)
+                                print(f"{model} failed for scene {number}: {describe_error(exc)}", flush=True)
+                        if not generated:
+                            # Do not spend up to 16 more minutes per remaining scene on a provider that is not working.
+                            print("Agnes video did not work; using FFmpeg animation for the remaining scenes.", flush=True)
+                            agnes_on = False
 
                     if not generated:
                         print(f"Using FFmpeg animated illustration for scene {number}/3 ({duration}s).", flush=True)
@@ -365,7 +462,7 @@ def main() -> int:
         return 0
     except (OSError, ValueError, RuntimeError, TimeoutError, requests.RequestException,
             subprocess.CalledProcessError, json.JSONDecodeError) as exc:
-        print(f"error: {exc}", file=sys.stderr)
+        print(f"error: {describe_error(exc)}", file=sys.stderr)
         return 2
 
 
