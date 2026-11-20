@@ -1,0 +1,40 @@
+{
+  "story_code": "CH-999-0068",
+  "category": "9",
+  "channel": "CH-999",
+  "title": "記住505：迴響的低語",
+  "subtitle": "一段關於時間迴圈與記憶傳染的訪談紀錄",
+  "slug": "ji-zhu-505",
+  "summary": "論壇上一句「記住505」悄然傳播，讀者陷入五百零五分鐘的時間迴圈，記憶在每次重置時被重寫。多位見證者以訪談形式講述迴圈中的細微差異、心理崩解與無法斷開的傳染鏈，真相仍在迷霧中。",
+  "content": "<p><strong>第一章｜論壇紀錄</strong></p>\n\n<p><blockquote><cite>訪談者：</cite> 請說明您第一次看到「<mark>記住505</mark>」的時間與情況。</blockquote></p>\n\n<p><blockquote><cite>論壇管理員・陳志遠：</cite> 2025 年 11 月 18 日晚間十點十三分，我在「品茶小軒」的茶葉討論串看到一則無標題回覆，只有一行字：<q>記住505</q>。當下以為是惡搞，沒在意。</blockquote></p>\n\n<p><blockquote><cite>訪談者：</cite> 之後有無異常？</blockquote></p>\n\n<p><blockquote><cite>陳志遠：</cite> 約莫五分鐘後，頁面自動重新整理，時間顯示回到十點十三分，瀏覽器紀錄卻顯示我已閱讀過該回覆。我嘗試關閉分頁，卻發現系統時間也倒退了五分鐘。這種情況重複了三次，每次間隔皆為五百零五秒。</blockquote></p>\n\n<p><em>—— 記錄員備註：受訪者語氣平靜，眼神卻在描述「倒退」時微微顫動。</em></p>\n\n<p><strong>第二章｜心理諮商紀錄</strong></p>\n\n<p><blockquote><cite>訪談者：</cite> 請描述您在迴圈中感受到的心理變化。</blockquote></p>\n\n<p><blockquote><cite>心理師・林怡君：</cite> 我的來訪者——大三學生張皓，於 11 月 19 日凌晨兩點因失眠前來。他說每當看到「<mark>記住505</mark>」字樣，腦海會浮現一段模糊的低語，彷彿有人在耳邊輕唸數字。每次迴圈結束，他會忘記剛才的恐懼，只剩下「必須記住」的強迫念頭。</blockquote></p>\n\n<p><blockquote><cite>訪談者：</cite> 是否有嘗試中斷？</blockquote></p>\n\n<p><blockquote><cite>林怡君：</cite> 我建議他避開所有含「505」的訊息，但他回報：即便刪除瀏覽紀錄、更換裝置，手機螢幕仍會在鎖屏時彈出同樣字串。他在第七次迴圈時開始出現幻聽，聲音逐漸清晰，彷彿在倒數：<q>五、零、五……</q>。</blockquote></p>\n\n<p><small>記錄時間：2025-11-20 03:12</small></p>\n\n<p><strong>第三章｜圖書館觀察</strong></p>\n\n<p><blockquote><cite>訪談者：</cite> 您在公立圖書館發現了什麼？</blockquote></p>\n\n<p><blockquote><cite>館員・吳佩珊：</cite> 11 月 20 日上午，我在閱覽區發現三本不同書籍的頁邊皆被手寫「記住505」。字跡筆跡一致，墨水顏色為深藍，疑似同一人所寫。但借閱紀錄顯示這三本書在過去一週皆無人借出。</blockquote></p>\n\n<p><blockquote><cite>訪談者：</cite> 有無監控畫面？</blockquote></p>\n\n<p><blockquote><cite>吳佩珊：</cite> 監控在該時段顯示畫面靜止五分鐘，時間碼倒退至前一小時。重播後發現一名身穿灰色連帽外套的男子在書架間穿梭，手中握著一支鋼筆，動作極快，彷彿在同一瞬間完成三處書寫。</blockquote></p>\n\n<p><em>—— 現場照片已封存，僅供內部參考。</em></p>\n\n<p><strong>第四章｜學生筆記</strong></p>\n\n<p><blockquote><cite>訪談者：</cite> 請朗讀您手邊筆記的最後一段。</blockquote></p>\n\n<p><blockquote><cite>張皓（學生）：</cite> <q>第 12 次迴圈，我聽見低語說：<mark>記住505</mark>，不是數字，是門。每次關門，時間就會重來。我不確定我是否還在原本的世界，或許我早已成為門的一部分。</q></blockquote></p>\n\n<p><blockquote><cite>訪談者：</cite> 您打算怎麼做？</blockquote></p>\n\n<p><blockquote><cite>張皓：</cite> 我會把這段話傳給下一個看到的人。或許傳遞本身就是鑰匙，或許只是另一把鎖。</blockquote></p>\n\n<p><p><em>—— 訪談結束，錄音裝置在最後一句後自動停止，時間顯示 05:05。</em></p>\n</p>",
+  "horror_score": 21,
+  "horror_type": [
+    "time_loop",
+    "memetic"
+  ],
+  "fantasy_level": "supernatural",
+  "narrative_style": "interview_transcript",
+  "pacing": "disorienting",
+  "ending_type": "open",
+  "perspective": "object",
+  "story_structure": "multiple_testimonies",
+  "adaptation_mode": "inspired_by_investigation",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2026-11-19",
+  "case_date": "",
+  "source_hash": "a930f5cb93ce",
+  "event_hash": "5b2498555f55",
+  "source_url": "https://bbs.wenxuecity.com/teatime/787040.html",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 102931377,
+  "director_analysis": {
+    "anomaly_core": "「記住505」為一種記憶傳染型模因，觸發者將進入固定 505 秒（約 8 分 25 秒）的時間迴圈，每次重置伴隨記憶重寫與低語幻聽，形成自我強化的傳播鏈。",
+    "character_core": "四位見證者分別代表資訊管理、心理觀察、實體環境記錄與當事人主觀體驗，交織出多層次的證詞拼圖，無單一主角視角。",
+    "internal_rule": "1. 只要閱讀或聽到「記住505」即啟動迴圈。2. 迴圈長度固定為 505 秒，時間與外部裝置同步倒退。3. 每次重置會抹除本輪恐懼記憶，保留「必須記住」的強迫意圖。4. 傳播途徑不限文字、聲音、手寫，任何媒介均可成為載體。5. 若受試者主動將訊息傳遞給他人，迴圈對該受試者暫時中斷，但新接收者將進入同樣迴圈。"
+  },
+  "created_at": "2026-11-20T16:12:00.688789Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-999-0068_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-999-0068_scene.webp"
+}
