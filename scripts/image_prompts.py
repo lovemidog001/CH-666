@@ -77,6 +77,27 @@ LOOKS = {
     ],
 }
 
+# The four visual dice are drawn independently with a per-story RNG, then dealt
+# without replacement across that story's images.  Style descriptions are kept
+# internally coherent (for example, VHS only appears with analog treatments).
+GENRES = {
+    "3": ["cinematic horror still, restrained 35mm grain", "documentary photography, available light", "Taiwanese ink print with muted pigments", "folk-horror oil painting, visible brushwork", "hand-painted concept art, tactile paper texture", "archival 16mm film frame, soft halation"],
+    "6": ["cinematic horror still, anamorphic framing", "documentary photography, handheld available light", "CCTV surveillance frame, compressed monochrome", "VHS home-video freeze frame, tracking noise", "linocut print with rough carved shadows", "moody digital concept art, realistic surfaces"],
+    "9": ["cinematic science-fiction horror still", "medium-format photography, deep spatial detail", "surreal conceptual photography, hard studio light", "matte-painted concept art, vast scale", "archival analog film frame, faded colour", "graphic screenprint with stark shapes"],
+}
+
+COMPOSITIONS = [
+    "extreme close-up of one unsettling detail", "distant wide shot with the setting dominating", "low angle looking upward", "overhead view looking straight down",
+    "framed within a doorway or window", "composition seen through a mirror reflection", "empty setting with no visible people", "off-centre composition with deep negative space",
+    "foreground obstruction partially hiding the subject", "compressed long-lens view across the space", "symmetrical corridor perspective", "tilted frame with restrained unease",
+]
+
+ANOMALY_TREATMENTS = [
+    "the anomaly is almost hidden at the edge of the frame", "only a physical trace remains after the event", "an impossible shadow reveals what is absent", "the anomaly is caught actively unfolding",
+    "the setting subtly bends around the anomaly", "a reflection shows the anomaly before it appears", "one ordinary object is inexplicably displaced", "the anomaly is suggested by an empty space",
+    "a repeating detail hints that reality has slipped", "the anomaly appears distant and easy to overlook", "a light reveals the anomaly for an instant", "the scene looks ordinary until one detail is noticed",
+]
+
 SHOTS = [
     "wide establishing shot, a small figure dwarfed by the space",
     "low-angle shot looking up",
@@ -242,10 +263,15 @@ def story_beats(story: dict) -> dict[str, str]:
 
 
 def _pick_variety(code: str, seed: object, cat: str, count: int) -> dict:
-    rng = random.Random(f"{code}|{seed}|visual")
+    rng = random.Random(f"{code}|{seed}|{cat}|visual")
+    genres = list(GENRES.get(cat, GENRES["6"]))
+    # Preserve the established story-specific looks as additional options.
+    genres.extend(LOOKS.get(cat, LOOKS["6"]))
     return {
         "palette": rng.choice(PALETTES.get(cat, PALETTES["6"])),
-        "look": rng.choice(LOOKS.get(cat, LOOKS["6"])),
+        "genre": rng.sample(genres, count),
+        "composition": rng.sample(COMPOSITIONS, count),
+        "anomaly": rng.sample(ANOMALY_TREATMENTS, count),
         "shots": rng.sample(SHOTS, count),
         "lights": rng.sample(LIGHTS, count),
     }
@@ -272,7 +298,9 @@ def build_brief_request(story: dict, kinds: tuple, variety: dict, beats: dict) -
     plan_lines = []
     for index, kind in enumerate(kinds):
         plan_lines.append(
-            f'- kind "{kind}": {guide[kind]} Camera: {variety["shots"][index]}. Light: {variety["lights"][index]}.'
+            f'- kind "{kind}": {guide[kind]} Camera: {variety["shots"][index]}. '
+            f'Composition: {variety["composition"][index]}. Light: {variety["lights"][index]}. '
+            f'Visual genre: {variety["genre"][index]}. Anomaly treatment: {variety["anomaly"][index]}.'
         )
     beat_lines = "\n".join(f"- {name}: {text}" for name, text in beats.items()) or "- (no excerpt available)"
     system = (
@@ -360,10 +388,13 @@ def plan_images(
             shot[0].upper() + shot[1:] + ".",
             f"Lit by {variety['lights'][index]}.",
             f"Colour palette: {variety['palette']}.",
-            variety["look"][0].upper() + variety["look"][1:] + ".",
+            f"Composition: {variety['composition'][index]}.",
+            f"Anomaly presentation: {variety['anomaly'][index]}.",
+            variety["genre"][index][0].upper() + variety["genre"][index][1:] + ".",
         ]
         if mood:
             parts.append(mood[0].upper() + mood[1:] + ".")
         parts.append(SUFFIX)
         plan.append({"kind": kind, "prompt": " ".join(parts)[:1200], "source": source})
     return plan
+
