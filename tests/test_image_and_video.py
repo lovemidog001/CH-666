@@ -62,13 +62,23 @@ class ImagePromptTests(unittest.TestCase):
         self.assertEqual(len({p["prompt"] for p in plan}), 4)
         shots = [next(s for s in ip.SHOTS if s[0].upper() + s[1:] in p["prompt"]) for p in plan]
         self.assertEqual(len(set(shots)), 4)
+        for label, key in (("Composition: ", "composition"), ("Anomaly presentation: ", "anomaly")):
+            options = [next(x for x in ip._pick_variety(STORY["story_code"], STORY["dice_seed"], "6", 4)[key] if x in p["prompt"]) for p in plan]
+            self.assertEqual(len(set(options)), 4, label)
+        lights = [next(s for s in ip.LIGHTS if s in p["prompt"]) for p in plan]
+        genres = [next(s for s in ip.GENRES["6"] + ip.LOOKS["6"] if s[0].upper() + s[1:] in p["prompt"]) for p in plan]
+        self.assertEqual(len(set(lights)), 4)
+        self.assertEqual(len(set(genres)), 4)
 
-    def test_different_stories_get_different_looks(self):
-        seen = set()
+    def test_different_seeds_get_varied_genres_and_recipes(self):
+        genres, recipes = set(), set()
         for seed in range(40):
             story = dict(STORY, story_code=f"CH-666-{seed:04d}", dice_seed=seed)
-            seen.add(ip.plan_images(story, "6", {})[0]["prompt"].split("Colour palette: ")[1].split(".")[0])
-        self.assertGreaterEqual(len(seen), 4)
+            variety = ip._pick_variety(story["story_code"], seed, "6", 2)
+            genres.add(variety["genre"][0])
+            recipes.add((variety["genre"][0], variety["composition"][0], variety["lights"][0], variety["anomaly"][0]))
+        self.assertGreaterEqual(len(genres), 8)
+        self.assertGreaterEqual(len(recipes), 30)
 
     def test_llm_scene_is_used_and_chinese_is_rejected(self):
         def ask(system, user):
@@ -211,3 +221,4 @@ class VideoPipelineTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
