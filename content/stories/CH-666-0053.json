@@ -1,0 +1,40 @@
+{
+  "story_code": "CH-666-0053",
+  "category": "6",
+  "channel": "CH-666",
+  "title": "舊硬碟裡的劇本日記",
+  "subtitle": "一名剪接師發現的都市傳說與現實扭曲",
+  "slug": "shadow-script-diary",
+  "summary": "自由剪接師林逸在二手店撿到一顆舊硬碟，裡頭藏著劇本顧問陳瑤的手寫日記。日記記錄劇組在拍攝《女法醫JD》時出現的詭異現象：劇本裡的謀殺場景竟在現實中重演，影像與記憶開始扭曲。隨著林逸逐頁閱讀，他發現自己正身處同一個迴圈，最後一頁揭露的真相讓所有線索重新排列，留下令人不安的懸念。",
+  "content": "<p><strong>第一章｜舊硬碟</strong></p>\n\n<p>林逸在深夜的二手攤位買下一顆標示「專案備份」的舊硬碟，店主只說「有人丟棄，沒人要」。回家插上電腦，資料夾裡只有一個名為 <mark>Diary_2025</mark> 的文字檔，開啟後是密密麻麻的繁體中文，字跡像手寫般歪斜，日期從 2025 年 10 月持續到 12 月底。</p>\n\n<p><em>第一次看到那些字，我只覺得像在讀別人的噩夢。</em></p>\n\n<p><strong>第二章｜劇本的陰影</strong></p>\n\n<blockquote class=\"handwritten\"><p>10 月 3 日：劇組在舊倉庫搭景，導演要求重現劇本第七集的屍體發現現場。燈光師阿強說他在角落看見一個「穿白大褂的影子」站著不動，等他回頭時影子已消失。劇本裡的女法醫正是穿白大褂。</p></blockquote>\n\n<blockquote class=\"handwritten\"><p>10 月 12 日：副導演小美在化妝間哭著跑出來，說她在鏡子裡看見自己的臉變成了劇本裡的受害者，臉頰上出現一道紅線。她發抖著說：「劇本在吃人。」</p></blockquote>\n\n<p>林逸讀到這裡，手指不自覺地緊握滑鼠，<em>劇本真的能改變現實嗎？</em> 他試著搜尋劇名，卻只找到一則新聞摘要，提到某港產懸疑劇《女法醫JD》即將首播，五位配角備受期待，標題卻沒有任何實體線索。</p>\n\n<p><strong>第三章｜現實的裂縫</strong></p>\n\n<p>日記接著記錄：劇組開始出現「時間重疊」現象。剪接師阿輝在剪輯第九集時，發現素材裡出現從未拍攝的鏡頭——一條長廊盡頭的門緩緩開啟，門後站著的正是劇本裡的兇手。阿輝當場崩潰，說「那些畫面不是我剪的，是劇本自己剪好的」。</p>\n\n<p>林逸在閱讀時，螢幕突然閃爍，桌上的咖啡杯自己震動，杯沿浮現出一行細小的字跡：<mark>「第 13 集，劇終」</mark>。他心頭一跳，<em>這不是巧合，是某種規則在運作。</em></p>\n\n<blockquote class=\"handwritten\"><p>11 月 28 日：導演在片場失蹤三天，警方只在倉庫頂樓找到他的劇本本，封面寫著「第 13 集」且頁頁空白。劇組解散，所有人都簽了保密協議，但我把日記藏在硬碟裡，希望有人能看見。</p></blockquote>\n\n<p><strong>第四章｜最後一頁</strong></p>\n\n<p>日記的最後一頁只有幾行字，字跡潦草得像在顫抖：</p>\n\n<blockquote class=\"handwritten\"><p>12 月 31 日：我看見林逸坐在我曾經坐過的位置，手裡拿著同一顆硬碟。劇本早已寫好，我們只是演員。下一頁將由你續寫。</p></blockquote>\n\n<p>林逸放下滑鼠，四周安靜得可聽見心跳。他低頭看見桌上那顆硬碟的標籤，字跡與日記最後一頁一模一樣——<mark>「專案備份」</mark>。螢幕上跳出一行新訊息，沒有任何程式碼來源：</p>\n\n<p><em>「歡迎回到第 13 場，請繼續演出。」</em></p>\n\n<p>窗外霓虹燈閃爍，城市像往常一樣運轉，只有他清楚：劇本從未結束，而他已經翻開了下一頁。</p>",
+  "horror_score": 57,
+  "horror_type": [
+    "urban_legend",
+    "psychological"
+  ],
+  "fantasy_level": "reality_bending",
+  "narrative_style": "diary_entry",
+  "pacing": "steady",
+  "ending_type": "twist",
+  "perspective": "bystander",
+  "story_structure": "found_document",
+  "adaptation_mode": "inspired_by_clue",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2026-11-21",
+  "case_date": "",
+  "source_hash": "45b7402c1814",
+  "event_hash": "8f79eaaf67b8",
+  "source_url": "https://www.mastv.cc/ysdq/29231.html",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 845566886,
+  "director_analysis": {
+    "anomaly_core": "劇本與現實之間存在可被觸發的現實扭曲規則，特定劇情節點會投射至物理世界，導致時間、影像與記憶重疊。",
+    "character_core": "林逸作為旁觀者兼閱讀者，透過發現日記逐步成為劇本迴圈的一環；陳瑤的日記則是前一輪迴圈的見證者與警告者。",
+    "internal_rule": "每當劇本達到特定集數（如第 7、9、13 集），現實會產生對應的異常投射；閱讀日記者會在無意識中接手下一輪迴圈，無法拒絕。"
+  },
+  "created_at": "2026-11-22T21:01:47.989387Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-666-0053_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-666-0053_scene.webp"
+}
