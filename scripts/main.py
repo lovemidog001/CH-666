@@ -675,7 +675,7 @@ def request_visual_brief(system,prompt):
     return None
 
 def make_images(story,cat,dice):
-    """Generate one title-led cover plus three story-specific scene illustrations."""
+    """Require a cover and at least one scene; other scene illustrations are optional."""
     import image_prompts
     plan=image_prompts.plan_images(story,cat,dice,ask=request_visual_brief)
     urls={shot["kind"]:"" for shot in plan}
@@ -694,7 +694,15 @@ def make_images(story,cat,dice):
                 last_error=e
                 log(f"  WARNING: {kind} image attempt {attempt+1}/2 failed: {e}")
         if not urls[kind]:
-            raise RuntimeError(f"Required {kind} illustration could not be generated or uploaded: {last_error}")
+            if kind == "cover":
+                raise RuntimeError(f"Required cover could not be generated or uploaded: {last_error}")
+            log(f"  Optional {kind} illustration unavailable; continuing.")
+    scene_count=sum(bool(urls.get(kind)) for kind in ("scene_open","scene","scene_end"))
+    if not urls.get("cover"):
+        raise RuntimeError("A cover image is required before publishing the story.")
+    if scene_count < 1:
+        raise RuntimeError("At least one scene illustration is required before publishing the story.")
+    log(f"  Illustration set accepted: 1 cover + {scene_count} scene image(s)")
     return urls
 
 def main():
@@ -740,7 +748,7 @@ def main():
             if not a.skip_images:
                 imgs=make_images(story,cat,dice)
                 story["cover_image"]=imgs["cover"]
-                story["scene_images"]=",".join(imgs[kind] for kind in ("scene_open","scene","scene_end"))
+                story["scene_images"]=",".join(imgs[kind] for kind in ("scene_open","scene","scene_end") if imgs.get(kind))
             story=clean_image_urls(story)
             (sd/f"{code}.json").write_text(json.dumps(story,ensure_ascii=False,indent=2),encoding="utf-8"); generated.append(story)
             log(f"  Saved {code}; content chars={len(story['content'])}")
