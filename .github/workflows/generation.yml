@@ -100,7 +100,21 @@ jobs:
           git add content/stories/ content/daily/ content/cases/
           if ! git diff --cached --quiet; then
             git commit -m "auto: generate CH stories for ${{ steps.target.outputs.target_date }}"
-            git push
+            pushed=false
+            for attempt in 1 2 3; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then
+                pushed=true
+                break
+              fi
+              echo "Push rejected; retrying after syncing main (attempt $attempt/3)."
+              sleep $((attempt * 3))
+            done
+            if [ "$pushed" != true ]; then
+              echo "Could not push generated stories after three attempts." >&2
+              exit 1
+            fi
           fi
 
       - name: Notify Serv00
