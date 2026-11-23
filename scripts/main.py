@@ -519,7 +519,7 @@ def make_story(article,cat,dice):
                 request_prompt=prompt
                 if repair_notes:
                     request_prompt += (
-                        "\\n\\n【修稿重試】上一版未通過檢查："+repair_notes+
+                        "\n\n【修稿重試】上一版未通過檢查："+repair_notes+
                         "。請重新輸出完整合法 JSON；title 必須直接命名故事主題，不得含頻道或編號；"
                         "content 必須是至少 1200 個可見中文字的完整故事，不能只輸出摘要或片段；"
                         "保留原本素材轉化、角色、規則與結局，並符合所有 HTML 與格式規則。"
