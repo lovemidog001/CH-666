@@ -154,6 +154,48 @@ LIGHTS = [
     "television static light",
 ]
 
+# Independent dice widen the visual vocabulary while the shared genre and palette
+# keep one story visually coherent.
+WEATHER = [
+    "fine rain streaking across the foreground", "humid haze softening distant lights",
+    "wind moving loose paper and hanging fabric", "fog pooling close to the ground",
+    "dry dust suspended in a shaft of light", "recent rain with reflective puddles",
+    "still clear air with unusually crisp shadows", "sea mist drifting through an open space",
+    "light snow or ash settling on surfaces", "no visible weather, enclosed indoor air",
+    "condensation gathering on cold glass", "a brief gust bending nearby grass",
+]
+MATERIALS = [
+    "aged concrete with water stains", "worn dark wood with rubbed edges",
+    "oxidised metal and peeling paint", "translucent milky glass", "rough unpainted plaster",
+    "dusty tile and grout", "creased paper and cloth", "wet asphalt and black glass",
+    "brushed steel with fingerprints", "faded wallpaper over old timber", "coarse stone",
+    "plastic surfaces dulled by years of handling",
+]
+LENS_TREATMENTS = [
+    "deep focus with readable environmental detail", "shallow focus with the background falling away",
+    "soft edge falloff and slight lens breathing", "subtle wide-angle perspective distortion",
+    "natural perspective with no exaggerated distortion", "foreground detail sharp, distant subject softened",
+    "mild chromatic aberration at the frame edges", "gentle halation around the brightest practical light",
+    "slight motion blur only in drifting atmosphere", "crisp documentary lens with restrained grain",
+    "long-lens compression and layered distance", "soft focus veil with the focal subject still clear",
+]
+FRAMINGS = [
+    "leave generous negative space around the focal subject", "crop close while keeping the subject recognizable",
+    "place the focal subject near the lower edge", "use layered foreground, middle ground and background",
+    "isolate the focal subject against a simple background", "let architecture frame the subject naturally",
+    "show the subject small within a large environment", "use an intimate tabletop or room-scale view",
+    "partially occlude one edge without hiding the key subject", "balance quiet empty space against one dense detail",
+    "keep the horizon low and let the space dominate", "use an asymmetrical frame with one visual anchor",
+]
+SURFACE_DETAILS = [
+    "fingerprints visible in a thin film of dust", "water marks tracing an irregular path",
+    "a seam or joint that does not line up", "one surface noticeably newer than the rest",
+    "fine scratches catching the light", "a repeated pattern with one interruption",
+    "fabric fibers lifting in still air", "a damp outline with no source of water",
+    "tiny chips exposing a different colour underneath", "a clean rectangle in an otherwise dusty surface",
+    "one reflection slightly delayed from its source", "a shadow edge softer than its source",
+]
+
 MOODS = {
     "grounded": "grounded and realistic, nothing overtly supernatural",
     "slightly_unreal": "subtly wrong, something is slightly off",
@@ -302,6 +344,11 @@ def _pick_variety(code: str, seed: object, cat: str, count: int) -> dict:
         "details": rng.sample(DETAILS, count),
         "shots": rng.sample(SHOTS, count),
         "lights": rng.sample(LIGHTS, count),
+        "weather": rng.sample(WEATHER, count),
+        "materials": rng.sample(MATERIALS, count),
+        "lens": rng.sample(LENS_TREATMENTS, count),
+        "framing": rng.sample(FRAMINGS, count),
+        "surface": rng.sample(SURFACE_DETAILS, count),
     }
 
 
@@ -328,7 +375,9 @@ def build_brief_request(story: dict, kinds: tuple, variety: dict, beats: dict) -
         common = (
             f'- kind "{kind}": {guide[kind]} Camera: {variety["shots"][index]}. '
             f'Composition: {variety["composition"][index]}. Light: {variety["lights"][index]}. '
-            f'Visual genre: {variety["genre"]}. Colour palette: {variety["palette"]}.'
+            f'Visual genre: {variety["genre"]}. Colour palette: {variety["palette"]}. '
+            f'Weather/air: {variety["weather"][index]}. Main material: {variety["materials"][index]}. '
+            f'Lens: {variety["lens"][index]}. Framing: {variety["framing"][index]}.'
         )
         if kind != "cover":
             common += f' Anomaly treatment: {variety["anomaly"][index]}.'
@@ -358,7 +407,7 @@ Rules for every description:
 - Do not repeat the same subject or composition between kinds.
 - For "cover", the scene must visibly represent the specific subject named in Story title. Treat title nouns and named objects/places as required visual anchors; summary and beats may add detail but must never replace or contradict the title. Do not use a generic motif as the cover subject.
 - For "scene_open", illustrate the opening beat; for "scene", illustrate the turning point; for "scene_end", illustrate the climax or ending beat. Use details from that exact moment and do not invent a recurring stock prop or reuse the same subject across images.
-- All four illustrations must share the same visual genre and colour palette listed above. Vary the shot, composition, light and anomaly treatment for each image.
+- All four illustrations must share the same visual genre and colour palette listed above. Vary the shot, composition, light, weather, material, lens and framing for each image. Keep title-specific objects and story details more important than decorative dice; omit any rolled detail that contradicts the story.
 
 JSON format: {{"images":[{{"kind":"<kind>","scene":"<description>"}}]}}"""
     return system, user
@@ -430,12 +479,17 @@ def plan_images(
             f"Lit by {variety['lights'][index]}.",
             f"Colour palette: {variety['palette']}.",
             f"Composition: {variety['composition'][index]}.",
+            f"Air and weather: {variety['weather'][index]}.",
+            f"Dominant surface material: {variety['materials'][index]}.",
+            f"Lens treatment: {variety['lens'][index]}.",
+            f"Framing: {variety['framing'][index]}.",
             variety["genre"][0].upper() + variety["genre"][1:] + ".",
         ]
         if kind != "cover":
             parts.extend([
                 f"Anomaly presentation: {variety['anomaly'][index]}.",
                 f"Distinctive visual detail: {variety['details'][index]}.",
+                f"Surface detail: {variety['surface'][index]}.",
             ])
         if kind == "cover" and story.get("title"):
             parts.insert(0, f"Exact cover subject from the story title: {story['title']}. Depict its concrete subject as the unmistakable focal point; do not substitute a generic horror image and do not render title lettering.")
