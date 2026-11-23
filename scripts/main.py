@@ -675,15 +675,9 @@ def request_visual_brief(system,prompt):
     return None
 
 def make_images(story,cat,dice):
-    """Generate story-specific illustrations.
-
-    SCENE_IMAGE_COUNT=3 (manual runs that also render a video) additionally creates an opening and an ending
-    still, uploaded as <code>_scene_open.webp / <code>_scene_end.webp. They are used only as video keyframes and are
-    not added to the story JSON, so the website's cover_image / scene_images contract is unchanged.
-    """
+    """Generate a title-led cover and a story-specific scene illustration."""
     import image_prompts
-    plan=image_prompts.plan_images(story,cat,dice,ask=request_visual_brief,extra_scenes=os.getenv("SCENE_IMAGE_COUNT","1").strip()=="3")
-    local_dir=os.getenv("STORY_IMAGE_DIR","").strip()
+    plan=image_prompts.plan_images(story,cat,dice,ask=request_visual_brief)
     urls={"cover":"","scene":""}
     for shot in plan:
         kind=shot["kind"]
@@ -691,8 +685,6 @@ def make_images(story,cat,dice):
         try:
             data=generate_image(shot["prompt"])
             filename=f"{story['story_code']}_{kind}.webp"
-            if local_dir:
-                Path(local_dir).mkdir(parents=True,exist_ok=True); (Path(local_dir)/filename).write_bytes(data)
             urls[kind]=upload_image(filename,data); log("  Uploaded "+kind+" image")
         except Exception as e: log(f"  WARNING: {kind} image failed, story retained: {e}")
     return urls
@@ -755,5 +747,6 @@ if __name__=="__main__":
     try: main()
     except Exception as e:
         log("FATAL: "+str(e)); output({"generated_count":0,"failed_count":1,"story_codes":""}); sys.exit(1)
+
 
 
