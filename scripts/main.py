@@ -513,18 +513,33 @@ def make_story(article,cat,dice):
 純 JSON 格式：{{"title":"15至40字、直接呈現故事主題且不含分類或系列編號的標題","subtitle":"補充故事核心的短副標題，不含頻道名、檔案或案件編號","slug":"lowercase-ascii-slug","summary":"80至160字摘要","content":"以 HTML 段落標籤排版的完整故事","director_analysis":{{"anomaly_core":"異常核心","character_core":"角色核心","internal_rule":"異常規則"}}}}"""
     errors=[]
     for provider in ("nvidia","agnes"):
-        try:
-            story,model=call_provider(provider,prompt,system)
-            story=traditionalize_story(story)
-            slug=re.sub(r"[^a-z0-9-]+","-",str(story.get("slug") or story["title"].lower())).strip("-")[:70].strip("-") or "case-"+article["source_hash"]
-            story["slug"]=slug; story["summary"]=str(story.get("summary") or story["content"][:160]); story["subtitle"]=str(story.get("subtitle") or story["summary"] or story["title"])
-            story["director_analysis"]=story.get("director_analysis") if isinstance(story.get("director_analysis"),dict) else {}
-            story["content"]=repair_story_html(story["content"])
-            issues=validate_story_output(story)
-            if issues: raise RuntimeError("story validation failed: " + "; ".join(issues[:5]))
-            return story,provider,model
-        except Exception as e:
-            log(f"  {provider} failed: {e}"); errors.append(str(e))
+        repair_notes=""
+        for generation_attempt in range(2):
+            try:
+                request_prompt=prompt
+                if repair_notes:
+                    request_prompt += (
+                        "\\n\\n【修稿重試】上一版未通過檢查："+repair_notes+
+                        "。請重新輸出完整合法 JSON；title 必須直接命名故事主題，不得含頻道或編號；"
+                        "content 必須是至少 1200 個可見中文字的完整故事，不能只輸出摘要或片段；"
+                        "保留原本素材轉化、角色、規則與結局，並符合所有 HTML 與格式規則。"
+                    )
+                story,model=call_provider(provider,request_prompt,system,max_tokens=9000,attempts=2,temperature=0.8)
+                story=traditionalize_story(story)
+                slug=re.sub(r"[^a-z0-9-]+","-",str(story.get("slug") or story["title"].lower())).strip("-")[:70].strip("-") or "case-"+article["source_hash"]
+                story["slug"]=slug; story["summary"]=str(story.get("summary") or story["content"][:160]); story["subtitle"]=str(story.get("subtitle") or story["summary"] or story["title"])
+                story["director_analysis"]=story.get("director_analysis") if isinstance(story.get("director_analysis"),dict) else {}
+                story["content"]=repair_story_html(story["content"])
+                issues=validate_story_output(story)
+                if issues:
+                    repair_notes="; ".join(issues[:5])
+                    raise RuntimeError("story validation failed: " + repair_notes)
+                return story,provider,model
+            except Exception as e:
+                log(f"  {provider} attempt {generation_attempt+1}/2 failed: {e}")
+                errors.append(f"{provider}: {e}")
+                if generation_attempt == 0 and "story validation failed" not in str(e):
+                    break
     raise RuntimeError("all text providers failed: "+"; ".join(errors))
 
 def generate_image_nvidia(prompt):
