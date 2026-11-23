@@ -21,8 +21,8 @@ from typing import Callable, Optional
 
 # Kinds map to uploaded file names: <story_code>_<kind>.webp.
 # "cover" and "scene" are the two images the website already uses.
-BASE_KINDS = ("cover", "scene")
-EXTENDED_KINDS = ("cover", "scene_open", "scene", "scene_end")
+BASE_KINDS = ("cover", "scene_open", "scene", "scene_end")
+EXTENDED_KINDS = BASE_KINDS
 
 PALETTES = {
     "3": [
@@ -91,9 +91,8 @@ LOOKS = {
     ],
 }
 
-# The four visual dice are drawn independently with a per-story RNG, then dealt
-# without replacement across that story's images.  Style descriptions are kept
-# internally coherent (for example, VHS only appears with analog treatments).
+# The shared art-direction dice are rolled once per story. Scene-specific framing
+# dice are dealt without replacement so each illustration has a distinct moment.
 GENRES = {
     "3": ["cinematic horror still, restrained 35mm grain", "documentary photography, available light", "Taiwanese ink print with muted pigments", "folk-horror oil painting, visible brushwork", "hand-painted concept art, tactile paper texture", "archival 16mm film frame, soft halation", "woodblock print with coarse registration", "miniature theatre set photographed on film", "charcoal and watercolour on rough paper", "antique etching with selective colour", "soft pastel painting with unsettling shadows", "monochrome silver-gelatin photograph"],
     "6": ["cinematic horror still, anamorphic framing", "documentary photography, handheld available light", "CCTV surveillance frame, compressed monochrome", "VHS home-video freeze frame, tracking noise", "linocut print with rough carved shadows", "moody digital concept art, realistic surfaces", "risograph print with misregistered colours", "flash-lit disposable-camera photograph", "architectural blueprint illustration turned uncanny", "newsprint halftone illustration", "miniature diorama with practical lighting", "infrared night-vision photograph", "graphic novel panel with restrained inkwork", "long-exposure urban photography"],
@@ -295,8 +294,9 @@ def _pick_variety(code: str, seed: object, cat: str, count: int) -> dict:
     # Preserve the established story-specific looks as additional options.
     genres.extend(LOOKS.get(cat, LOOKS["6"]))
     return {
-        "palettes": rng.sample(PALETTES.get(cat, PALETTES["6"]), count),
-        "genre": rng.sample(genres, count),
+        # Keep one coherent art direction across the cover and three scene images.
+        "palette": rng.choice(PALETTES.get(cat, PALETTES["6"])),
+        "genre": rng.choice(genres),
         "composition": rng.sample(COMPOSITIONS, count),
         "anomaly": rng.sample(ANOMALY_TREATMENTS, count),
         "details": rng.sample(DETAILS, count),
@@ -325,17 +325,20 @@ def build_brief_request(story: dict, kinds: tuple, variety: dict, beats: dict) -
     analysis = story.get("director_analysis") if isinstance(story.get("director_analysis"), dict) else {}
     plan_lines = []
     for index, kind in enumerate(kinds):
-        plan_lines.append(
+        common = (
             f'- kind "{kind}": {guide[kind]} Camera: {variety["shots"][index]}. '
             f'Composition: {variety["composition"][index]}. Light: {variety["lights"][index]}. '
-            f'Visual genre: {variety["genre"][index]}. Anomaly treatment: {variety["anomaly"][index]}.'
+            f'Visual genre: {variety["genre"]}. Colour palette: {variety["palette"]}.'
         )
+        if kind != "cover":
+            common += f' Anomaly treatment: {variety["anomaly"][index]}.'
+        plan_lines.append(common)
     beat_lines = "\n".join(f"- {name}: {text}" for name, text in beats.items()) or "- (no excerpt available)"
     system = (
         "You are a film director and concept artist writing image prompts for a horror story archive. "
         "Reply with a single JSON object only. Write in English only, even though the story is in Chinese."
     )
-    user = f"""Story title (PRIMARY visual brief; depict its specific subject): {story.get('title', '')}
+    user = f"""STORY TITLE (PRIMARY COVER SUBJECT; depict its specific concrete subject, do not print these words): {story.get('title', '')}
 Summary: {story.get('summary', '')}
 Anomaly: {analysis.get('anomaly_core', '')}
 Characters: {analysis.get('character_core', '')}
@@ -354,6 +357,8 @@ Rules for every description:
 - Nothing graphic: no gore, no open wounds. No readable text, signs or writing anywhere in the image.
 - Do not repeat the same subject or composition between kinds.
 - For "cover", the scene must visibly represent the specific subject named in Story title. Treat title nouns and named objects/places as required visual anchors; summary and beats may add detail but must never replace or contradict the title. Do not use a generic motif as the cover subject.
+- For "scene_open", illustrate the opening beat; for "scene", illustrate the turning point; for "scene_end", illustrate the climax or ending beat. Use details from that exact moment and do not invent a recurring stock prop or reuse the same subject across images.
+- All four illustrations must share the same visual genre and colour palette listed above. Vary the shot, composition, light and anomaly treatment for each image.
 
 JSON format: {{"images":[{{"kind":"<kind>","scene":"<description>"}}]}}"""
     return system, user
@@ -370,11 +375,16 @@ def _fallback_scene(kind: str, story: dict, cat: str, rng: random.Random) -> str
         if title:
             return f"A title-led cover illustration directly depicting the specific subject of the story title '{title}', with that subject as the unmistakable focal point; do not substitute a generic horror motif"
         return f"A symbolic key image directly representing the story's central subject: {first}"
+    beats = story_beats(story)
+    beat_name = {"scene_open": "opening", "scene": "turning point", "scene_end": "climax"}.get(kind, "turning point")
+    excerpt = beats.get(beat_name, "")
+    if excerpt:
+        return f"Illustrate this exact {beat_name} from the story, faithfully depicting its named objects, people and action: {excerpt}"
     if kind == "scene_open":
-        return f"{setting[0].upper()}{setting[1:]}, ordinary at first glance, with a faint sign of {first}"
+        return f"{setting[0].upper()}{setting[1:]}, ordinary at first glance, with a story-specific detail rather than a stock horror prop"
     if kind == "scene_end":
-        return f"The silent aftermath in {setting}: {second}"
-    return f"{first[0].upper()}{first[1:]}, caught mid-moment in {setting}"
+        return f"The story's specific final moment in {setting}: {second}"
+    return f"A story-specific turning point caught mid-moment in {setting}: {first}"
 
 
 def plan_images(
@@ -382,14 +392,13 @@ def plan_images(
     cat: str,
     dice: dict,
     ask: Optional[Callable[[str, str], Optional[dict]]] = None,
-    extra_scenes: bool = False,
 ) -> list[dict]:
-    """Return ``[{"kind", "prompt", "source"}]`` for the images of one story.
+    """Return a cover and three scene illustrations for one story.
 
     ``ask(system, user)`` should return a parsed JSON object (or None). Any failure or
     unusable answer falls back to the rule-based scene text for the affected kinds.
     """
-    kinds = EXTENDED_KINDS if extra_scenes else BASE_KINDS
+    kinds = BASE_KINDS
     code = str(story.get("story_code") or story.get("source_hash") or "story")
     seed = story.get("dice_seed", dice.get("dice_seed", 0))
     variety = _pick_variety(code, seed, cat, len(kinds))
@@ -419,12 +428,17 @@ def plan_images(
             scene.rstrip(".") + ".",
             shot[0].upper() + shot[1:] + ".",
             f"Lit by {variety['lights'][index]}.",
-            f"Colour palette: {variety['palettes'][index]}.",
+            f"Colour palette: {variety['palette']}.",
             f"Composition: {variety['composition'][index]}.",
-            f"Anomaly presentation: {variety['anomaly'][index]}.",
-            f"Distinctive visual detail: {variety['details'][index]}.",
-            variety["genre"][index][0].upper() + variety["genre"][index][1:] + ".",
+            variety["genre"][0].upper() + variety["genre"][1:] + ".",
         ]
+        if kind != "cover":
+            parts.extend([
+                f"Anomaly presentation: {variety['anomaly'][index]}.",
+                f"Distinctive visual detail: {variety['details'][index]}.",
+            ])
+        if kind == "cover" and story.get("title"):
+            parts.insert(0, f"Exact cover subject from the story title: {story['title']}. Depict its concrete subject as the unmistakable focal point; do not substitute a generic horror image and do not render title lettering.")
         if mood:
             parts.append(mood[0].upper() + mood[1:] + ".")
         parts.append(SUFFIX)

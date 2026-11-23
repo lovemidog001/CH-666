@@ -675,18 +675,26 @@ def request_visual_brief(system,prompt):
     return None
 
 def make_images(story,cat,dice):
-    """Generate a title-led cover and a story-specific scene illustration."""
+    """Generate one title-led cover plus three story-specific scene illustrations."""
     import image_prompts
     plan=image_prompts.plan_images(story,cat,dice,ask=request_visual_brief)
-    urls={"cover":"","scene":""}
+    urls={shot["kind"]:"" for shot in plan}
     for shot in plan:
         kind=shot["kind"]
         log(f"  Image prompt [{kind}, {shot['source']}]: {shot['prompt'][:400]}")
-        try:
-            data=generate_image(shot["prompt"])
-            filename=f"{story['story_code']}_{kind}.webp"
-            urls[kind]=upload_image(filename,data); log("  Uploaded "+kind+" image")
-        except Exception as e: log(f"  WARNING: {kind} image failed, story retained: {e}")
+        last_error=None
+        for attempt in range(2):
+            try:
+                data=generate_image(shot["prompt"])
+                filename=f"{story['story_code']}_{kind}.webp"
+                urls[kind]=upload_image(filename,data)
+                log("  Uploaded "+kind+" image")
+                break
+            except Exception as e:
+                last_error=e
+                log(f"  WARNING: {kind} image attempt {attempt+1}/2 failed: {e}")
+        if not urls[kind]:
+            raise RuntimeError(f"Required {kind} illustration could not be generated or uploaded: {last_error}")
     return urls
 
 def main():
@@ -730,7 +738,9 @@ def main():
             ai,provider,model=make_story(article,cat,dice); maxima[cat]+=1; code=f"CH-{cat*3}-{maxima[cat]:04d}"
             story={"story_code":code,"category":cat,"channel":c["channel"],"title":ai["title"],"subtitle":ai["subtitle"],"slug":ai["slug"],"summary":ai["summary"],"content":ai["content"],"horror_score":dice["horror_score"],"horror_type":dice["horror_type"],"fantasy_level":dice["fantasy_level"],"narrative_style":dice["narrative_style"],"pacing":dice["pacing"],"ending_type":dice["ending_type"],"perspective":dice["perspective"],"story_structure":dice["structure"],"adaptation_mode":dice["adaptation_mode"],"reveal_density":dice["reveal_density"],"source_kind":article.get("source_kind","recent_news"),"source_date":article["source_date"],"case_date":article.get("case_date",""),"source_hash":article["source_hash"],"event_hash":article["event_hash"],"source_url":article["source_url"],"provider_used":provider,"provider_model":model,"dice_seed":dice["dice_seed"],"director_analysis":ai["director_analysis"],"created_at":now_iso(),"cover_image":"","scene_images":""}
             if not a.skip_images:
-                imgs=make_images(story,cat,dice); story["cover_image"]=imgs.get("cover",""); story["scene_images"]=imgs.get("scene","")
+                imgs=make_images(story,cat,dice)
+                story["cover_image"]=imgs["cover"]
+                story["scene_images"]=",".join(imgs[kind] for kind in ("scene_open","scene","scene_end"))
             story=clean_image_urls(story)
             (sd/f"{code}.json").write_text(json.dumps(story,ensure_ascii=False,indent=2),encoding="utf-8"); generated.append(story)
             log(f"  Saved {code}; content chars={len(story['content'])}")
