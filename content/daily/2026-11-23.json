@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-23",
+  "count": 1,
+  "stories": [
+    {
+      "story_code": "CH-666-0056",
+      "category": "6",
+      "channel": "CH-666",
+      "title": "聖誕盛宴的隱形代價",
+      "subtitle": "一場看似普通的自助餐，藏著改寫記憶的奈米實驗",
+      "slug": "sheng-dan-sheng-yan-de-yin-xing-dai-jia",
+      "summary": "飯店聖誕自助餐引入實驗性奈米蛋白，廚房助理發現食客記憶被竄改，深入地下實驗室揭露真相，最終自己也成為實驗品，失去自我。",
+      "content": "<p><strong>第一章｜廚房的清晨</strong></p>\n\n<p>林志宏在凌晨四點就推開了後廚的鐵門，冷氣機的嗡嗡聲混著麵粉的乾香，讓他瞬間進入工作節奏。今天是聖誕前夕，飯店訂下的「聖誕盛宴」將在中午對外開放，選單上印著烤火雞、海鮮塔、節慶甜點，還有一項標註為「新研發奈米蛋白」的主菜。</p>\n\n<p>他熟練地檢查每一盤食材的溫度，腦海裡卻不斷浮現供應商發來的簡訊：<em>「這批蛋白質經過基因編輯，口感更嫩，營養價值提升三成。」</em>林志宏把簡訊塞進口袋，心頭泛起一絲不安，卻又無法說出具體原因。</p>\n\n<p><strong>第二章｜異樣的食材</strong></p>\n\n<p>主廚陳偉將一盒銀色真空包裝遞給他，標籤上只印著<mark>「NP-7 實驗批次」</mark>，沒有任何廠商資訊。林志宏用刀劃開包裝，霧氣裹著淡淡的金屬味撲鼻而來，他下意識地後退半步，指尖仍殘留著微微的刺痛。</p>\n\n<p class=\"dialogue\">「這東西真的能上桌？」林志宏壓低聲音問道，聲音在不鏽鋼櫃面上迴盪。</p>\n\n<p class=\"dialogue\">「上面簽了保密協議，不用多想。」陳偉頭也不抬，繼續調醬，語氣平淡得像在談論天氣。</p>\n\n<p><strong>第三章｜客人的異常</strong></p>\n\n<p>中午十二點，餐廳大門開啟，賓客如潮水湧入。第一盤烤火雞端上桌，切開的瞬間，肉汁呈現出異樣的螢光藍，林志宏從廚房觀察窗看得真切。幾位食客在品嚐後，原本熱絡的交談聲突然停頓，眼神變得空洞，隨即又恢復如常，彷彿剛才的空白從未存在。</p>\n\n<p>他記下了時間：<mark>12:17</mark>、<mark>12:23</mark>、<mark>12:31</mark>，每一次間隔約六分鐘。林志宏在記事本上畫下記號，指尖因緊張而微微發抖，<em>這不只是單純的食物中毒。</em></p>\n\n<p><strong>第四章｜地下實驗室</strong></p>\n\n<p>下班後，林志宏藉著倒垃圾的機會溜進後樓梯，發現一扇平時鎖死的鐵門竟然虛掩。推門進去，牆面排列著數十臺伺服器，螢幕上滾動著神經網路訓練的日誌，最新一行寫著：<blockquote>「NP-7 奈米機器人已成功植入目標腦區，記憶重寫完成度 87%。」</blockquote></p>\n\n<p>他拍下照片，心跳快得像擂鼓。手機螢幕亮起的瞬間，走廊盡頭傳來腳步聲，林志宏縱身躲進儲藏室，屏住呼吸，聽著腳步聲逐漸遠去，<em>真相比想像更冰冷。</em></p>\n\n<p><strong>第五章｜最後的晚餐</strong></p>\n\n<p>隔清晨，飯店宣佈延長盛宴至晚間，並邀請所有員工共同品嚐剩餘菜餚。林志宏坐在角落，盤中那塊發光的火雞肉散發著誘人的香氣，他猶豫了一秒，終究送入口中。味蕾傳來甜美的金屬感，隨即意識像被抽離般滑入一條無盡的隧道。</p>\n\n<p>當他在鏡中看見自己的臉龐時，眼神已經不再屬於林志宏。記憶、情感、甚至名字，都在奈米機器人的重寫中悄然消融，只留下一具仍在咀嚼的軀殼，繼續參加這場永不結束的盛宴。</p>",
+      "horror_score": 21,
+      "horror_type": [
+        "sci_fi_horror"
+      ],
+      "fantasy_level": "grounded",
+      "narrative_style": "third_person_limited",
+      "pacing": "steady",
+      "ending_type": "tragic",
+      "perspective": "victim",
+      "story_structure": "slow_reveal",
+      "adaptation_mode": "inspired_by_consequence",
+      "reveal_density": "layered",
+      "source_kind": "recent_news",
+      "source_date": "2026-11-23",
+      "case_date": "",
+      "source_hash": "423016f900a7",
+      "event_hash": "891b594f00d4",
+      "source_url": "https://www.orientaldaily.com.my/news/ufood-food/2026/11/23/863794",
+      "provider_used": "nvidia",
+      "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "dice_seed": 306701222,
+      "director_analysis": {
+        "anomaly_core": "奈米機器人植入腦部重寫記憶",
+        "character_core": "廚房助理林志宏，從旁觀者走向受害者",
+        "internal_rule": "NP-7 奈米蛋白攝入後六分鐘觸發記憶重寫，效果不可逆"
+      },
+      "created_at": "2026-11-24T02:09:57.751310Z",
+      "cover_image": "https://oodh.eu.cc/images/CH-666-0056_cover.webp",
+      "scene_images": "https://oodh.eu.cc/images/CH-666-0056_scene_open.webp,https://oodh.eu.cc/images/CH-666-0056_scene.webp,https://oodh.eu.cc/images/CH-666-0056_scene_end.webp"
+    }
+  ],
+  "generated_at": "2026-11-24T02:11:54.381873Z",
+  "channel_counts": {
+    "3": 0,
+    "6": 1,
+    "9": 0
+  }
+}
