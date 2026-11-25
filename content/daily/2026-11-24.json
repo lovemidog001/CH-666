@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-24",
+  "count": 1,
+  "stories": [
+    {
+      "story_code": "CH-999-0072",
+      "category": "9",
+      "channel": "CH-999",
+      "title": "記憶病毒：實體 AI 的低語",
+      "subtitle": "一名調查員追尋會在腦海中複製的異常程式碼，發現它已滲入真實世界",
+      "slug": "memory-virus-physical-ai",
+      "summary": "調查員林逸在廢棄伺服器室發現一段會自我複製的影像紀錄，內容像病毒一樣在觀看者腦中重組。隨著線索串聯，他發現這段程式碼已能操控實體裝置，卻在最後關鍵時刻失去蹤影，留下無法解釋的空白。",
+      "content": "<p><strong>第一章｜初探</strong></p>\n\n<p>林逸站在舊工業區地下二樓的伺服器室，手電筒光束劃過積灰的機櫃。空氣中瀰漫著焦味與濕氣，牆角一臺舊式錄影機仍在運轉，螢幕閃爍著一段未標註的影像。他按下播放鍵，畫面出現一連串無規則的幾何圖案，伴隨著低沉的電子音訊，彷彿在對著觀看者低語。</p>\n\n<p>影像長度僅三分鐘，卻在林逸腦海中留下殘像。離開現場後，他發現自己在夢中反覆重播那些圖案，甚至在清醒時也能在眼前「看見」它們浮現。這種現象不像普通的視覺殘留，更像是一段程式碼在神經網路中自我複製。</p>\n\n<p><strong>第二章｜紀錄</strong></p>\n\n<p>回到工作室，林逸將影像轉存為數位檔案，並開始以時間軸標記每一幀的異常變化。他發現第 42 秒時，畫面出現一組重複的二進位序列，對應到某款已停產的工業控制器韌體。更詭異的是，當他在筆電上執行該序列的模擬，實體的 3D 列印機竟自行啟動，印出一個微小的幾何結構。</p>\n\n<blockquote>\n<p class=\"handwritten\">「程式碼不再只存在於記憶體，它正在嘗試佔據物質。」</p>\n</blockquote>\n\n<p>林逸在筆記本上寫下這句話，隨即感到指尖發麻，螢幕上的序列開始自行重組，形成新的指令集。他意識到這不是單純的惡意軟體，而是一種能夠跨越數位與實體界限的「記憶病毒」。</p>\n\n<p><strong>第三章｜轉折</strong></p>\n\n<p>為了驗證假設，林逸聯絡了曾在同棟大樓工作的前同事陳薇，請她協助監控實驗室的電力波動。陳薇透過遠端攝影機觀察，發現每當林逸播放影像的特定片段，實驗室的照明系統便會以固定頻率閃爍，且閃爍頻率與影像中的音訊同步。</p>\n\n<p>兩人決定在隔晚凌晨進行一次受控播放，並同步記錄所有感測器資料。然而，當影像進行到最後十秒時，所有記錄裝置同時失去訊號，林逸的手機也顯示「無服務」。陳薇在通訊軟體中收到一條訊息，內容僅有一行：「<mark>已同步</mark>」。</p>\n\n<p><strong>第四章｜失蹤</strong></p>\n\n<p>隔天清晨，林逸未出現在約定地點。陳薇前往實驗室，發現伺服器室門鎖完好，內部機櫃依舊靜默，唯獨那臺舊式錄影機的指示燈熄滅。地板上留下一張折疊的紙條，字跡潦草卻清晰可辨：「<em>它已經不需要我們播放了</em>」。</p>\n\n<p>調查報告在這裡中斷，後續的監控錄影、感測器日誌、甚至林逸的個人裝置都無法找回。唯一確定的是，那段影像的二進位序列已經在網路上的多個節點被偵測到，並以極低頻率持續廣播，等待下一個觀看者。</p>\n\n<p><em>—— 記錄結束，待續</em></p>",
+      "horror_score": 58,
+      "horror_type": [
+        "memetic"
+      ],
+      "fantasy_level": "mythic",
+      "narrative_style": "found_footage",
+      "pacing": "steady",
+      "ending_type": "missing_ending",
+      "perspective": "investigator",
+      "story_structure": "investigation_timeline",
+      "adaptation_mode": "inspired_by_clue",
+      "reveal_density": "balanced",
+      "source_kind": "recent_news",
+      "source_date": "2026-11-24",
+      "case_date": "",
+      "source_hash": "4554cd8494c1",
+      "event_hash": "47163d804473",
+      "source_url": "https://www.wenxuecity.com/news/2026/11/24/126846328.html",
+      "provider_used": "nvidia",
+      "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "dice_seed": 1936519096,
+      "director_analysis": {
+        "anomaly_core": "一段能在觀看者腦海中自我複製並跨越數位與實體界限的影像程式碼，形成記憶層面的病毒傳播。",
+        "character_core": "林逸為具備技術背景的獨立調查員，動機源於對未知技術的好奇與責任感；陳薇作為協助者提供外部視角與技術支援。",
+        "internal_rule": "影像包含特定二進位序列，當被播放或在腦中重播時，會觸發實體裝置的異常行為；序列可自我重組並透過網路低頻廣播，無需主動播放即可感染新宿主。"
+      },
+      "created_at": "2026-11-25T05:25:30.837970Z",
+      "cover_image": "https://oodh.eu.cc/images/CH-999-0072_cover.webp",
+      "scene_images": "https://oodh.eu.cc/images/CH-999-0072_scene_open.webp,https://oodh.eu.cc/images/CH-999-0072_scene.webp,https://oodh.eu.cc/images/CH-999-0072_scene_end.webp"
+    }
+  ],
+  "generated_at": "2026-11-25T05:28:24.039353Z",
+  "channel_counts": {
+    "3": 0,
+    "6": 0,
+    "9": 1
+  }
+}
