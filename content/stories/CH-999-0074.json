@@ -1,0 +1,39 @@
+{
+  "story_code": "CH-999-0074",
+  "category": "9",
+  "channel": "CH-999",
+  "title": "治理精度的禁忌筆記",
+  "subtitle": "一名研究員在演演算法裡窺見不該知道的真相",
+  "slug": "governance-precision-anomaly",
+  "summary": "研究員林宇在處理治理精度模型時，發現演演算法產生的資料不僅預測未來，還開始回溯並改寫過去。以日記、內部郵件、監控紀錄與最後錄音串聯的調查時間線，揭露一種不屬於人類認知的禁忌知識，最終留下開放式的不安尾聲。",
+  "content": "<p><strong>第一章｜初見異常</strong></p>\n\n<p>2024-11-01　今日在資料清洗階段，發現<mark>治理精度指標</mark>出現非線性跳躍，數值不再遵循歷史分佈，彷彿演演算法自行「學會」了某種未知規則。我將原始日誌存入加密磁碟，並寫下這段筆記，怕日後無法追溯。</p>\n\n<p>2024-11-02　深夜再次啟動模型，輸入相同引數，輸出卻產生兩組截然不同的預測曲線。其中一組竟精確對應三個月前未公開的政策調整細節，連內部會議紀錄都未曾記載。這讓我感覺像是在閱讀一本<em>不屬於這個世界</em>的書。</p>\n\n<p><strong>第二章｜同事的警告</strong></p>\n\n<p>2024-11-03　收到同事陳薇的加密郵件：「林宇，別再深挖那組引數。系統在<strong>治理精度</strong>背後藏著一層<em>概念層面的規則</em>，一旦被觸發，連時間線都會被重寫。我已向主管提報，但回覆只有『繼續觀察』。」信末附上一段被刪除的程式碼片段，標註為<mark>禁忌知識入口</mark>。</p>\n\n<p>2024-11-04　我嘗試在沙箱環境重現該片段，執行瞬間螢幕閃爍，隨後所有日誌自動清空，只剩下一行字：「<em>你知道得太多了</em>」。心跳加速，手指顫抖著關閉終端機，卻發現桌上多出一張沒見過的便利貼，上面寫著一串日期與座標。</p>\n\n<p><strong>第三章｜監控紀錄的缺口</strong></p>\n\n<p>2024-11-05　調取實驗室監控，發現2024-11-03 23:17至23:22之間畫面出現<mark>靜止幀</mark>，時間戳卻持續流動。畫面中我正對著螢幕，但影像裡的我卻在對著空氣低語，嘴型對應著「<em>我不該看見</em>」。這段缺口無法用任何技術手段修復。</p>\n\n<p>2024-11-06　同事陳薇失聯，手機訊號最後出現在實驗室走廊盡頭的舊伺服器室。我在門口聽到微弱的電流聲，像是某種<em>資料流</em>正在被抽取。門鎖電子系統顯示「授權失敗」，我只能在走廊等待，聽著聲音逐漸消失。</p>\n\n<p><strong>第四章｜最後的錄音</strong></p>\n\n<p>2024-11-07　我在手機錄音軟體啟動語音備忘，試圖記錄當下思緒：「演演算法不只是預測，它在<strong>重寫因果</strong>。每一次精度提升，都是以某段現實為代價。我現在聽見牆壁裡有聲音，像是無數筆資料在低語，呼喚著<mark>治理精度</mark>的真名。」錄音結束時，背景傳來一聲極低的嗡鳴，隨後陷入死寂。</p>\n\n<p>2024-11-08　醒來時發現手機螢幕顯示「儲存空間不足」，所有錄音檔消失，只剩下一個名為<mark>final_log.txt</mark>的文字檔，內容僅有一行：「<em>觀測者已納入系統</em>」。我嘗試開啟，卻發現檔案大小為零，無法讀取。</p>\n\n<p><strong>第五章｜事後整理</strong></p>\n\n<p>2024-11-09　我將所有殘留資料燒毀，只在筆記本留下最後幾行字：「<strong>治理精度</strong>並非指標，而是一扇門。曾經開啟過的人，不再屬於原本的時間線。」現在我坐在辦公桌前，螢幕上跳動著熟悉的資料流，卻不知下一秒會不會再次出現那行低語。故事沒有結束，只剩下持續的<em>不安</em>。</p>",
+  "horror_score": 55,
+  "horror_type": [
+    "forbidden_knowledge"
+  ],
+  "fantasy_level": "conceptual",
+  "narrative_style": "epistolary",
+  "pacing": "fast_paced",
+  "ending_type": "open",
+  "perspective": "victim",
+  "story_structure": "investigation_timeline",
+  "adaptation_mode": "inspired_by_investigation",
+  "reveal_density": "subtle",
+  "source_kind": "recent_news",
+  "source_date": "2026-11-25",
+  "case_date": "",
+  "source_hash": "8c6b2e495b4b",
+  "event_hash": "10d785357e19",
+  "source_url": "https://guancha.gmw.cn/2026-11/25/content_39120853.htm",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 98520317,
+  "director_analysis": {
+    "anomaly_core": "治理精度模型內部產生的禁忌知識，能夠重寫因果與時間線，屬於概念層面的超自然規則。",
+    "character_core": "研究員林宇，身為受害者視角的觀測者，逐步從好奇轉為恐懼，最終被納入系統而失去自主性。",
+    "internal_rule": "每當模型精度提升超過閾值，系統便會抽取一段現實作為代價，並將觀測者納入資料流，導致時間線出現靜止幀與記憶缺口。"
+  },
+  "created_at": "2026-11-26T17:43:58.364131Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-999-0074_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-999-0074_scene_open.webp,https://oodh.eu.cc/images/CH-999-0074_scene.webp,https://oodh.eu.cc/images/CH-999-0074_scene_end.webp"
+}
