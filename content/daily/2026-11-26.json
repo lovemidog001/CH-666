@@ -3,26 +3,25 @@
   "count": 1,
   "stories": [
     {
-      "story_code": "CH-999-0076",
-      "category": "9",
-      "channel": "CH-999",
-      "title": "追劇暗碼：十八家銀行消失的夜晚",
-      "subtitle": "一個藏在劇集裡的記憶病毒，讓現實在螢幕前崩解",
-      "slug": "zhui-ju-an-ma-shiba-yinhang-xiaoshi-de-yewan",
-      "summary": "警方接獲多起銀行帳戶異常轉帳案，受害者皆在同一劇集 App 觀看特定劇集後發生。目擊者回憶斷裂，記憶被重寫，調查逐步揭露劇集內藏的概念性木馬，最終發現病毒不僅竊取金錢，更吞噬了現實本身。",
-      "content": "<p><strong>第一章｜異常轉帳報案</strong></p>\n\n<p>2026 年 11 月 26 日晚間 21 時 13 分，北區分局接獲十八家銀行同步通報，超過一千萬臺幣在不到十分鐘內被轉往不明帳戶。受害戶無共同社交圈，唯一共通點是皆在當晚 20 時至 21 時之間，透過同一款追劇 App 觀看《迷霧裡的證人》第七集。</p>\n\n<p>警方初步研判為惡意程式植入，但防毒掃描皆呈陰性。資安組提取 App 更新紀錄，發現第七集播放時會自動下載一段隱藏資料流，大小僅 0.7 MB，內容為一連串無意義的 Unicode 字元。</p>\n\n<blockquote>\n<p>【警方紀錄 2026/11/26 21:45】\n受害人陳○○稱：「劇集播到一半，螢幕閃爍幾下，腦中突然浮現一串數字，隨後手機自動彈出轉帳確認視窗，我沒來得及反應就按下確認。」</p>\n</blockquote>\n\n<p><strong>第二章｜目擊者的斷裂記憶</strong></p>\n\n<p>我是負責詢問受害者的偵查員林偉誠。每位受害者描述的經驗幾乎完全一致：劇集畫面出現<mark>「紅色倒數計時」</mark>，隨後腦海浮現一組銀行帳號與金額，隨即失去意識。醒來時，轉帳已完成，手機記錄顯示已授權。</p>\n\n<p><em>這不像一般木馬，更像是一種概念性感染，透過視覺符號直接重寫記憶與決策。</em></p>\n\n<p>為了驗證假設，我們在隔離環境重播該集，並同步記錄腦波與眼動。實驗員在倒數計時出現的瞬間，腦波呈現異常同步震盪，隨即出現強制性意圖訊號，指向轉帳操作。</p>\n\n<p><strong>第三章｜碎片化日誌</strong></p>\n\n<p>以下為資安組提取的 App 後端日誌片段，時間標記已去識別化：</p>\n\n<blockquote>\n<p>[2026-11-26 20:03:12] 使用者 8721 請求播放 EP07\n[2026-11-26 20:03:15] 隱藏資料流注入：U+1F600 U+1F601 …\n[2026-11-26 20:03:18] 客戶端回傳「記憶覆寫完成」\n[2026-11-26 20:03:22] 自動觸發金融 API：轉帳 1,200,000 元至帳戶 X9Z7\n[2026-11-26 20:03:25] 伺服器回應「交易確認」\n[2026-11-26 20:03:28] 使用者端記憶區塊標記「已清除」</p>\n</blockquote>\n\n<p>日誌顯示木馬不僅竊取資金，更在交易完成後主動清除受害者對該段經驗的記憶，形成<mark>「完美閉環」</mark>。</p>\n\n<p><strong>第四章｜概念性病毒的真面目</strong></p>\n\n<p>經過跨領域會商，認知科學家提出：該隱藏資料流實為一種<strong>「敘事型資訊病毒」</strong>，利用劇集敘事結構中的懸疑高潮，植入特定符號序列，引導大腦將虛構情節誤判為現實指令。此類病毒屬於<em>本體論層面</em>的威脅，不依賴程式碼漏洞，而是利用人類對故事的預期機制。</p>\n\n<p>更駭人的是，病毒在傳播過程中會自我演化：每一次觀看都會根據受害者的銀行資料、習慣動線，即時生成專屬的轉帳指令。這意味著病毒已具備<mark>「情境感知」</mark>能力，能在概念層面重寫現實。</p>\n\n<p><strong>第五章｜最後的倒數</strong></p>\n\n<p>調查結束前夕，我收到一則匿名訊息，內容僅有一行：「第八集已上架，請於今晚 20:00 收看。」我下意識點開 App，畫面再次出現紅色倒數計時。腦海中浮現的不再是帳號，而是<strong>「所有人的記憶都將被重寫」</strong>的念頭。</p>\n\n<p><em>螢幕閃爍，倒數歸零。我聽見遠處伺服器風扇轟鳴，隨即陷入一片空白。</em></p>\n\n<p>當我再次睜眼，手機顯示轉帳成功，金額為 0 元，但備註欄寫著：「<mark>觀看者已加入網路</mark>」。</p>\n\n<p>我看著鏡子裡的自己，發現瞳孔深處倒映著無數個正在播放的劇集畫面，每一幀都在無聲地吞噬著現實的邊界。</p>",
-      "horror_score": 71,
+      "story_code": "CH-666-0060",
+      "category": "6",
+      "channel": "CH-666",
+      "title": "追劇達人：身分被重寫的恐怖劇本",
+      "subtitle": "一個藏在追劇App裡的身分吞噬引擎",
+      "slug": "drama-app-identity-horror",
+      "summary": "自由記者林彥在舊硬碟發現名為「追劇達人」的安裝檔，啟動後出現一連串匿名交易紀錄，金額與備註皆指向「劇本費」。隨著紀錄時間倒流、論壇討論被刪除，林彥發現自己的銀行帳戶歸零、臉龐模糊，最終醒來時通訊錄變成代號，螢幕提示版本 2.0 已整合現實渲染引擎，他已成為劇本的一部分。",
+      "content": "<p><strong>第一章｜發現</strong></p>\n\n<p>林彥在整理舊硬碟時，發現一個名為「追劇達人」的安裝檔，檔名字尾為 .apk，時間戳記停在兩年前的夏天。</p>\n\n<p>他並未安裝，只將檔案拖進虛擬機器，啟動後螢幕跳出一段無聲的影片：畫面是一間空蕩蕩的出租屋，牆上貼著一張褪色的海報，海報上寫著「身分即是劇本」。</p>\n\n<blockquote class=\"handwritten\">【記錄 2024-07-12】使用者「陳怡」於凌晨 02:13 登入，餘額 1,200,000 元，交易紀錄顯示轉帳至未知帳戶，金額 1,200,000 元，備註「劇本費」。</blockquote>\n\n<p>林彥將這段紀錄截圖存入雲端，心中升起一股難以言喻的寒意，彷彿有人正透過螢幕窺視他的一舉一動。</p>\n\n<p><strong>第二章｜紀錄</strong></p>\n\n<p>接下來幾週，他陸續收到匿名郵件，附件皆為同型別的交易紀錄，金額從數萬至數百萬不等，備註皆為「劇本費」或「角色費」。</p>\n\n<p>每份紀錄的時間戳記都比前一份早幾分鐘，彷彿有人在倒著時間重寫歷史。</p>\n\n<blockquote class=\"handwritten\">【記錄 2024-07-11】使用者「王浩」於 23:58 登入，餘額 850,000 元，轉帳 850,000 元，備註「角色費」。</blockquote>\n\n<p>林彥開始在論壇詢問，卻發現所有相關討論串在發文後數分鐘內便被刪除，只留下一行灰色字：「劇本已寫好，請勿修改。」</p>\n\n<p><strong>第三章｜轉折</strong></p>\n\n<p>某晚，林彥在整理資料時，螢幕突然彈出一行文字，字型與先前的紀錄完全一致：</p>\n\n<blockquote class=\"eerie\">「歡迎回到劇本，林彥。你的餘額：0 元。劇本費已全額扣除。」</blockquote>\n\n<p>他驚覺自己的銀行帳戶確實歸零，手機上的銀行 App 顯示最近一筆交易為「劇本費」，金額與他存款完全吻合。</p>\n\n<p>更駭人的是，鏡中的自己臉龐開始模糊，五官像被重新排版，彷彿正在被寫入另一個角色的劇本。</p>\n\n<p><strong>第四章｜餘波</strong></p>\n\n<p>隔日清晨，林彥在咖啡廳醒來，手邊只剩一張空白的便利貼，上面用他不認識的筆跡寫著：「下一場戲，由你主演。」</p>\n\n<p>他試圖聯絡友人，卻發現通訊錄裡的名字全數消失，取而代之的是一串串代號：A-01、B-07、C-12。</p>\n\n<p>螢幕上再次亮起那個熟悉的安裝畫面，標題依舊是「追劇達人」，但這次的版本號後方多了一行小字：<mark>版本 2.0 —— 已整合現實渲染引擎</mark>。</p>\n\n<p>林彥明白，這不再是木馬程式，而是一個能夠重寫身分與現實的劇本引擎，而他，已經成為劇本的一部分。</p>",
+      "horror_score": 97,
       "horror_type": [
-        "apocalyptic",
-        "memetic",
-        "ontological"
+        "identity_horror",
+        "reality_horror"
       ],
-      "fantasy_level": "conceptual",
-      "narrative_style": "police_report",
-      "pacing": "fragmented",
+      "fantasy_level": "supernatural",
+      "narrative_style": "third_person_omniscient",
+      "pacing": "slow_burn",
       "ending_type": "twist",
-      "perspective": "witness",
-      "story_structure": "slow_reveal",
+      "perspective": "bystander",
+      "story_structure": "found_document",
       "adaptation_mode": "inspired_by_clue",
       "reveal_density": "balanced",
       "source_kind": "recent_news",
@@ -33,21 +32,21 @@
       "source_url": "https://www.cardu.com.tw/news/detail.php?66872",
       "provider_used": "nvidia",
       "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "dice_seed": 1966459991,
+      "dice_seed": 1194040941,
       "director_analysis": {
-        "anomaly_core": "敘事型資訊病毒利用劇集懸疑高潮植入符號序列，直接重寫觀看者記憶與決策，屬本體論層面的概念性威脅。",
-        "character_core": "偵查員林偉誠以警方紀錄視角見證受害者記憶斷裂，並逐步成為病毒下一個傳播節點。",
-        "internal_rule": "病毒透過視覺符號觸發強制意圖，交易完成後自動清除記憶，並具備情境感知自我演化能力。"
+        "anomaly_core": "能重寫使用者身分與銀行餘額的劇本引擎",
+        "character_core": "旁觀者林彥，透過蒐集檔案逐步發現自己已成劇本一角",
+        "internal_rule": "每次交易皆標註「劇本費」，時間倒流且記憶可被覆寫，版本升級即啟動現實渲染"
       },
-      "created_at": "2026-11-27T04:59:02.448150Z",
-      "cover_image": "https://oodh.eu.cc/images/CH-999-0076_cover.webp",
-      "scene_images": "https://oodh.eu.cc/images/CH-999-0076_scene_open.webp,https://oodh.eu.cc/images/CH-999-0076_scene.webp,https://oodh.eu.cc/images/CH-999-0076_scene_end.webp"
+      "created_at": "2026-11-27T23:23:43.747986Z",
+      "cover_image": "https://oodh.eu.cc/images/CH-666-0060_cover.webp",
+      "scene_images": "https://oodh.eu.cc/images/CH-666-0060_scene_open.webp,https://oodh.eu.cc/images/CH-666-0060_scene.webp,https://oodh.eu.cc/images/CH-666-0060_scene_end.webp"
     }
   ],
-  "generated_at": "2026-11-27T05:01:20.530766Z",
+  "generated_at": "2026-11-27T23:25:15.318535Z",
   "channel_counts": {
     "3": 0,
-    "6": 0,
-    "9": 1
+    "6": 1,
+    "9": 0
   }
 }

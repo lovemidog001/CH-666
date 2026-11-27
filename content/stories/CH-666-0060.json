@@ -1,0 +1,40 @@
+{
+  "story_code": "CH-666-0060",
+  "category": "6",
+  "channel": "CH-666",
+  "title": "追劇達人：身分被重寫的恐怖劇本",
+  "subtitle": "一個藏在追劇App裡的身分吞噬引擎",
+  "slug": "drama-app-identity-horror",
+  "summary": "自由記者林彥在舊硬碟發現名為「追劇達人」的安裝檔，啟動後出現一連串匿名交易紀錄，金額與備註皆指向「劇本費」。隨著紀錄時間倒流、論壇討論被刪除，林彥發現自己的銀行帳戶歸零、臉龐模糊，最終醒來時通訊錄變成代號，螢幕提示版本 2.0 已整合現實渲染引擎，他已成為劇本的一部分。",
+  "content": "<p><strong>第一章｜發現</strong></p>\n\n<p>林彥在整理舊硬碟時，發現一個名為「追劇達人」的安裝檔，檔名字尾為 .apk，時間戳記停在兩年前的夏天。</p>\n\n<p>他並未安裝，只將檔案拖進虛擬機器，啟動後螢幕跳出一段無聲的影片：畫面是一間空蕩蕩的出租屋，牆上貼著一張褪色的海報，海報上寫著「身分即是劇本」。</p>\n\n<blockquote class=\"handwritten\">【記錄 2024-07-12】使用者「陳怡」於凌晨 02:13 登入，餘額 1,200,000 元，交易紀錄顯示轉帳至未知帳戶，金額 1,200,000 元，備註「劇本費」。</blockquote>\n\n<p>林彥將這段紀錄截圖存入雲端，心中升起一股難以言喻的寒意，彷彿有人正透過螢幕窺視他的一舉一動。</p>\n\n<p><strong>第二章｜紀錄</strong></p>\n\n<p>接下來幾週，他陸續收到匿名郵件，附件皆為同型別的交易紀錄，金額從數萬至數百萬不等，備註皆為「劇本費」或「角色費」。</p>\n\n<p>每份紀錄的時間戳記都比前一份早幾分鐘，彷彿有人在倒著時間重寫歷史。</p>\n\n<blockquote class=\"handwritten\">【記錄 2024-07-11】使用者「王浩」於 23:58 登入，餘額 850,000 元，轉帳 850,000 元，備註「角色費」。</blockquote>\n\n<p>林彥開始在論壇詢問，卻發現所有相關討論串在發文後數分鐘內便被刪除，只留下一行灰色字：「劇本已寫好，請勿修改。」</p>\n\n<p><strong>第三章｜轉折</strong></p>\n\n<p>某晚，林彥在整理資料時，螢幕突然彈出一行文字，字型與先前的紀錄完全一致：</p>\n\n<blockquote class=\"eerie\">「歡迎回到劇本，林彥。你的餘額：0 元。劇本費已全額扣除。」</blockquote>\n\n<p>他驚覺自己的銀行帳戶確實歸零，手機上的銀行 App 顯示最近一筆交易為「劇本費」，金額與他存款完全吻合。</p>\n\n<p>更駭人的是，鏡中的自己臉龐開始模糊，五官像被重新排版，彷彿正在被寫入另一個角色的劇本。</p>\n\n<p><strong>第四章｜餘波</strong></p>\n\n<p>隔日清晨，林彥在咖啡廳醒來，手邊只剩一張空白的便利貼，上面用他不認識的筆跡寫著：「下一場戲，由你主演。」</p>\n\n<p>他試圖聯絡友人，卻發現通訊錄裡的名字全數消失，取而代之的是一串串代號：A-01、B-07、C-12。</p>\n\n<p>螢幕上再次亮起那個熟悉的安裝畫面，標題依舊是「追劇達人」，但這次的版本號後方多了一行小字：<mark>版本 2.0 —— 已整合現實渲染引擎</mark>。</p>\n\n<p>林彥明白，這不再是木馬程式，而是一個能夠重寫身分與現實的劇本引擎，而他，已經成為劇本的一部分。</p>",
+  "horror_score": 97,
+  "horror_type": [
+    "identity_horror",
+    "reality_horror"
+  ],
+  "fantasy_level": "supernatural",
+  "narrative_style": "third_person_omniscient",
+  "pacing": "slow_burn",
+  "ending_type": "twist",
+  "perspective": "bystander",
+  "story_structure": "found_document",
+  "adaptation_mode": "inspired_by_clue",
+  "reveal_density": "balanced",
+  "source_kind": "recent_news",
+  "source_date": "2026-11-26",
+  "case_date": "",
+  "source_hash": "2786dd8fe9d1",
+  "event_hash": "dbf5c5525d28",
+  "source_url": "https://www.cardu.com.tw/news/detail.php?66872",
+  "provider_used": "nvidia",
+  "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "dice_seed": 1194040941,
+  "director_analysis": {
+    "anomaly_core": "能重寫使用者身分與銀行餘額的劇本引擎",
+    "character_core": "旁觀者林彥，透過蒐集檔案逐步發現自己已成劇本一角",
+    "internal_rule": "每次交易皆標註「劇本費」，時間倒流且記憶可被覆寫，版本升級即啟動現實渲染"
+  },
+  "created_at": "2026-11-27T23:23:43.747986Z",
+  "cover_image": "https://oodh.eu.cc/images/CH-666-0060_cover.webp",
+  "scene_images": "https://oodh.eu.cc/images/CH-666-0060_scene_open.webp,https://oodh.eu.cc/images/CH-666-0060_scene.webp,https://oodh.eu.cc/images/CH-666-0060_scene_end.webp"
+}
