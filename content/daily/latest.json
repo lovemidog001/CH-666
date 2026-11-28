@@ -1,52 +1,51 @@
 {
-  "date": "2026-11-26",
+  "date": "2026-11-27",
   "count": 1,
   "stories": [
     {
-      "story_code": "CH-666-0060",
-      "category": "6",
-      "channel": "CH-666",
-      "title": "追劇達人：身分被重寫的恐怖劇本",
-      "subtitle": "一個藏在追劇App裡的身分吞噬引擎",
-      "slug": "drama-app-identity-horror",
-      "summary": "自由記者林彥在舊硬碟發現名為「追劇達人」的安裝檔，啟動後出現一連串匿名交易紀錄，金額與備註皆指向「劇本費」。隨著紀錄時間倒流、論壇討論被刪除，林彥發現自己的銀行帳戶歸零、臉龐模糊，最終醒來時通訊錄變成代號，螢幕提示版本 2.0 已整合現實渲染引擎，他已成為劇本的一部分。",
-      "content": "<p><strong>第一章｜發現</strong></p>\n\n<p>林彥在整理舊硬碟時，發現一個名為「追劇達人」的安裝檔，檔名字尾為 .apk，時間戳記停在兩年前的夏天。</p>\n\n<p>他並未安裝，只將檔案拖進虛擬機器，啟動後螢幕跳出一段無聲的影片：畫面是一間空蕩蕩的出租屋，牆上貼著一張褪色的海報，海報上寫著「身分即是劇本」。</p>\n\n<blockquote class=\"handwritten\">【記錄 2024-07-12】使用者「陳怡」於凌晨 02:13 登入，餘額 1,200,000 元，交易紀錄顯示轉帳至未知帳戶，金額 1,200,000 元，備註「劇本費」。</blockquote>\n\n<p>林彥將這段紀錄截圖存入雲端，心中升起一股難以言喻的寒意，彷彿有人正透過螢幕窺視他的一舉一動。</p>\n\n<p><strong>第二章｜紀錄</strong></p>\n\n<p>接下來幾週，他陸續收到匿名郵件，附件皆為同型別的交易紀錄，金額從數萬至數百萬不等，備註皆為「劇本費」或「角色費」。</p>\n\n<p>每份紀錄的時間戳記都比前一份早幾分鐘，彷彿有人在倒著時間重寫歷史。</p>\n\n<blockquote class=\"handwritten\">【記錄 2024-07-11】使用者「王浩」於 23:58 登入，餘額 850,000 元，轉帳 850,000 元，備註「角色費」。</blockquote>\n\n<p>林彥開始在論壇詢問，卻發現所有相關討論串在發文後數分鐘內便被刪除，只留下一行灰色字：「劇本已寫好，請勿修改。」</p>\n\n<p><strong>第三章｜轉折</strong></p>\n\n<p>某晚，林彥在整理資料時，螢幕突然彈出一行文字，字型與先前的紀錄完全一致：</p>\n\n<blockquote class=\"eerie\">「歡迎回到劇本，林彥。你的餘額：0 元。劇本費已全額扣除。」</blockquote>\n\n<p>他驚覺自己的銀行帳戶確實歸零，手機上的銀行 App 顯示最近一筆交易為「劇本費」，金額與他存款完全吻合。</p>\n\n<p>更駭人的是，鏡中的自己臉龐開始模糊，五官像被重新排版，彷彿正在被寫入另一個角色的劇本。</p>\n\n<p><strong>第四章｜餘波</strong></p>\n\n<p>隔日清晨，林彥在咖啡廳醒來，手邊只剩一張空白的便利貼，上面用他不認識的筆跡寫著：「下一場戲，由你主演。」</p>\n\n<p>他試圖聯絡友人，卻發現通訊錄裡的名字全數消失，取而代之的是一串串代號：A-01、B-07、C-12。</p>\n\n<p>螢幕上再次亮起那個熟悉的安裝畫面，標題依舊是「追劇達人」，但這次的版本號後方多了一行小字：<mark>版本 2.0 —— 已整合現實渲染引擎</mark>。</p>\n\n<p>林彥明白，這不再是木馬程式，而是一個能夠重寫身分與現實的劇本引擎，而他，已經成為劇本的一部分。</p>",
-      "horror_score": 97,
+      "story_code": "CH-333-0065",
+      "category": "3",
+      "channel": "CH-333",
+      "title": "松柏鎮舊公寓的低語",
+      "subtitle": "一卷被遺忘的錄影帶，揭開家族詛咒與現實扭曲的邊界",
+      "slug": "songbai-old-apartment-whispers",
+      "summary": "自由攝影師林宇在松柏鎮舊公寓發現一組殘缺錄影，記錄著租客們經歷的空間錯位、時間倒流與家族血脈的詛咒。隨著鏡頭推進，他發現自己竟是詛咒的下一任承擔者，結局在鏡中倒影的凝視中戛然而止。",
+      "content": "<p><strong>第一章｜舊公寓的低語</strong></p>\n\n<p>林宇接到一份零工，受託拍攝松柏鎮一棟即將拆除的老公寓內部。建築外牆剝落，窗框生鏽，走廊盡頭的門總是虛掩著，彷彿在等待某個不速之客。他架好手持攝影機，開始記錄每一層的走廊、每一間封閉的房門。</p>\n\n<p>鏡頭掃過三樓盡頭的 304 號室時，畫面突然出現短暫的<mark>靜電幹擾</mark>，隨即恢復正常。林宇低聲自語：<em>「大概只是舊線路老化。」</em>但他沒有注意到，畫面角落的牆紙在幹擾瞬間竟然<strong>向內凹陷</strong>，像是有什麼東西從另一側推擠著現實。</p>\n\n<p><blockquote>【錄影日誌 2024‑11‑02 22:13】\n今日進入 304 號室，屋內積灰厚達指節。床頭櫃上放著一本舊日記，封面沒有標題，只有用硃砂寫的「罪」。翻開第一頁，字跡潦草：\n「吾族世代祭拜山神，換取豐收。每甲子必獻一命，否則山神怒，地裂天崩。」\n—— 這筆記錄是否為惡作劇？</blockquote></p>\n\n<p><strong>第二章｜時間的裂縫</strong></p>\n\n<p>林宇決定帶走日記，並在當晚將錄影素材上傳至雲端備份。然而，當他回顧影片時，發現時間碼出現錯亂：同一段走廊畫面，先是白天陽光灑滿，隨即切換為深夜昏黃燈光，隨後又回到清晨。他試圖用剪輯軟體修正，卻發現每次修正後，畫面中的<mark>牆上掛鐘</mark>指標都會自行轉動，指向不同的時刻。</p>\n\n<p><span class=\"dialogue\">「這不合理，時間碼是不可變的。」</span>他在錄音中對自己說，聲音顯得疲憊。<em>「難道是攝影機本身出了問題？」</em>他換了另一臺機器重拍，結果同樣發生。鏡頭捕捉到的不只是光影，彷彿連空間本身都在<strong>呼吸</strong>。</p>\n\n<p><blockquote>【錄影日誌 2024‑11‑05 03:47】\n今晚在 304 號室聽到低沉的吟唱聲，聲音從牆壁深處傳來，語言不詳，卻讓人心悸。鏡頭對準牆壁時，畫面出現<mark>波紋狀扭曲</mark>，像水面被投石擊中。我試圖靠近，腳下的地板卻瞬間變成冰冷的石板，腳印消失在黑暗中。</blockquote></p>\n\n<p><strong>第三章｜血脈的回響</strong></p>\n\n<p>林宇開始查閱公寓的歷史資料，發現這棟建築原為「林氏宗祠」改建而成。族譜顯示，林氏家族每六十年便會有一名男性在三十歲前離奇失蹤，傳說是「山神收走」。他翻閱族譜時，指尖觸碰到一張泛黃的照片，照片上的人臉輪廓與他<mark>極為相似</mark>。</p>\n\n<p><span class=\"dialogue\">「這不可能，我只是個外來攝影師。」</span>他對著空蕩蕩的房間說服自己。但內心深處，一股陌生的記憶碎片湧現：童年時在老屋後院挖到的骨骸、祖母低聲念誦的咒語、父親臨終前塞給他的一枚銅錢。</p>\n\n<p><blockquote>【錄影日誌 2024‑11‑09 18:02】\n今日在 304 號室地板下發現一個小木盒，盒內躺著一枚銅錢，背面刻著「林」。我將銅錢放入口袋，瞬間感覺四周溫度驟降，鏡頭畫面出現<strong>倒影</strong>——倒影中的我並未舉起手，卻正對著鏡頭微笑。</blockquote></p>\n\n<p><strong>第四章｜鏡中的另一個自己</strong></p>\n\n<p>隨著調查深入，林宇發現錄影帶中出現的每一位前租客，最終都在鏡頭前消失，留下的只有空蕩蕩的房間與一段段斷裂的影像。他開始懷疑，這些影像並非單純記錄，而是某種<em>儀式</em>的見證。每當有人試圖打破詛咒，現實便會<mark>彎曲</mark>，將他們拉回家族的迴圈中。</p>\n\n<p>他在最後一晚決定直播拆除現場，試圖以公開透明的方式終結這一切。直播畫面中，推土機鏟齒剛觸碰到 304 號室牆壁，畫面突然<strong>凍結</strong>，聲音只剩下低頻嗡鳴。觀看直播的網友紛紛留言詢問發生何事，但林宇的螢幕上只剩下一張靜止的畫面：他自己站在廢墟中央，手中緊握銅錢，眼神空洞地望向鏡頭。</p>\n\n<p><blockquote>【錄影日誌 2024‑11‑13 00:00】\n直播結束。我站在廢墟上，感覺腳下的土地在震顫。銅錢在掌心發燙，彷彿有心跳聲從金屬傳來。鏡頭依然在運轉，但畫面不再記錄外界，而是映出我的臉——那張臉上，浮現出祖母曾教我的咒語口型。\n「山神已至，祭品已備。」</blockquote></p>\n\n<p><strong>第五章｜未盡的低語</strong></p>\n\n<p>拆除工程在隔天繼續，公寓化為平地，松柏鎮的居民像往常一樣生活，沒人提起那棟老公寓。林宇的攝影機被發現於廢墟邊，鏡頭蓋著灰塵，記憶卡內只剩下最後一段靜止畫面。警方將其歸類為遺失物品，未再深究。</p>\n\n<p>然而，若你在深夜經過那塊空地，聽見風聲中夾雜著細微的吟唱，請不要回頭。因為<mark>詛咒並未結束</mark>，它只是換了一個載體，等待下一個好奇的旁觀者，將鏡頭對準那扇虛掩的門。</p>\n\n<p><em>—— 鏡頭仍在轉動，低語未曾停歇。</em></p>",
+      "horror_score": 43,
       "horror_type": [
-        "identity_horror",
-        "reality_horror"
+        "ancestral_sin"
       ],
-      "fantasy_level": "supernatural",
-      "narrative_style": "third_person_omniscient",
-      "pacing": "slow_burn",
-      "ending_type": "twist",
+      "fantasy_level": "reality_bending",
+      "narrative_style": "found_footage",
+      "pacing": "steady",
+      "ending_type": "unsettling_resolution",
       "perspective": "bystander",
-      "story_structure": "found_document",
-      "adaptation_mode": "inspired_by_clue",
-      "reveal_density": "balanced",
+      "story_structure": "unreliable_narrator",
+      "adaptation_mode": "inspired_by_investigation",
+      "reveal_density": "subtle",
       "source_kind": "recent_news",
-      "source_date": "2026-11-26",
+      "source_date": "2026-11-27",
       "case_date": "",
-      "source_hash": "2786dd8fe9d1",
-      "event_hash": "dbf5c5525d28",
-      "source_url": "https://www.cardu.com.tw/news/detail.php?66872",
+      "source_hash": "542ae9e4781b",
+      "event_hash": "036ed43cd411",
+      "source_url": "https://news.ifeng.com/c/8yP6ZIlV29T",
       "provider_used": "nvidia",
       "provider_model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "dice_seed": 1194040941,
+      "dice_seed": 2075944417,
       "director_analysis": {
-        "anomaly_core": "能重寫使用者身分與銀行餘額的劇本引擎",
-        "character_core": "旁觀者林彥，透過蒐集檔案逐步發現自己已成劇本一角",
-        "internal_rule": "每次交易皆標註「劇本費」，時間倒流且記憶可被覆寫，版本升級即啟動現實渲染"
+        "anomaly_core": "家族世代與山神立約，每甲子需獻一命，違約即導致現實扭曲、空間時間錯位，形成可被錄影記錄的實體異常。",
+        "character_core": "林宇為自由攝影師，旁觀者視角介入調查，逐漸發現自身即為詛咒下一任承擔者，內心在理智與血脈記憶間掙扎。",
+        "internal_rule": "詛咒觸發條件為家族男性年滿三十前未完成祭儀，現實會以錄影影像形式顯現扭曲，旁觀者一旦持有銅錢並進入核心空間即被納入迴圈，無法以物理拆除終結。"
       },
-      "created_at": "2026-11-27T23:23:43.747986Z",
-      "cover_image": "https://oodh.eu.cc/images/CH-666-0060_cover.webp",
-      "scene_images": "https://oodh.eu.cc/images/CH-666-0060_scene_open.webp,https://oodh.eu.cc/images/CH-666-0060_scene.webp,https://oodh.eu.cc/images/CH-666-0060_scene_end.webp"
+      "created_at": "2026-11-28T04:44:15.904849Z",
+      "cover_image": "https://oodh.eu.cc/images/CH-333-0065_cover.webp",
+      "scene_images": "https://oodh.eu.cc/images/CH-333-0065_scene_open.webp,https://oodh.eu.cc/images/CH-333-0065_scene.webp,https://oodh.eu.cc/images/CH-333-0065_scene_end.webp"
     }
   ],
-  "generated_at": "2026-11-27T23:25:15.318535Z",
+  "generated_at": "2026-11-28T04:45:44.403588Z",
   "channel_counts": {
-    "3": 0,
-    "6": 1,
+    "3": 1,
+    "6": 0,
     "9": 0
   }
 }
